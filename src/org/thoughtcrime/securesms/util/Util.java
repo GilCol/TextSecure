@@ -64,6 +64,8 @@ import ws.com.google.android.mms.pdu.EncodedStringValue;
 public class Util {
   public static Handler handler = new Handler(Looper.getMainLooper());
 
+  private static boolean writeToFile;
+
   public static String join(Collection<String> list, String delimiter) {
     StringBuilder result = new StringBuilder();
     int i = 0;
@@ -188,16 +190,26 @@ public class Util {
     byte[] buffer = new byte[4096];
     int read;
     long total = 0;
+    writeToFile = true;
 
     while ((read = in.read(buffer)) != -1) {
-      out.write(buffer, 0, read);
-      total += read;
+      if(writeToFile == true) {
+        out.write(buffer, 0, read);
+        total += read;
+      } else {
+        break;
+      }
+
     }
 
     in.close();
     out.close();
 
     return total;
+  }
+
+  public static void abortCopy() {
+    writeToFile = false;
   }
 
   public static String getDeviceE164Number(Context context) {

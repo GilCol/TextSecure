@@ -7,7 +7,7 @@ import org.thoughtcrime.securesms.util.Util;
 public class MmsMediaConstraints extends MediaConstraints {
   private static final int MAX_IMAGE_DIMEN_LOWMEM = 768;
   private static final int MAX_IMAGE_DIMEN        = 1024;
-  public  static final int MAX_MESSAGE_SIZE       = 280 * 1024;
+  public  static final int MAX_MESSAGE_SIZE       = 2800 * 1024;
 
   @Override
   public int getImageMaxWidth(Context context) {

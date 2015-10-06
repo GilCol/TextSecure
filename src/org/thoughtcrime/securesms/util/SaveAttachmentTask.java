@@ -1,10 +1,18 @@
 package org.thoughtcrime.securesms.util;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
@@ -29,14 +37,46 @@ public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTa
   private static final int SUCCESS              = 0;
   private static final int FAILURE              = 1;
   private static final int WRITE_ACCESS_FAILURE = 2;
+  private static final int DOWNLOAD_ABORTED     = 3;
 
   private final WeakReference<Context> contextReference;
   private final WeakReference<MasterSecret> masterSecretReference;
+
+  private NotificationCompat.Builder notBuilder;
+  private NotificationManager notManager;
+  private boolean abort;
+  private final int notificationID = 0;
+
 
   public SaveAttachmentTask(Context context, MasterSecret masterSecret) {
     super(context, R.string.ConversationFragment_saving_attachment, R.string.ConversationFragment_saving_attachment_to_sd_card);
     this.contextReference      = new WeakReference<Context>(context);
     this.masterSecretReference = new WeakReference<MasterSecret>(masterSecret);
+
+    notBuilder = new NotificationCompat.Builder(context)
+            .setSmallIcon(R.drawable.icon_notification)
+            .setContentTitle("Downloading...")
+            .setContentText("File is downloading...")
+            .setProgress(0, 0, true);
+
+    notManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+    IntentFilter intentFilter = new IntentFilter("ABORT");
+    context.registerReceiver(new BroadcastReceiver() {
+      @Override
+      public void onReceive(Context context, Intent intent) {
+          cancelDownload(context);
+      }
+    }, intentFilter);
+
+    Intent notificationIntent = new Intent("ABORT");
+    PendingIntent pIntent = PendingIntent.getBroadcast(context, 0, notificationIntent, 0);
+    notBuilder.addAction(R.drawable.icon_notification, "Abort", pIntent);
+  }
+
+  private void cancelDownload(Context context) {
+      abort = true;
+      Util.abortCopy();
+      notManager.cancel(notificationID);
   }
 
   @Override
@@ -68,6 +108,11 @@ public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTa
       OutputStream outputStream = new FileOutputStream(mediaFile);
       Util.copy(inputStream, outputStream);
 
+      if(abort) {
+        mediaFile.delete();
+        return DOWNLOAD_ABORTED;
+      }
+
       MediaScannerConnection.scanFile(context, new String[]{mediaFile.getAbsolutePath()},
                                       new String[]{attachment.contentType}, null);
 
@@ -92,12 +137,28 @@ public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTa
       case SUCCESS:
         Toast.makeText(context, R.string.ConversationFragment_success_exclamation,
             Toast.LENGTH_LONG).show();
+        notBuilder.setContentText("Download complete").setProgress(0,0, false);
         break;
       case WRITE_ACCESS_FAILURE:
         Toast.makeText(context, R.string.ConversationFragment_unable_to_write_to_sd_card_exclamation,
             Toast.LENGTH_LONG).show();
         break;
+      case DOWNLOAD_ABORTED:
+        Toast.makeText(context, "Download aborted.",
+                Toast.LENGTH_LONG).show();
+        break;
     }
+  }
+
+  @Override
+  protected void onPreExecute() {
+    notManager.notify(notificationID, notBuilder.build());
+    abort = false;
+}
+
+  @Override
+  protected void onCancelled() {
+    super.onCancelled();
   }
 
   private File constructOutputFile(String contentType, long timestamp) throws IOException {
