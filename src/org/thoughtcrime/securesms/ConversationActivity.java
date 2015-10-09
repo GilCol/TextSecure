@@ -161,6 +161,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private static final int PICK_CONTACT_INFO = 4;
   private static final int GROUP_EDIT        = 5;
   private static final int TAKE_PHOTO        = 6;
+  private static final int PICK_OTHER_FILE   = 7;
 
   private   MasterSecret          masterSecret;
   protected ComposeText           composeText;
@@ -317,6 +318,9 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
       if (attachmentManager.getCaptureUri() != null) {
         setMedia(attachmentManager.getCaptureUri(), MediaType.IMAGE, true);
       }
+      break;
+    case PICK_OTHER_FILE:
+      setMedia(data.getData(), MediaType.OTHER_FILE, false);
       break;
     }
   }
@@ -926,7 +930,10 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
       AttachmentManager.selectContactInfo(this, PICK_CONTACT_INFO); break;
     case AttachmentTypeSelectorAdapter.TAKE_PHOTO:
       attachmentManager.capturePhoto(this, recipients, TAKE_PHOTO); break;
+    case AttachmentTypeSelectorAdapter.OTHER_FILE:
+        AttachmentManager.selectFile(this, PICK_OTHER_FILE); break;
     }
+
   }
 
   private void setMedia(Uri uri, MediaType mediaType, boolean isCapture) {

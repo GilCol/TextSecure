@@ -36,6 +36,7 @@
     <attr name="conversation_attach_video" format="reference"/>
     <attr name="conversation_attach_sound" format="reference"/>
     <attr name="conversation_attach_contact_info" format="reference"/>
+    <attr name="conversation_attach_other_file" format="reference"/>
     <attr name="conversation_attach" format="reference"/>
 
     <attr name="emoji_tab_strip_background" format="color" />
@@ -67,6 +68,7 @@
     <attr name="dialog_alert_icon" format="reference" />
 
     <attr name="conversation_icon_attach_audio" format="reference"/>
+    <attr name="conversation_icon_attach_other_file" format="reference"/>
     <attr name="conversation_icon_attach_video" format="reference" />
 
     <attr name="contact_selection_push_user" format="reference|color" />
