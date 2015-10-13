@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
@@ -23,18 +24,26 @@ public class FileSlide extends Slide {
         super(context, constructPartFromUri(context, uri, "*/*", dataSize));
     }
 
-    public FileSlide(Context context, MasterSecret masterSecret, PduPart part) {
+    public FileSlide(Context context, PduPart part) {
         super(context, part);
     }
 
     @Override
+    public boolean hasFile() { return true; }
+
+    @Override
     public boolean hasImage() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean hasAudio() {
         return false;
+    }
+
+    @NonNull
+    @Override public String getContentDescription() {
+        return "File";
     }
 
     @Override
