@@ -15,6 +15,7 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.mms.AudioSlide;
 import org.thoughtcrime.securesms.mms.DecryptableStreamUriLoader.DecryptableUri;
+import org.thoughtcrime.securesms.mms.FileSlide;
 import org.thoughtcrime.securesms.mms.GifSlide;
 import org.thoughtcrime.securesms.mms.ImageSlide;
 import org.thoughtcrime.securesms.mms.PartAuthority;
@@ -76,6 +77,8 @@ public class MediaUtil {
       slide = new VideoSlide(context, part);
     } else if (ContentType.isAudioType(contentType)) {
       slide = new AudioSlide(context, part);
+    } else {
+      slide = new FileSlide(context, part);
     }
 
     return slide;

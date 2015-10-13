@@ -83,6 +83,7 @@ public class PartParser {
   }
 
   public static boolean isDisplayableMedia(PduPart part) {
-    return isImage(part) || isAudio(part) || isVideo(part);
+    //TODO: ta bort || true
+    return isImage(part) || isAudio(part) || isVideo(part) || true;
   }
 }

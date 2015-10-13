@@ -138,6 +138,7 @@ public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTa
         Toast.makeText(context, R.string.ConversationFragment_success_exclamation,
             Toast.LENGTH_LONG).show();
         notBuilder.setContentText("Download complete").setProgress(0,0, false);
+        notManager.notify(notificationID, notBuilder.build());
         break;
       case WRITE_ACCESS_FAILURE:
         Toast.makeText(context, R.string.ConversationFragment_unable_to_write_to_sd_card_exclamation,
