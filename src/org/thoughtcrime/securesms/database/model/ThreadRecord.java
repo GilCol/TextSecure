@@ -69,12 +69,18 @@ public class ThreadRecord extends DisplayRecord {
     } else if (!getBody().isPlaintext()) {
       return emphasisAdded(context.getString(R.string.MessageNotifier_locked_message));
     } else if (SmsDatabase.Types.isEndSessionType(type)) {
-      return emphasisAdded(context.getString(R.string.TheadRecord_secure_session_ended));
+      return emphasisAdded(context.getString(R.string.ThreadRecord_secure_session_reset));
     } else if (MmsSmsColumns.Types.isLegacyType(type)) {
       return emphasisAdded(context.getString(R.string.MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported));
     } else if (MmsSmsColumns.Types.isDraftMessageType(type)) {
       String draftText = context.getString(R.string.ThreadRecord_draft);
       return emphasisAdded(draftText + " " + getBody().getBody(), 0, draftText.length());
+    } else if (SmsDatabase.Types.isOutgoingCall(type)) {
+      return emphasisAdded(context.getString(org.thoughtcrime.securesms.R.string.ThreadRecord_called));
+    } else if (SmsDatabase.Types.isIncomingCall(type)) {
+      return emphasisAdded(context.getString(org.thoughtcrime.securesms.R.string.ThreadRecord_called_you));
+    } else if (SmsDatabase.Types.isMissedCall(type)) {
+      return emphasisAdded(context.getString(org.thoughtcrime.securesms.R.string.ThreadRecord_missed_call));
     } else {
       if (TextUtils.isEmpty(getBody().getBody())) {
         return new SpannableString(context.getString(R.string.MessageNotifier_no_subject));
