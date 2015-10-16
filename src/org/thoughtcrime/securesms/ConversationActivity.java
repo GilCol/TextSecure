@@ -155,6 +155,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   public static final String DRAFT_IMAGE_EXTRA       = "draft_image";
   public static final String DRAFT_AUDIO_EXTRA       = "draft_audio";
   public static final String DRAFT_VIDEO_EXTRA       = "draft_video";
+  public static final String DRAFT_FILE_EXTRA        = "draft_file";
   public static final String DISTRIBUTION_TYPE_EXTRA = "distribution_type";
 
   private static final int PICK_IMAGE        = 1;
@@ -722,14 +723,16 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     Uri    draftImage = getIntent().getParcelableExtra(DRAFT_IMAGE_EXTRA);
     Uri    draftAudio = getIntent().getParcelableExtra(DRAFT_AUDIO_EXTRA);
     Uri    draftVideo = getIntent().getParcelableExtra(DRAFT_VIDEO_EXTRA);
+    Uri    draftFile  = getIntent().getParcelableExtra(DRAFT_FILE_EXTRA);
 
     if (draftText != null)  composeText.setText(draftText);
 
     if      (draftImage != null) setMedia(draftImage, MediaType.IMAGE, false);
     else if (draftAudio != null) setMedia(draftAudio, MediaType.AUDIO, false);
     else if (draftVideo != null) setMedia(draftVideo, MediaType.VIDEO, false);
+    else if (draftFile  != null) setMedia(draftFile, MediaType.OTHER_FILE, false);
 
-    if (draftText == null && draftImage == null && draftAudio == null && draftVideo == null) {
+    if (draftText == null && draftImage == null && draftAudio == null && draftVideo == null && draftFile == null) {
       initializeDraftFromDatabase();
     } else {
       updateToggleButtonState();
@@ -766,6 +769,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
             setMedia(Uri.parse(draft.getValue()), MediaType.AUDIO, false);
           } else if (draft.getType().equals(Draft.VIDEO)) {
             setMedia(Uri.parse(draft.getValue()), MediaType.VIDEO, false);
+          } else if (draft.getType().equals(Draft.FILE)) {
+            setMedia(Uri.parse(draft.getValue()), MediaType.OTHER_FILE, false);
           }
         }
 
