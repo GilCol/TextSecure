@@ -43,6 +43,7 @@ public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTa
   private final WeakReference<MasterSecret> masterSecretReference;
 
   private NotificationCompat.Builder notBuilder;
+  private NotificationCompat.Builder notBuilderAbort;
   private NotificationManager notManager;
   private boolean abort;
   private final int notificationID = 0;
@@ -55,9 +56,11 @@ public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTa
 
     notBuilder = new NotificationCompat.Builder(context)
             .setSmallIcon(R.drawable.icon_notification)
-            .setContentTitle("Downloading...")
-            .setContentText("File is downloading...")
-            .setProgress(0, 0, true);
+            .setContentTitle("Download");
+
+    notBuilderAbort = new NotificationCompat.Builder(context)
+            .setSmallIcon(R.drawable.icon_notification)
+            .setContentTitle("Download");
 
     notManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
     IntentFilter intentFilter = new IntentFilter("ABORT");
@@ -70,7 +73,7 @@ public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTa
 
     Intent notificationIntent = new Intent("ABORT");
     PendingIntent pIntent = PendingIntent.getBroadcast(context, 0, notificationIntent, 0);
-    notBuilder.addAction(R.drawable.icon_notification, "Abort", pIntent);
+    notBuilderAbort.addAction(R.drawable.icon_notification, "Abort", pIntent);
   }
 
   private void cancelDownload(Context context) {
@@ -133,27 +136,39 @@ public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTa
       case FAILURE:
         Toast.makeText(context, R.string.ConversationFragment_error_while_saving_attachment_to_sd_card,
             Toast.LENGTH_LONG).show();
+        updateNotification("Download failed", false);
         break;
       case SUCCESS:
         Toast.makeText(context, R.string.ConversationFragment_success_exclamation,
             Toast.LENGTH_LONG).show();
-        notBuilder.setContentText("Download complete").setProgress(0,0, false);
-        notManager.notify(notificationID, notBuilder.build());
+        updateNotification("Download complete", false);
         break;
       case WRITE_ACCESS_FAILURE:
         Toast.makeText(context, R.string.ConversationFragment_unable_to_write_to_sd_card_exclamation,
             Toast.LENGTH_LONG).show();
+        updateNotification("Unable to write to storage", false);
         break;
       case DOWNLOAD_ABORTED:
-        Toast.makeText(context, "Download aborted.",
+        Toast.makeText(context, "Download aborted",
                 Toast.LENGTH_LONG).show();
+        updateNotification("Download aborted", false);
         break;
+    }
+  }
+
+  private void updateNotification(String message, boolean downloadInProgress) {
+    if(downloadInProgress) {
+      notBuilderAbort.setContentText(message).setProgress(0, 0, true);
+      notManager.notify(notificationID, notBuilderAbort.build());
+    } else {
+      notBuilder.setContentText(message).setProgress(0, 0, false);
+      notManager.notify(notificationID, notBuilder.build());
     }
   }
 
   @Override
   protected void onPreExecute() {
-    notManager.notify(notificationID, notBuilder.build());
+    updateNotification("Downloading...", true);
     abort = false;
 }
 
