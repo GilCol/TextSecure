@@ -79,6 +79,8 @@ dependencies {
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile 'org.whispersystems:textsecure-android:1.8.1'
     compile 'com.h6ah4i.android.compat:mulsellistprefcompat:1.0.0'
+    compile 'com.google.code.gson:gson:2.4'
+
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:1.7.1'
