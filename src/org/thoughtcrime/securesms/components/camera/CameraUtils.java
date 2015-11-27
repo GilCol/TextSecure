@@ -4,6 +4,7 @@ import android.hardware.Camera;
 import android.hardware.Camera.Size;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,6 +12,9 @@ import java.util.List;
 
 @SuppressWarnings("deprecation")
 public class CameraUtils {
+
+  private static final String TAG = CameraUtils.class.getSimpleName();
+
   /*
    * modified from: https://github.com/commonsguy/cwac-camera/blob/master/camera/src/com/commonsware/cwac/camera/CameraUtils.java
    */
@@ -18,6 +22,9 @@ public class CameraUtils {
                                                        int width,
                                                        int height,
                                                        @NonNull Camera camera) {
+
+    Log.d(TAG, "getPreferredPreviewSize | displayOrientation: " + displayOrientation + "width: " + width + "height: " + height);
+
     double targetRatio = (double)width / height;
     Size   optimalSize = null;
     double minDiff     = Double.MAX_VALUE;

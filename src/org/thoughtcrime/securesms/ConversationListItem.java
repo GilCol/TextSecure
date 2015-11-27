@@ -27,6 +27,7 @@ import android.os.Handler;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -88,6 +89,7 @@ public class ConversationListItem extends RelativeLayout
 
   @Override
   protected void onFinishInflate() {
+    Log.d(TAG, "onFinishInflate()");
     super.onFinishInflate();
     this.subjectView       = (TextView)        findViewById(R.id.subject);
     this.fromView          = (FromTextView)    findViewById(R.id.from);
@@ -106,6 +108,8 @@ public class ConversationListItem extends RelativeLayout
   public void set(@NonNull MasterSecret masterSecret, @NonNull ThreadRecord thread,
                   @NonNull Locale locale, @NonNull Set<Long> selectedThreads, boolean batchMode)
   {
+    Log.d(TAG, "set()");
+
     this.selectedThreads  = selectedThreads;
     this.recipients       = thread.getRecipients();
     this.threadId         = thread.getThreadId();
@@ -137,6 +141,7 @@ public class ConversationListItem extends RelativeLayout
   }
 
   private void setBatchState(boolean batch) {
+    Log.d(TAG, "setBatchState()");
     setSelected(batch && selectedThreads.contains(threadId));
   }
 
@@ -184,6 +189,7 @@ public class ConversationListItem extends RelativeLayout
 
   @Override
   public void onModified(final Recipients recipients) {
+    Log.d(TAG, "onModified()");
     handler.post(new Runnable() {
       @Override
       public void run() {

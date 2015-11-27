@@ -68,6 +68,8 @@ public class RedPhone extends Activity {
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
+    Log.d(TAG, "onCreate()");
+
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
     super.onCreate(savedInstanceState);
 
@@ -82,6 +84,8 @@ public class RedPhone extends Activity {
 
   @Override
   public void onResume() {
+    Log.d(TAG, "onResume()");
+
     super.onResume();
 
     initializeScreenshotSecurity();
@@ -92,6 +96,8 @@ public class RedPhone extends Activity {
 
   @Override
   public void onPause() {
+    Log.d(TAG, "onPause()");
+
     super.onPause();
 
     EventBus.getDefault().unregister(this);
@@ -100,6 +106,7 @@ public class RedPhone extends Activity {
 
   @Override
   public void onConfigurationChanged(Configuration newConfiguration) {
+    Log.d(TAG, "onConfigurationChanged()");
     super.onConfigurationChanged(newConfiguration);
   }
 
@@ -342,6 +349,8 @@ public class RedPhone extends Activity {
   private class AudioButtonListener implements CallControls.AudioButtonListener {
     @Override
     public void onAudioChange(AudioUtils.AudioMode mode) {
+      Log.d(TAG, "AudioButtonListener: onAudioChange()");
+
       switch(mode) {
         case DEFAULT:
           AudioUtils.enableDefaultRouting(RedPhone.this);
@@ -361,11 +370,13 @@ public class RedPhone extends Activity {
   private class IncomingCallActionListener implements CallControls.IncomingCallActionListener {
     @Override
     public void onAcceptClick() {
+      Log.d(TAG, "IncomingCallActionListener: onAcceptClick()");
       RedPhone.this.handleAnswerCall();
     }
 
     @Override
     public void onDenyClick() {
+      Log.d(TAG, "IncomingCallActionListener: onDenyClick()");
       RedPhone.this.handleDenyCall();
     }
   }

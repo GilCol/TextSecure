@@ -5,16 +5,22 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 
 public abstract class BaseActivity extends FragmentActivity {
+
+  private static final String TAG = BaseActivity.class.getSimpleName();
+
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
+    Log.d(TAG, "onKeyDown(): keycode: " + keyCode);
     return (keyCode == KeyEvent.KEYCODE_MENU && isMenuWorkaroundRequired()) || super.onKeyDown(keyCode, event);
   }
 
   @Override
   public boolean onKeyUp(int keyCode, @NonNull KeyEvent event) {
+    Log.d(TAG, "onKeyUp(): keycode: " + keyCode);
     if (keyCode == KeyEvent.KEYCODE_MENU && isMenuWorkaroundRequired()) {
       openOptionsMenu();
       return true;
@@ -23,8 +29,12 @@ public abstract class BaseActivity extends FragmentActivity {
   }
 
   public static boolean isMenuWorkaroundRequired() {
-    return VERSION.SDK_INT < VERSION_CODES.KITKAT          &&
-           VERSION.SDK_INT > VERSION_CODES.GINGERBREAD_MR1 &&
-           ("LGE".equalsIgnoreCase(Build.MANUFACTURER) || "E6710".equalsIgnoreCase(Build.DEVICE));
+    boolean isWorkaround = VERSION.SDK_INT < VERSION_CODES.KITKAT          &&
+                          VERSION.SDK_INT > VERSION_CODES.GINGERBREAD_MR1 &&
+                        ("LGE".equalsIgnoreCase(Build.MANUFACTURER) || "E6710".equalsIgnoreCase(Build.DEVICE));
+
+    Log.d(TAG, "isMenuWorkaroundRequired(): " + isWorkaround);
+
+    return isWorkaround;
   }
 }

@@ -18,6 +18,7 @@ package org.thoughtcrime.securesms.util;
 
 import android.content.Context;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -31,6 +32,8 @@ import java.util.concurrent.TimeUnit;
  * Utility methods to help display dates in a nice, easily readable way.
  */
 public class DateUtils extends android.text.format.DateUtils {
+
+  private static final String TAG = DateUtils.class.getSimpleName();
 
   private static boolean isWithin(final long millis, final long span, final TimeUnit unit) {
     return System.currentTimeMillis() - millis <= unit.toMillis(span);
@@ -46,6 +49,7 @@ public class DateUtils extends android.text.format.DateUtils {
   }
 
   public static String getBriefRelativeTimeSpanString(final Context c, final Locale locale, final long timestamp) {
+    Log.d(TAG, "getBriefRelativeTimeSpanString()");
     if (isWithin(timestamp, 1, TimeUnit.MINUTES)) {
       return c.getString(R.string.DateUtils_now);
     } else if (isWithin(timestamp, 1, TimeUnit.HOURS)) {
@@ -64,6 +68,7 @@ public class DateUtils extends android.text.format.DateUtils {
   }
 
   public static String getExtendedRelativeTimeSpanString(final Context c, final Locale locale, final long timestamp) {
+    Log.d(TAG, "getExtendedRelativeTimeSpanString()");
     if (isWithin(timestamp, 1, TimeUnit.MINUTES)) {
       return c.getString(R.string.DateUtils_now);
     } else if (isWithin(timestamp, 1, TimeUnit.HOURS)) {
@@ -83,6 +88,7 @@ public class DateUtils extends android.text.format.DateUtils {
   }
 
   public static SimpleDateFormat getDetailedDateFormatter(Context context, Locale locale) {
+    Log.d(TAG, "getDetailedDateFormatter()");
     String dateFormatPattern;
 
     if (DateFormat.is24HourFormat(context)) {

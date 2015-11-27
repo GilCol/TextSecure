@@ -203,6 +203,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   protected void onPreCreate() {
+    Log.d(TAG, "onPreCreate()");
     dynamicTheme.onCreate(this);
     dynamicLanguage.onCreate(this);
   }
@@ -256,6 +257,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   protected void onResume() {
+    Log.d(TAG, "onResume()");
     super.onResume();
     dynamicTheme.onResume(this);
     dynamicLanguage.onResume(this);
@@ -276,6 +278,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   protected void onPause() {
+    Log.d(TAG, "onPause()");
     super.onPause();
     MessageNotifier.setVisibleThread(-1L);
     if (isFinishing()) overridePendingTransition(R.anim.fade_scale_in, R.anim.slide_to_right);
@@ -294,6 +297,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   protected void onDestroy() {
+    Log.d(TAG, "onDestroy()");
     saveDraft();
     if (recipients != null) recipients.removeListener(this);
     if (securityUpdateReceiver != null) unregisterReceiver(securityUpdateReceiver);
@@ -339,6 +343,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
+    Log.d(TAG, "onPrepareOptionsMenu()");
+
     MenuInflater inflater = this.getMenuInflater();
     menu.clear();
 
@@ -381,6 +387,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
+    Log.d(TAG, "onOptionsItemSelected()");
+
     super.onOptionsItemSelected(item);
     switch (item.getItemId()) {
     case R.id.menu_call_secure:
@@ -414,6 +422,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public void onKeyboardShown() {
+    Log.d(TAG, "onKeyboardShown()");
     emojiToggle.setToEmoji();
   }
 
@@ -951,6 +960,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public void onModified(final Recipients recipients) {
+    Log.d(TAG, "onModified()");
     titleView.post(new Runnable() {
       @Override
       public void run() {
@@ -1326,6 +1336,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public void onAttachmentDrawerStateChanged(DrawerState drawerState) {
+    Log.d(TAG, "onAttachmentDrawerStateChanged()");
     if (drawerState == DrawerState.FULL_EXPANDED) {
       getSupportActionBar().hide();
     } else {
@@ -1335,12 +1346,14 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public void onImageCapture(@NonNull final byte[] imageBytes) {
+    Log.d(TAG, "onImageCapture()");
     setMedia(PersistentBlobProvider.getInstance(this).create(masterSecret, recipients, imageBytes), MediaType.IMAGE);
     quickAttachmentDrawer.hide(false);
   }
 
   @Override
   public void onCameraFail() {
+    Log.d(TAG, "onCameraFail()");
     Toast.makeText(this, R.string.ConversationActivity_quick_camera_unavailable, Toast.LENGTH_SHORT).show();
     quickAttachmentDrawer.hide(false);
     quickAttachmentToggle.disable();
@@ -1358,6 +1371,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private class EmojiToggleListener implements OnClickListener {
 
     @Override public void onClick(View v) {
+      Log.d(TAG, "EmojiToggleListener: onClick()");
       if (container.getCurrentInput() == emojiDrawer) container.showSoftkey(composeText);
       else                                            container.show(composeText, emojiDrawer);
     }
@@ -1366,6 +1380,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private class QuickAttachmentToggleListener implements OnClickListener {
     @Override
     public void onClick(View v) {
+      Log.d(TAG, "QuickAttachmentToggleListener: onClick()");
       composeText.clearFocus();
       container.show(composeText, quickAttachmentDrawer);
     }
@@ -1374,11 +1389,13 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private class SendButtonListener implements OnClickListener, TextView.OnEditorActionListener {
     @Override
     public void onClick(View v) {
+      Log.d(TAG, "SendButtonListener: onClick()");
       sendMessage();
     }
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+      Log.d(TAG, "SendButtonListener: onEditorAction()");
       if (actionId == EditorInfo.IME_ACTION_SEND) {
         sendButton.performClick();
         return true;
@@ -1390,6 +1407,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private class AttachButtonListener implements OnClickListener {
     @Override
     public void onClick(View v) {
+      Log.d(TAG, "AttachButtonListener: onClick()");
       handleAddAttachment();
     }
   }
@@ -1400,6 +1418,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
+      Log.d(TAG, "ComposeKeyPressedListener: onKey()");
       if (event.getAction() == KeyEvent.ACTION_DOWN) {
         if (keyCode == KeyEvent.KEYCODE_ENTER) {
           if (TextSecurePreferences.isEnterSendsEnabled(ConversationActivity.this)) {
@@ -1414,16 +1433,20 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
     @Override
     public void onClick(View v) {
+      Log.d(TAG, "ComposeKeyPressedListener: onClick()");
       container.showSoftkey(composeText);
     }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count,int after) {
+      Log.d(TAG, "ComposeKeyPressedListener: beforeTextChanged(): start: " + start + "count:" + "after:" + after);
       beforeLength = composeText.getText().length();
     }
 
     @Override
     public void afterTextChanged(Editable s) {
+      Log.d(TAG, "ComposeKeyPressedListener: afterTextChanged()");
+
       calculateCharactersRemaining();
 
       if (composeText.getText().length() == 0 || beforeLength == 0) {
@@ -1450,6 +1473,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public void onAttachmentChanged() {
+    Log.d(TAG, "onAttachmentChanged()");
     handleSecurityChange(isSecureText, isSecureVoice);
     updateToggleButtonState();
   }
@@ -1457,6 +1481,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private class ShowInviteReminderTask extends AsyncTask<Recipients, Void, Pair<Recipients,Boolean>> {
     @Override
     protected Pair<Recipients, Boolean> doInBackground(Recipients... recipients) {
+      Log.d(TAG, "ShowInviteReminderTask: doInBackground()");
       if (recipients.length != 1 || recipients[0] == null) throw new AssertionError("task needs exactly one Recipients object");
 
       Optional<RecipientsPreferences> prefs = DatabaseFactory.getRecipientPreferenceDatabase(ConversationActivity.this)
@@ -1466,6 +1491,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
     @Override
     protected void onPostExecute(Pair<Recipients, Boolean> result) {
+      Log.d(TAG, "ShowInviteReminderTask: onPostExecute()");
       if (!result.second && result.first == recipients) {
         InviteReminder reminder = new InviteReminder(ConversationActivity.this, result.first);
         reminder.setOkListener(new OnClickListener() {

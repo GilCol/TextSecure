@@ -41,11 +41,13 @@ public abstract class BaseActionBarActivity extends AppCompatActivity {
 
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
+    Log.d(TAG, "onKeyDown(): keycode: " + keyCode);
     return (keyCode == KeyEvent.KEYCODE_MENU && BaseActivity.isMenuWorkaroundRequired()) || super.onKeyDown(keyCode, event);
   }
 
   @Override
   public boolean onKeyUp(int keyCode, @NonNull KeyEvent event) {
+    Log.d(TAG, "onKeyUp(): keycode: " + keyCode);
     if (keyCode == KeyEvent.KEYCODE_MENU && BaseActivity.isMenuWorkaroundRequired()) {
       openOptionsMenu();
       return true;

@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import org.thoughtcrime.securesms.util.Base64;
 import org.whispersystems.libaxolotl.IdentityKey;
@@ -49,6 +50,8 @@ public class IdentityKeyUtil {
   private static final String IDENTITY_PRIVATE_KEY_PREF                   = "pref_identity_private_v3";
 
   public static boolean hasIdentityKey(Context context) {
+    Log.d(TAG, "hasIdentityKey()");
+
     SharedPreferences preferences = context.getSharedPreferences(MasterSecretUtil.PREFERENCES_NAME, 0);
 
     return
@@ -57,6 +60,8 @@ public class IdentityKeyUtil {
   }
 
   public static @NonNull IdentityKey getIdentityKey(@NonNull Context context) {
+    Log.d(TAG, "getIdentityKey()");
+
     if (!hasIdentityKey(context)) throw new AssertionError("There isn't one!");
 
     try {
@@ -68,6 +73,8 @@ public class IdentityKeyUtil {
   }
 
   public static @NonNull IdentityKeyPair getIdentityKeyPair(@NonNull Context context) {
+    Log.d(TAG, "getIdentityKeyPair()");
+
     if (!hasIdentityKey(context)) throw new AssertionError("There isn't one!");
 
     try {
@@ -81,6 +88,8 @@ public class IdentityKeyUtil {
   }
 
   public static void generateIdentityKeys(Context context) {
+    Log.d(TAG, "generateIdentityKeys()");
+
     ECKeyPair    djbKeyPair     = Curve.generateKeyPair();
     IdentityKey  djbIdentityKey = new IdentityKey(djbKeyPair.getPublicKey());
     ECPrivateKey djbPrivateKey  = djbKeyPair.getPrivateKey();

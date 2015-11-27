@@ -127,11 +127,13 @@ public class ConversationItem extends LinearLayout
 
   @Override
   public void setOnClickListener(OnClickListener l) {
+    Log.d(TAG, "setOnClickListener()");
     super.setOnClickListener(new ClickListener(l));
   }
 
   @Override
   protected void onFinishInflate() {
+    Log.d(TAG, "onFinishInflate()");
     super.onFinishInflate();
 
     initializeAttributes();
@@ -183,6 +185,8 @@ public class ConversationItem extends LinearLayout
                    @NonNull Set<MessageRecord> batchSelected,
                    @NonNull Recipients         conversationRecipients)
   {
+    Log.d(TAG, "bind()");
+
     this.masterSecret           = masterSecret;
     this.messageRecord          = messageRecord;
     this.locale                 = locale;
@@ -216,6 +220,8 @@ public class ConversationItem extends LinearLayout
 
   @Override
   public void unbind() {
+    Log.d(TAG, "unbind()");
+
     if (recipient != null) {
       recipient.removeListener(this);
     }
@@ -423,6 +429,8 @@ public class ConversationItem extends LinearLayout
 
   @Override
   public void onModified(final Recipient recipient) {
+    Log.d(TAG, "onModified()");
+
     Util.runOnMain(new Runnable() {
       @Override
       public void run() {
@@ -435,11 +443,13 @@ public class ConversationItem extends LinearLayout
 
   @Override
   public void onModified(Recipients recipient) {
+    Log.d(TAG, "onModified()");
     onModified(recipient.getPrimaryRecipient());
   }
 
   private class AttachmentDownloadClickListener implements SlideClickListener {
     @Override public void onClick(View v, final Slide slide) {
+      Log.d(TAG, "AttachmentDownloadClickListener: onClick()");
       DatabaseFactory.getAttachmentDatabase(context).setTransferState(messageRecord.getId(),
                                                                       slide.asAttachment(),
                                                                       AttachmentDatabase.TRANSFER_PROGRESS_STARTED);
@@ -461,6 +471,8 @@ public class ConversationItem extends LinearLayout
     }
 
     public void onClick(final View v, final Slide slide) {
+      Log.d(TAG, "ThumbnailClickListener: onClick()");
+
       if (shouldInterceptClicks(messageRecord) || !batchSelected.isEmpty()) {
         performClick();
       } else if (MediaPreviewActivity.isContentTypeSupported(slide.getContentType()) &&
@@ -492,6 +504,8 @@ public class ConversationItem extends LinearLayout
 
   private class MmsDownloadClickListener implements View.OnClickListener {
     public void onClick(View v) {
+      Log.d(TAG, "MmsDownloadClickListener: onClick()");
+
       NotificationMmsMessageRecord notificationRecord = (NotificationMmsMessageRecord)messageRecord;
       Log.w(TAG, "Content location: " + new String(notificationRecord.getContentLocation()));
       mmsDownloadButton.setVisibility(View.GONE);
@@ -506,6 +520,8 @@ public class ConversationItem extends LinearLayout
 
   private class MmsPreferencesClickListener implements View.OnClickListener {
     public void onClick(View v) {
+      Log.d(TAG, "MmsPreferencesClickListener: onClick()");
+
       Intent intent = new Intent(context, PromptMmsActivity.class);
       intent.putExtra("message_id", messageRecord.getId());
       intent.putExtra("thread_id", messageRecord.getThreadId());
@@ -518,12 +534,15 @@ public class ConversationItem extends LinearLayout
 
     @Override
     public boolean onLongClick(View v) {
+      Log.d(TAG, "PassthroughClickListener: onLongClick()");
+
       performLongClick();
       return true;
     }
 
     @Override
     public void onClick(View v) {
+      Log.d(TAG, "PassthroughClickListener: onClick()");
       performClick();
     }
   }
@@ -535,6 +554,8 @@ public class ConversationItem extends LinearLayout
     }
 
     public void onClick(View v) {
+      Log.d(TAG, "ClickListener: onClick()");
+
       if (!shouldInterceptClicks(messageRecord) && parent != null) {
         parent.onClick(v);
       } else if (messageRecord.isFailed()) {
@@ -628,6 +649,8 @@ public class ConversationItem extends LinearLayout
     }
 
     public void displayFailed() {
+      Log.d(TAG, "StatusManager: displayFailed()");
+
       pendingIndicator.setVisibility(View.GONE);
       sentIndicator.setVisibility(View.GONE);
       deliveredIndicator.setVisibility(View.GONE);
@@ -637,6 +660,8 @@ public class ConversationItem extends LinearLayout
     }
 
     public void displayPendingApproval() {
+      Log.d(TAG, "StatusManager: displayPendingApproval()");
+
       pendingIndicator.setVisibility(View.GONE);
       sentIndicator.setVisibility(View.GONE);
       deliveredIndicator.setVisibility(View.GONE);
@@ -646,6 +671,8 @@ public class ConversationItem extends LinearLayout
     }
 
     public void displayPending() {
+      Log.d(TAG, "StatusManager: displayPending()");
+
       sentIndicator.setVisibility(View.GONE);
       deliveredIndicator.setVisibility(View.GONE);
       failedIndicator.setVisibility(View.GONE);
@@ -655,6 +682,8 @@ public class ConversationItem extends LinearLayout
     }
 
     public void displaySent() {
+      Log.d(TAG, "StatusManager: displaySent()");
+
       pendingIndicator.setVisibility(View.GONE);
       deliveredIndicator.setVisibility(View.GONE);
       failedIndicator.setVisibility(View.GONE);
@@ -664,6 +693,8 @@ public class ConversationItem extends LinearLayout
     }
 
     public void displayDelivered() {
+      Log.d(TAG, "StatusManager: displayDelivered()");
+
       pendingIndicator.setVisibility(View.GONE);
       failedIndicator.setVisibility(View.GONE);
       approvalIndicator.setVisibility(View.GONE);

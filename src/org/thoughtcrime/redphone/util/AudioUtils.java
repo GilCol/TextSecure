@@ -29,6 +29,7 @@ public class AudioUtils {
     AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
     am.startBluetoothSco();
     am.setBluetoothScoOn(true);
+    Log.d(TAG, "Enable bluetooth routing");
   }
 
   public static void resetConfiguration(Context context) {
@@ -42,6 +43,7 @@ public class AudioUtils {
   }
 
   public static AudioMode getCurrentAudioMode(Context context) {
+    Log.d(TAG, "Get current audio mode");
     AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
     if (am.isBluetoothScoOn()) {
       return AudioMode.HEADSET;
@@ -53,6 +55,7 @@ public class AudioUtils {
   }
 
   public static String getScoUpdateAction() {
+    Log.d(TAG, "Get sco update action, VERSION.SDK_INT: " + Build.VERSION.SDK_INT);
     if (Build.VERSION.SDK_INT >= 14) {
       return AudioManager.ACTION_SCO_AUDIO_STATE_UPDATED;
     } else {
