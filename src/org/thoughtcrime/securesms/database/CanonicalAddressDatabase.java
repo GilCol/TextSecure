@@ -74,6 +74,7 @@ public class CanonicalAddressDatabase {
   }
 
   public void reset(Context context) {
+	Log.d(TAG, "void reset(Context context)");
     DatabaseHelper old  = this.databaseHelper;
     this.databaseHelper = new DatabaseHelper(context.getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
     old.close();
@@ -135,11 +136,13 @@ public class CanonicalAddressDatabase {
   }
 
   public void close() {
+	Log.d(TAG, "void close()");
     databaseHelper.close();
     instance = null;
   }
 
   public long getCanonicalAddressId(@NonNull String address) {
+	Log.d(TAG, "long getCanonicalAddressId(@NonNull String address)");
     try {
       long canonicalAddressId;
 
@@ -236,11 +239,13 @@ public class CanonicalAddressDatabase {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+	Log.d(TAG, "void onCreate(SQLiteDatabase db)");
       db.execSQL(DATABASE_CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+	Log.d(TAG, "void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)");
     }
 
   }

@@ -59,6 +59,7 @@ public class CreateSignedPreKeyJob extends MasterSecretJob implements Injectable
 
   @Override
   public boolean onShouldRetryThrowable(Exception exception) {
+	Log.d(TAG, "boolean onShouldRetryThrowable(Exception exception)");
     if (exception instanceof PushNetworkException) return true;
     return false;
   }

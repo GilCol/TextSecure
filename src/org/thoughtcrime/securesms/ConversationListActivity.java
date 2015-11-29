@@ -76,6 +76,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
 
   @Override
   public void onResume() {
+	Log.d(TAG, "void onResume()");
     super.onResume();
     dynamicTheme.onResume(this);
     dynamicLanguage.onResume(this);
@@ -83,12 +84,14 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
 
   @Override
   public void onDestroy() {
+	Log.d(TAG, "void onDestroy()");
     if (observer != null) getContentResolver().unregisterContentObserver(observer);
     super.onDestroy();
   }
 
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
+	Log.d(TAG, "boolean onPrepareOptionsMenu(Menu menu)");
     MenuInflater inflater = this.getMenuInflater();
     menu.clear();
 
@@ -110,6 +113,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {
+	Log.d(TAG, "boolean onQueryTextSubmit(String query)");
         if (fragment != null) {
           fragment.setQueryFilter(query);
           return true;
@@ -120,6 +124,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
 
       @Override
       public boolean onQueryTextChange(String newText) {
+	Log.d(TAG, "boolean onQueryTextChange(String newText)");
         return onQueryTextSubmit(newText);
       }
     });
@@ -127,11 +132,13 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
     MenuItemCompat.setOnActionExpandListener(searchViewItem, new MenuItemCompat.OnActionExpandListener() {
       @Override
       public boolean onMenuItemActionExpand(MenuItem menuItem) {
+	Log.d(TAG, "boolean onMenuItemActionExpand(MenuItem menuItem)");
         return true;
       }
 
       @Override
       public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+	Log.d(TAG, "boolean onMenuItemActionCollapse(MenuItem menuItem)");
         if (fragment != null) {
           fragment.resetQueryFilter();
         }
@@ -143,6 +150,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
+	Log.d(TAG, "boolean onOptionsItemSelected(MenuItem item)");
     super.onOptionsItemSelected(item);
 
     switch (item.getItemId()) {
@@ -160,6 +168,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
 
   @Override
   public void onCreateConversation(long threadId, Recipients recipients, int distributionType) {
+	Log.d(TAG, "void onCreateConversation(long threadId, Recipients recipients, int distributionType)");
     createConversation(threadId, recipients, distributionType);
   }
 
@@ -216,12 +225,14 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
     observer = new ContentObserver(null) {
       @Override
       public void onChange(boolean selfChange) {
+	Log.d(TAG, "void onChange(boolean selfChange)");
         super.onChange(selfChange);
         Log.w(TAG, "Detected android contact data changed, refreshing cache");
         RecipientFactory.clearCache();
         ConversationListActivity.this.runOnUiThread(new Runnable() {
           @Override
           public void run() {
+	Log.d(TAG, "void run()");
             fragment.getListAdapter().notifyDataSetChanged();
           }
         });

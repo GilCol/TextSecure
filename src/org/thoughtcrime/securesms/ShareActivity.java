@@ -89,6 +89,7 @@ public class ShareActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public void onResume() {
+	Log.d(TAG, "void onResume()");
     super.onResume();
     dynamicTheme.onResume(this);
     dynamicLanguage.onResume(this);
@@ -97,6 +98,7 @@ public class ShareActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public void onPause() {
+	Log.d(TAG, "void onPause()");
     super.onPause();
     if (!isPassingAlongMedia && resolvedExtra != null) {
       PersistentBlobProvider.getInstance(this).delete(resolvedExtra);
@@ -142,6 +144,7 @@ public class ShareActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
+	Log.d(TAG, "boolean onPrepareOptionsMenu(Menu menu)");
     MenuInflater inflater = this.getMenuInflater();
     menu.clear();
 
@@ -152,6 +155,7 @@ public class ShareActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
+	Log.d(TAG, "boolean onOptionsItemSelected(MenuItem item)");
     super.onOptionsItemSelected(item);
     switch (item.getItemId()) {
     case R.id.menu_new_message: handleNewConversation(); return true;
@@ -168,6 +172,7 @@ public class ShareActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public void onCreateConversation(long threadId, Recipients recipients, int distributionType) {
+	Log.d(TAG, "void onCreateConversation(long threadId, Recipients recipients, int distributionType)");
     createConversation(threadId, recipients, distributionType);
   }
 

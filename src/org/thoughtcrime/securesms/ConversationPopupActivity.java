@@ -67,6 +67,7 @@ public class ConversationPopupActivity extends ConversationActivity {
 
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
+	Log.d(TAG, "boolean onPrepareOptionsMenu(Menu menu)");
     MenuInflater inflater = this.getMenuInflater();
     menu.clear();
 
@@ -76,11 +77,13 @@ public class ConversationPopupActivity extends ConversationActivity {
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
+	Log.d(TAG, "boolean onOptionsItemSelected(MenuItem item)");
     switch (item.getItemId()) {
       case R.id.menu_expand:
         saveDraft().addListener(new ListenableFuture.Listener<Long>() {
           @Override
           public void onSuccess(Long result) {
+	Log.d(TAG, "void onSuccess(Long result)");
             ActivityOptionsCompat transition = ActivityOptionsCompat.makeScaleUpAnimation(getWindow().getDecorView(), 0, 0, getWindow().getAttributes().width, getWindow().getAttributes().height);
             Intent intent = new Intent(ConversationPopupActivity.this, ConversationActivity.class);
             intent.putExtra(ConversationActivity.RECIPIENTS_EXTRA, getRecipients().getIds());
@@ -98,6 +101,7 @@ public class ConversationPopupActivity extends ConversationActivity {
 
           @Override
           public void onFailure(ExecutionException e) {
+	Log.d(TAG, "void onFailure(ExecutionException e)");
             Log.w(TAG, e);
           }
         });

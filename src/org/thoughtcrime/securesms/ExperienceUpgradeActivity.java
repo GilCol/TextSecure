@@ -74,26 +74,32 @@ public class ExperienceUpgradeActivity extends BaseActionBarActivity {
     }
 
     public int getVersion() {
+	Log.d(TAG, "int getVersion()");
       return version;
     }
 
     public List<IntroPage> getPages() {
+	Log.d(TAG, "List<IntroPage> getPages()");
       return pages;
     }
 
     public IntroPage getPage(int i) {
+	Log.d(TAG, "IntroPage getPage(int i)");
       return pages.get(i);
     }
 
     public int getNotificationTitle() {
+	Log.d(TAG, "int getNotificationTitle()");
       return notificationTitle;
     }
 
     public int getNotificationText() {
+	Log.d(TAG, "int getNotificationText()");
       return notificationText;
     }
 
     public int getNotificationBigText() {
+	Log.d(TAG, "int getNotificationBigText()");
       return notificationBigText;
     }
   }
@@ -118,6 +124,7 @@ public class ExperienceUpgradeActivity extends BaseActionBarActivity {
     fab.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
+	Log.d(TAG, "void onClick(View v)");
         onContinue(upgrade);
       }
     });
@@ -136,10 +143,12 @@ public class ExperienceUpgradeActivity extends BaseActionBarActivity {
   }
 
   public static boolean isUpdate(Context context) {
+	Log.d(TAG, "boolean isUpdate(Context context)");
     return getExperienceUpgrade(context).isPresent();
   }
 
   public static Optional<ExperienceUpgrade> getExperienceUpgrade(Context context) {
+	Log.d(TAG, "Optional<ExperienceUpgrade> getExperienceUpgrade(Context context)");
     final int currentVersionCode = Util.getCurrentApkReleaseVersion(context);
     final int lastSeenVersion    = TextSecurePreferences.getLastExperienceVersionCode(context);
     Log.w(TAG, "getExperienceUpgrade(" + lastSeenVersion + ")");
@@ -173,6 +182,7 @@ public class ExperienceUpgradeActivity extends BaseActionBarActivity {
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+	Log.d(TAG, "void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)");
       final int nextPosition = (position + 1) % upgrade.getPages().size();
 
       final int color = (Integer)evaluator.evaluate(positionOffset,
@@ -185,6 +195,7 @@ public class ExperienceUpgradeActivity extends BaseActionBarActivity {
   public static class AppUpgradeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+	Log.d(TAG, "void onReceive(Context context, Intent intent)");
       if(Intent.ACTION_PACKAGE_REPLACED.equals(intent.getAction()) &&
          intent.getData().getSchemeSpecificPart().equals(context.getPackageName()))
       {

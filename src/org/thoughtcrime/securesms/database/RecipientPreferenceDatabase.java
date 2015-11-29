@@ -43,10 +43,12 @@ public class RecipientPreferenceDatabase extends Database {
     }
 
     public int getId() {
+	Log.d(TAG, "int getId()");
       return id;
     }
 
     public static VibrateState fromId(int id) {
+	Log.d(TAG, "VibrateState fromId(int id)");
       return values()[id];
     }
   }
@@ -67,6 +69,7 @@ public class RecipientPreferenceDatabase extends Database {
   }
 
   public Cursor getBlocked() {
+	Log.d(TAG, "Cursor getBlocked()");
     SQLiteDatabase database = databaseHelper.getReadableDatabase();
 
     Cursor cursor = database.query(TABLE_NAME, new String[] {ID, RECIPIENT_IDS}, BLOCK + " = 1",
@@ -77,6 +80,7 @@ public class RecipientPreferenceDatabase extends Database {
   }
 
   public Optional<RecipientsPreferences> getRecipientsPreferences(@NonNull long[] recipients) {
+	Log.d(TAG, "Optional<RecipientsPreferences> getRecipientsPreferences(@NonNull long[] recipients)");
     Arrays.sort(recipients);
 
     SQLiteDatabase database = databaseHelper.getReadableDatabase();
@@ -119,30 +123,35 @@ public class RecipientPreferenceDatabase extends Database {
   }
 
   public void setColor(Recipients recipients, MaterialColor color) {
+	Log.d(TAG, "void setColor(Recipients recipients, MaterialColor color)");
     ContentValues values = new ContentValues();
     values.put(COLOR, color.serialize());
     updateOrInsert(recipients, values);
   }
 
   public void setBlocked(Recipients recipients, boolean blocked) {
+	Log.d(TAG, "void setBlocked(Recipients recipients, boolean blocked)");
     ContentValues values = new ContentValues();
     values.put(BLOCK, blocked ? 1 : 0);
     updateOrInsert(recipients, values);
   }
 
   public void setRingtone(Recipients recipients, @Nullable Uri notification) {
+	Log.d(TAG, "void setRingtone(Recipients recipients, @Nullable Uri notification)");
     ContentValues values = new ContentValues();
     values.put(NOTIFICATION, notification == null ? null : notification.toString());
     updateOrInsert(recipients, values);
   }
 
   public void setVibrate(Recipients recipients, @NonNull VibrateState enabled) {
+	Log.d(TAG, "void setVibrate(Recipients recipients, @NonNull VibrateState enabled)");
     ContentValues values = new ContentValues();
     values.put(VIBRATE, enabled.getId());
     updateOrInsert(recipients, values);
   }
 
   public void setMuted(Recipients recipients, long until) {
+	Log.d(TAG, "void setMuted(Recipients recipients, long until)");
     Log.w(TAG, "Setting muted until: " + until);
     ContentValues values = new ContentValues();
     values.put(MUTE_UNTIL, until);
@@ -150,6 +159,7 @@ public class RecipientPreferenceDatabase extends Database {
   }
 
   public void setSeenInviteReminder(Recipients recipients, boolean seen) {
+	Log.d(TAG, "void setSeenInviteReminder(Recipients recipients, boolean seen)");
     ContentValues values = new ContentValues(1);
     values.put(SEEN_INVITE_REMINDER, seen ? 1 : 0);
     updateOrInsert(recipients, values);
@@ -201,10 +211,12 @@ public class RecipientPreferenceDatabase extends Database {
     }
 
     public boolean isBlocked() {
+	Log.d(TAG, "boolean isBlocked()");
       return blocked;
     }
 
     public long getMuteUntil() {
+	Log.d(TAG, "long getMuteUntil()");
       return muteUntil;
     }
 
@@ -217,6 +229,7 @@ public class RecipientPreferenceDatabase extends Database {
     }
 
     public boolean hasSeenInviteReminder() {
+	Log.d(TAG, "boolean hasSeenInviteReminder()");
       return seenInviteReminder;
     }
   }

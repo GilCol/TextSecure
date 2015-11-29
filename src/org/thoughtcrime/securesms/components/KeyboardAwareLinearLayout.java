@@ -145,14 +145,17 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   }
 
   public boolean isKeyboardOpen() {
+	Log.d(TAG, "boolean isKeyboardOpen()");
     return keyboardOpen;
   }
 
   public int getKeyboardHeight() {
+	Log.d(TAG, "int getKeyboardHeight()");
     return isLandscape() ? getKeyboardLandscapeHeight() : getKeyboardPortraitHeight();
   }
 
   public boolean isLandscape() {
+	Log.d(TAG, "boolean isLandscape()");
     int rotation = getDeviceRotation();
     return rotation == Surface.ROTATION_90 || rotation == Surface.ROTATION_270;
   }
@@ -176,6 +179,7 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   }
 
   public void postOnKeyboardClose(final Runnable runnable) {
+	Log.d(TAG, "void postOnKeyboardClose(final Runnable runnable)");
     if (keyboardOpen) {
       addOnKeyboardHiddenListener(new OnKeyboardHiddenListener() {
         @Override public void onKeyboardHidden() {
@@ -189,6 +193,7 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   }
 
   public void postOnKeyboardOpen(final Runnable runnable) {
+	Log.d(TAG, "void postOnKeyboardOpen(final Runnable runnable)");
     if (!keyboardOpen) {
       addOnKeyboardShownListener(new OnKeyboardShownListener() {
         @Override public void onKeyboardShown() {
@@ -202,18 +207,22 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   }
 
   public void addOnKeyboardHiddenListener(OnKeyboardHiddenListener listener) {
+	Log.d(TAG, "void addOnKeyboardHiddenListener(OnKeyboardHiddenListener listener)");
     hiddenListeners.add(listener);
   }
 
   public void removeOnKeyboardHiddenListener(OnKeyboardHiddenListener listener) {
+	Log.d(TAG, "void removeOnKeyboardHiddenListener(OnKeyboardHiddenListener listener)");
     hiddenListeners.remove(listener);
   }
 
   public void addOnKeyboardShownListener(OnKeyboardShownListener listener) {
+	Log.d(TAG, "void addOnKeyboardShownListener(OnKeyboardShownListener listener)");
     shownListeners.add(listener);
   }
 
   public void removeOnKeyboardShownListener(OnKeyboardShownListener listener) {
+	Log.d(TAG, "void removeOnKeyboardShownListener(OnKeyboardShownListener listener)");
     shownListeners.remove(listener);
   }
 

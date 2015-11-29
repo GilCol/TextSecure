@@ -54,10 +54,12 @@ public class EmojiDrawer extends LinearLayout implements InputView {
   }
 
   public void setEmojiEventListener(EmojiEventListener listener) {
+	Log.d("EmojiDrawer", "void setEmojiEventListener(EmojiEventListener listener)");
     this.listener = listener;
   }
 
   public void setDrawerListener(EmojiDrawerListener listener) {
+	Log.d("EmojiDrawer", "void setDrawerListener(EmojiDrawerListener listener)");
     this.drawerListener = listener;
   }
 
@@ -76,11 +78,13 @@ public class EmojiDrawer extends LinearLayout implements InputView {
 
   @Override
   public boolean isShowing() {
+	Log.d("EmojiDrawer", "boolean isShowing()");
     return getVisibility() == VISIBLE;
   }
 
   @Override
   public void show(int height, boolean immediate) {
+	Log.d("EmojiDrawer", "void show(int height, boolean immediate)");
     if (this.pager == null) initView();
     ViewGroup.LayoutParams params = getLayoutParams();
     params.height = height;
@@ -92,6 +96,7 @@ public class EmojiDrawer extends LinearLayout implements InputView {
 
   @Override
   public void hide(boolean immediate) {
+	Log.d("EmojiDrawer", "void hide(boolean immediate)");
     setVisibility(GONE);
     if (drawerListener != null) drawerListener.onHidden();
     Log.w("EmojiDrawer", "hide()");
@@ -140,6 +145,7 @@ public class EmojiDrawer extends LinearLayout implements InputView {
 
     @Override
     public int getCount() {
+	Log.d("EmojiDrawer", "int getCount()");
       return pages.size();
     }
 

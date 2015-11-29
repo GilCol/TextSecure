@@ -57,6 +57,7 @@ class Tweener {
 
     @SuppressLint("NewApi")
     public static Tweener to(Object object, long duration, Object... vars) {
+	Log.d(TAG, "Tweener to(Object object, long duration, Object... vars)");
         long delay = 0;
         AnimatorUpdateListener updateListener = null;
         AnimatorListener listener = null;
@@ -142,16 +143,19 @@ class Tweener {
 
         @Override
         public void onAnimationEnd(Animator animation) {
+	Log.d(TAG, "void onAnimationEnd(Animator animation)");
             remove(animation);
         }
 
         @Override
         public void onAnimationCancel(Animator animation) {
+	Log.d(TAG, "void onAnimationCancel(Animator animation)");
             remove(animation);
         }
     };
 
     public static void reset() {
+	Log.d(TAG, "void reset()");
         if (DEBUG) {
             Log.v(TAG, "Reset()");
             if (sTweens.size() > 0) {
@@ -177,4 +181,3 @@ class Tweener {
         }
     }
 }
-

@@ -25,11 +25,13 @@ public class ServiceRequirement implements Requirement, ContextDependent {
 
   @Override
   public void setContext(Context context) {
+	Log.d(TAG, "void setContext(Context context)");
     this.context = context;
   }
 
   @Override
   public boolean isPresent() {
+	Log.d(TAG, "boolean isPresent()");
     TelephonyServiceState telephonyServiceState = new TelephonyServiceState();
     return telephonyServiceState.isConnected(context);
   }

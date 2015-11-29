@@ -86,6 +86,7 @@ public class EncodedStringValue implements Cloneable {
      * @return the value
      */
     public int getCharacterSet() {
+	Log.d(TAG, "int getCharacterSet()");
         return mCharacterSet;
     }
 
@@ -95,6 +96,7 @@ public class EncodedStringValue implements Cloneable {
      * @param charset the Char-set value
      */
     public void setCharacterSet(int charset) {
+	Log.d(TAG, "void setCharacterSet(int charset)");
         // TODO: CharSet needs to be validated against MIBEnum.
         mCharacterSet = charset;
     }
@@ -105,6 +107,7 @@ public class EncodedStringValue implements Cloneable {
      * @return the value
      */
     public byte[] getTextString() {
+	Log.d(TAG, "byte[] getTextString()");
         byte[] byteArray = new byte[mData.length];
 
         System.arraycopy(mData, 0, byteArray, 0, mData.length);
@@ -118,6 +121,7 @@ public class EncodedStringValue implements Cloneable {
      * @throws NullPointerException if Text-string value is null.
      */
     public void setTextString(byte[] textString) {
+	Log.d(TAG, "void setTextString(byte[] textString)");
         if(null == textString) {
             throw new NullPointerException("EncodedStringValue: Text-string is null.");
         }
@@ -134,6 +138,7 @@ public class EncodedStringValue implements Cloneable {
      * @return The decoded String.
      */
     public String getString()  {
+	Log.d(TAG, "String getString()");
         if (CharacterSets.ANY_CHARSET == mCharacterSet) {
             return new String(mData); // system default encoding.
         } else {
@@ -146,7 +151,7 @@ public class EncodedStringValue implements Cloneable {
             	}
             	try {
                     return new String(mData, CharacterSets.MIMENAME_ISO_8859_1);
-                } catch (UnsupportedEncodingException _) {
+                } catch (UnsupportedEncodingException ex) {
                     return new String(mData); // system default encoding.
                 }
             }
@@ -161,6 +166,7 @@ public class EncodedStringValue implements Cloneable {
      *                      or an IOException occured.
      */
     public void appendTextString(byte[] textString) {
+	Log.d(TAG, "void appendTextString(byte[] textString)");
         if(null == textString) {
             throw new NullPointerException("Text-string is null.");
         }
@@ -211,13 +217,14 @@ public class EncodedStringValue implements Cloneable {
      *         string around matches of the given pattern
      */
     public EncodedStringValue[] split(String pattern) {
+	Log.d(TAG, "EncodedStringValue[] split(String pattern)");
         String[] temp = getString().split(pattern);
         EncodedStringValue[] ret = new EncodedStringValue[temp.length];
         for (int i = 0; i < ret.length; ++i) {
             try {
                 ret[i] = new EncodedStringValue(mCharacterSet,
                         temp[i].getBytes());
-            } catch (NullPointerException _) {
+            } catch (NullPointerException ex) {
                 // Can't arrive here
                 return null;
             }
@@ -229,6 +236,7 @@ public class EncodedStringValue implements Cloneable {
      * Extract an EncodedStringValue[] from a given String.
      */
     public static EncodedStringValue[] extract(String src) {
+	Log.d(TAG, "EncodedStringValue[] extract(String src)");
         String[] values = src.split(";");
 
         ArrayList<EncodedStringValue> list = new ArrayList<EncodedStringValue>();
@@ -250,6 +258,7 @@ public class EncodedStringValue implements Cloneable {
      * Concatenate an EncodedStringValue[] into a single String.
      */
     public static String concat(EncodedStringValue[] addr) {
+	Log.d(TAG, "String concat(EncodedStringValue[] addr)");
         StringBuilder sb = new StringBuilder();
         int maxIndex = addr.length - 1;
         for (int i = 0; i <= maxIndex; i++) {
@@ -263,6 +272,7 @@ public class EncodedStringValue implements Cloneable {
     }
 
     public static EncodedStringValue copy(EncodedStringValue value) {
+	Log.d(TAG, "EncodedStringValue copy(EncodedStringValue value)");
         if (value == null) {
             return null;
         }
@@ -271,6 +281,7 @@ public class EncodedStringValue implements Cloneable {
     }
     
     public static EncodedStringValue[] encodeStrings(String[] array) {
+	Log.d(TAG, "EncodedStringValue[] encodeStrings(String[] array)");
         int count = array.length;
         if (count > 0) {
             EncodedStringValue[] encodedArray = new EncodedStringValue[count];

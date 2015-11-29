@@ -36,6 +36,7 @@ public class PushNotificationReceiveJob extends PushReceivedJob implements Injec
     receiver.retrieveMessages(new TextSecureMessageReceiver.MessageReceivedCallback() {
       @Override
       public void onMessage(TextSecureEnvelope envelope) {
+	Log.d(TAG, "void onMessage(TextSecureEnvelope envelope)");
         handle(envelope, false);
       }
     });
@@ -43,12 +44,14 @@ public class PushNotificationReceiveJob extends PushReceivedJob implements Injec
 
   @Override
   public boolean onShouldRetry(Exception e) {
+	Log.d(TAG, "boolean onShouldRetry(Exception e)");
     Log.w(TAG, e);
     return e instanceof PushNetworkException;
   }
 
   @Override
   public void onCanceled() {
+	Log.d(TAG, "void onCanceled()");
     Log.w(TAG, "***** Failed to download pending message!");
   }
 }

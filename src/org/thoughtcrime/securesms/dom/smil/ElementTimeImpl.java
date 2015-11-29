@@ -68,6 +68,7 @@ public abstract class ElementTimeImpl implements ElementTime {
      */
 
     public TimeList getBegin() {
+	Log.d(TAG, "TimeList getBegin()");
         String[] beginTimeStringList = mSmilElement.getAttribute("begin").split(";");
 
         // TODO: Check other constraints on parsed values, e.g., "single, non-negative offset values
@@ -106,6 +107,7 @@ public abstract class ElementTimeImpl implements ElementTime {
     }
 
     public float getDur() {
+	Log.d(TAG, "float getDur()");
         float dur = 0;
         try {
             String durString = mSmilElement.getAttribute("dur");
@@ -120,6 +122,7 @@ public abstract class ElementTimeImpl implements ElementTime {
     }
 
     public TimeList getEnd() {
+	Log.d(TAG, "TimeList getEnd()");
         ArrayList<Time> endTimeList = new ArrayList<Time>();
 
         String[] endTimeStringList = mSmilElement.getAttribute("end").split(";");
@@ -171,6 +174,7 @@ public abstract class ElementTimeImpl implements ElementTime {
     }
 
     public short getFill() {
+	Log.d(TAG, "short getFill()");
         String fill = mSmilElement.getAttribute(FILL_ATTRIBUTE_NAME);
         if (fill.equalsIgnoreCase(FILL_FREEZE_ATTRIBUTE)) {
             return FILL_FREEZE;
@@ -216,6 +220,7 @@ public abstract class ElementTimeImpl implements ElementTime {
     }
 
     public short getFillDefault() {
+	Log.d(TAG, "short getFillDefault()");
         String fillDefault = mSmilElement.getAttribute(FILLDEFAULT_ATTRIBUTE_NAME);
         if (fillDefault.equalsIgnoreCase(FILL_REMOVE_ATTRIBUTE)) {
             return FILL_REMOVE;
@@ -250,6 +255,7 @@ public abstract class ElementTimeImpl implements ElementTime {
     }
 
     public float getRepeatCount() {
+	Log.d(TAG, "float getRepeatCount()");
         String repeatCount = mSmilElement.getAttribute("repeatCount");
         try {
             float value = Float.parseFloat(repeatCount);
@@ -264,6 +270,7 @@ public abstract class ElementTimeImpl implements ElementTime {
     }
 
     public float getRepeatDur() {
+	Log.d(TAG, "float getRepeatDur()");
         try {
             float repeatDur =
                 TimeImpl.parseClockValue(mSmilElement.getAttribute("repeatDur"));
@@ -278,6 +285,7 @@ public abstract class ElementTimeImpl implements ElementTime {
     }
 
     public short getRestart() {
+	Log.d(TAG, "short getRestart()");
         String restart = mSmilElement.getAttribute("restart");
         if (restart.equalsIgnoreCase("never")) {
             return RESTART_NEVER;

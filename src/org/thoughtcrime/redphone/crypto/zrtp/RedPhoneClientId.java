@@ -31,10 +31,12 @@ public class RedPhoneClientId {
   }
 
   public boolean isImplicitDh3kVersion() {
+	Log.d("RedPhoneClientId", "boolean isImplicitDh3kVersion()");
     return this.isRedphoneClient && (this.clientIdInteger == 19 || this.clientIdInteger == 24);
   }
 
   public boolean isLegacyConfirmConnectionVersion() {
+	Log.d("RedPhoneClientId", "boolean isLegacyConfirmConnectionVersion()");
     return this.isRedphoneClient && this.clientIdInteger < 24;
   }
 }

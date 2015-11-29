@@ -37,11 +37,13 @@ public class ImportFragment extends Fragment {
   private ProgressDialog progressDialog;
 
   public void setMasterSecret(MasterSecret masterSecret) {
+	Log.d("ImportFragment", "void setMasterSecret(MasterSecret masterSecret)");
     this.masterSecret = masterSecret;
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
+	Log.d("ImportFragment", "View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle)");
     View layout              = inflater.inflate(R.layout.import_fragment, container, false);
     View importSmsView       = layout.findViewById(R.id.import_sms             );
     View importEncryptedView = layout.findViewById(R.id.import_encrypted_backup);
@@ -50,6 +52,7 @@ public class ImportFragment extends Fragment {
     importSmsView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+	Log.d("ImportFragment", "void onClick(View v)");
         handleImportSms();
       }
     });
@@ -57,6 +60,7 @@ public class ImportFragment extends Fragment {
     importEncryptedView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+	Log.d("ImportFragment", "void onClick(View v)");
         handleImportEncryptedBackup();
       }
     });
@@ -64,6 +68,7 @@ public class ImportFragment extends Fragment {
     importPlaintextView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+	Log.d("ImportFragment", "void onClick(View v)");
         handleImportPlaintextBackup();
       }
     });
@@ -73,6 +78,7 @@ public class ImportFragment extends Fragment {
 
   @Override
   public void onDestroy() {
+	Log.d("ImportFragment", "void onDestroy()");
     super.onDestroy();
 
     if (progressDialog != null && progressDialog.isShowing()) {
@@ -89,6 +95,7 @@ public class ImportFragment extends Fragment {
     builder.setPositiveButton(getActivity().getString(R.string.ImportFragment_import), new AlertDialog.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialog, int which) {
+	Log.d("ImportFragment", "void onClick(DialogInterface dialog, int which)");
         Intent intent = new Intent(getActivity(), ApplicationMigrationService.class);
         intent.setAction(ApplicationMigrationService.MIGRATE_DATABASE);
         intent.putExtra("master_secret", masterSecret);
@@ -113,6 +120,7 @@ public class ImportFragment extends Fragment {
     builder.setPositiveButton(getActivity().getString(R.string.ImportFragment_restore), new AlertDialog.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialog, int which) {
+	Log.d("ImportFragment", "void onClick(DialogInterface dialog, int which)");
         new ImportEncryptedBackupTask().execute();
       }
     });
@@ -128,6 +136,7 @@ public class ImportFragment extends Fragment {
     builder.setPositiveButton(getActivity().getString(R.string.ImportFragment_import), new AlertDialog.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialog, int which) {
+	Log.d("ImportFragment", "void onClick(DialogInterface dialog, int which)");
         new ImportPlaintextBackupTask().execute();
       }
     });

@@ -35,6 +35,7 @@ public class ContentValuesBuilder {
   }
 
   public void add(String key, String charsetKey, EncodedStringValue value) {
+	Log.d("ContentValuesBuilder", "void add(String key, String charsetKey, EncodedStringValue value)");
     if (value != null) {
       contentValues.put(key, Util.toIsoString(value.getTextString()));
       contentValues.put(charsetKey, value.getCharacterSet());
@@ -42,22 +43,26 @@ public class ContentValuesBuilder {
   }
 
   public void add(String contentKey, byte[] value) {
+	Log.d("ContentValuesBuilder", "void add(String contentKey, byte[] value)");
     if (value != null) {
       contentValues.put(contentKey, Util.toIsoString(value));
     }
   }
 
   public void add(String contentKey, int b) {
+	Log.d("ContentValuesBuilder", "void add(String contentKey, int b)");
     if (b != 0)
       contentValues.put(contentKey, b);
   }
 
   public void add(String contentKey, long value) {
+	Log.d("ContentValuesBuilder", "void add(String contentKey, long value)");
     if (value != -1L)
       contentValues.put(contentKey, value);
   }
 
   public ContentValues getContentValues() {
+	Log.d("ContentValuesBuilder", "ContentValues getContentValues()");
     return contentValues;
   }
 }

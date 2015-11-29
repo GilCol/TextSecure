@@ -39,6 +39,7 @@ public class MmsPreferencesFragment extends PreferenceFragment {
 
   @Override
   public void onCreate(Bundle paramBundle) {
+	Log.d(TAG, "void onCreate(Bundle paramBundle)");
     super.onCreate(paramBundle);
     addPreferencesFromResource(R.xml.preferences_manual_mms);
 
@@ -48,6 +49,7 @@ public class MmsPreferencesFragment extends PreferenceFragment {
 
   @Override
   public void onResume() {
+	Log.d(TAG, "void onResume()");
     super.onResume();
     new LoadApnDefaultsTask().execute();
   }

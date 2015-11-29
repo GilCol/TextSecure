@@ -88,6 +88,7 @@ public class MediaPreviewActivity extends PassphraseRequiredActionBarActivity im
 
   @Override
   public void onModified(Recipient recipient) {
+	Log.d("MediaPreviewActivity", "void onModified(Recipient recipient)");
     initializeActionBar();
   }
 
@@ -107,6 +108,7 @@ public class MediaPreviewActivity extends PassphraseRequiredActionBarActivity im
 
   @Override
   public void onResume() {
+	Log.d("MediaPreviewActivity", "void onResume()");
     super.onResume();
     dynamicLanguage.onResume(this);
     if (recipient != null) recipient.addListener(this);
@@ -115,6 +117,7 @@ public class MediaPreviewActivity extends PassphraseRequiredActionBarActivity im
 
   @Override
   public void onPause() {
+	Log.d("MediaPreviewActivity", "void onPause()");
     super.onPause();
     if (recipient != null) recipient.removeListener(this);
     cleanupMedia();
@@ -170,6 +173,7 @@ public class MediaPreviewActivity extends PassphraseRequiredActionBarActivity im
     SaveAttachmentTask.showWarningDialog(this, new DialogInterface.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialogInterface, int i) {
+	Log.d("MediaPreviewActivity", "void onClick(DialogInterface dialogInterface, int i)");
         SaveAttachmentTask saveTask = new SaveAttachmentTask(MediaPreviewActivity.this, masterSecret);
         saveTask.execute(new Attachment(mediaUri, mediaType, date));
       }
@@ -178,6 +182,7 @@ public class MediaPreviewActivity extends PassphraseRequiredActionBarActivity im
 
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
+	Log.d("MediaPreviewActivity", "boolean onPrepareOptionsMenu(Menu menu)");
     super.onPrepareOptionsMenu(menu);
 
     menu.clear();
@@ -189,6 +194,7 @@ public class MediaPreviewActivity extends PassphraseRequiredActionBarActivity im
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
+	Log.d("MediaPreviewActivity", "boolean onOptionsItemSelected(MenuItem item)");
     super.onOptionsItemSelected(item);
 
     switch (item.getItemId()) {
@@ -200,6 +206,7 @@ public class MediaPreviewActivity extends PassphraseRequiredActionBarActivity im
   }
 
   public static boolean isContentTypeSupported(final String contentType) {
+	Log.d("MediaPreviewActivity", "boolean isContentTypeSupported(final String contentType)");
     return contentType != null && contentType.startsWith("image/");
   }
 }

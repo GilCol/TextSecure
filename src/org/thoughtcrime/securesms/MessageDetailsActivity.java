@@ -96,6 +96,7 @@ public class MessageDetailsActivity extends PassphraseRequiredActionBarActivity 
 
   @Override
   public void onCreate(Bundle bundle, @NonNull MasterSecret masterSecret) {
+	Log.d("MessageDetailsActivity", "void onCreate(Bundle bundle, @NonNull MasterSecret masterSecret)");
     setContentView(R.layout.message_details_activity);
 
     initializeResources();
@@ -130,9 +131,11 @@ public class MessageDetailsActivity extends PassphraseRequiredActionBarActivity 
 
   @Override
   public void onModified(final Recipients recipients) {
+	Log.d("MessageDetailsActivity", "void onModified(final Recipients recipients)");
     Util.runOnMain(new Runnable() {
       @Override
       public void run() {
+	Log.d("MessageDetailsActivity", "void run()");
         setActionBarColor(recipients.getColor());
       }
     });
@@ -239,23 +242,27 @@ public class MessageDetailsActivity extends PassphraseRequiredActionBarActivity 
 
   @Override
   public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+	Log.d("MessageDetailsActivity", "Loader<Cursor> onCreateLoader(int id, Bundle args)");
     return new MessageDetailsLoader(this, getIntent().getStringExtra(TYPE_EXTRA),
                                     getIntent().getLongExtra(MESSAGE_ID_EXTRA, -1));
   }
 
   @Override
   public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+	Log.d("MessageDetailsActivity", "void onLoadFinished(Loader<Cursor> loader, Cursor cursor)");
     final MessageRecord messageRecord = getMessageRecord(this, cursor, getIntent().getStringExtra(TYPE_EXTRA));
     new MessageRecipientAsyncTask(this, messageRecord).execute();
   }
 
   @Override
   public void onLoaderReset(Loader<Cursor> loader) {
+	Log.d("MessageDetailsActivity", "void onLoaderReset(Loader<Cursor> loader)");
     recipientsList.setAdapter(null);
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
+	Log.d("MessageDetailsActivity", "boolean onOptionsItemSelected(MenuItem item)");
     super.onOptionsItemSelected(item);
 
     switch (item.getItemId()) {
@@ -280,6 +287,7 @@ public class MessageDetailsActivity extends PassphraseRequiredActionBarActivity 
 
     @Override
     public Recipients doInBackground(Void... voids) {
+	Log.d("MessageDetailsActivity", "Recipients doInBackground(Void... voids)");
       Context context = getContext();
       if (context == null) {
         Log.w(TAG, "associated context is destroyed, finishing early");
@@ -314,6 +322,7 @@ public class MessageDetailsActivity extends PassphraseRequiredActionBarActivity 
 
     @Override
     public void onPostExecute(Recipients recipients) {
+	Log.d("MessageDetailsActivity", "void onPostExecute(Recipients recipients)");
       if (getContext() == null) {
         Log.w(TAG, "AsyncTask finished with a destroyed context, leaving early.");
         return;

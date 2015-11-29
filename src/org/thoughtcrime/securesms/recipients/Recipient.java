@@ -72,6 +72,7 @@ public class Recipient {
     future.addListener(new FutureTaskListener<RecipientDetails>() {
       @Override
       public void onSuccess(RecipientDetails result) {
+	Log.d("Recipient", "void onSuccess(RecipientDetails result)");
         if (result != null) {
           synchronized (Recipient.this) {
             Recipient.this.name         = result.name;
@@ -87,6 +88,7 @@ public class Recipient {
 
       @Override
       public void onFailure(Throwable error) {
+	Log.d("Recipient", "void onFailure(Throwable error)");
         Log.w(TAG, error);
       }
     });
@@ -116,6 +118,7 @@ public class Recipient {
   }
 
   public void setColor(@NonNull MaterialColor color) {
+	Log.d("Recipient", "void setColor(@NonNull MaterialColor color)");
     synchronized (this) {
       this.color = color;
     }
@@ -128,10 +131,12 @@ public class Recipient {
   }
 
   public long getRecipientId() {
+	Log.d("Recipient", "long getRecipientId()");
     return recipientId;
   }
 
   public boolean isGroupRecipient() {
+	Log.d("Recipient", "boolean isGroupRecipient()");
     return GroupUtil.isEncodedGroup(number);
   }
 
@@ -152,12 +157,14 @@ public class Recipient {
   }
 
   public static Recipient getUnknownRecipient() {
+	Log.d("Recipient", "Recipient getUnknownRecipient()");
     return new Recipient(-1, new RecipientDetails("Unknown", "Unknown", null,
                                                   ContactPhotoFactory.getDefaultContactPhoto(null), null));
   }
 
   @Override
   public boolean equals(Object o) {
+	Log.d("Recipient", "boolean equals(Object o)");
     if (this == o) return true;
     if (o == null || !(o instanceof Recipient)) return false;
 
@@ -168,6 +175,7 @@ public class Recipient {
 
   @Override
   public int hashCode() {
+	Log.d("Recipient", "int hashCode()");
     return 31 + (int)this.recipientId;
   }
 

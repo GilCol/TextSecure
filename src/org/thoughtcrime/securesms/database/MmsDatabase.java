@@ -157,6 +157,7 @@ public class MmsDatabase extends MessagingDatabase {
   }
 
   public int getMessageCountForThread(long threadId) {
+	Log.d(TAG, "int getMessageCountForThread(long threadId)");
     SQLiteDatabase db = databaseHelper.getReadableDatabase();
     Cursor cursor     = null;
 
@@ -174,6 +175,7 @@ public class MmsDatabase extends MessagingDatabase {
   }
 
   public void addFailures(long messageId, List<NetworkFailure> failure) {
+	Log.d(TAG, "void addFailures(long messageId, List<NetworkFailure> failure)");
     try {
       addToDocument(messageId, NETWORK_FAILURE, failure, NetworkFailureList.class);
     } catch (IOException e) {
@@ -182,6 +184,7 @@ public class MmsDatabase extends MessagingDatabase {
   }
 
   public void removeFailure(long messageId, NetworkFailure failure) {
+	Log.d(TAG, "void removeFailure(long messageId, NetworkFailure failure)");
     try {
       removeFromDocument(messageId, NETWORK_FAILURE, failure, NetworkFailureList.class);
     } catch (IOException e) {
@@ -190,6 +193,7 @@ public class MmsDatabase extends MessagingDatabase {
   }
 
   public void incrementDeliveryReceiptCount(String address, long timestamp) {
+	Log.d(TAG, "void incrementDeliveryReceiptCount(String address, long timestamp)");
     MmsAddressDatabase addressDatabase = DatabaseFactory.getMmsAddressDatabase(context);
     SQLiteDatabase     database        = databaseHelper.getWritableDatabase();
     Cursor             cursor          = null;
@@ -229,6 +233,7 @@ public class MmsDatabase extends MessagingDatabase {
   }
 
   public long getThreadIdForMessage(long id) {
+	Log.d(TAG, "long getThreadIdForMessage(long id)");
     String sql        = "SELECT " + THREAD_ID + " FROM " + TABLE_NAME + " WHERE " + ID + " = ?";
     String[] sqlArgs  = new String[] {id+""};
     SQLiteDatabase db = databaseHelper.getReadableDatabase();
@@ -322,12 +327,14 @@ public class MmsDatabase extends MessagingDatabase {
   }
 
   public Cursor getMessage(long messageId) {
+	Log.d(TAG, "Cursor getMessage(long messageId)");
     Cursor cursor = rawQuery(RAW_ID_WHERE, new String[] {messageId + ""});
     setNotifyConverationListeners(cursor, getThreadIdForMessage(messageId));
     return cursor;
   }
 
   public Reader getDecryptInProgressMessages(MasterSecret masterSecret) {
+	Log.d(TAG, "Reader getDecryptInProgressMessages(MasterSecret masterSecret)");
     String where = MESSAGE_BOX + " & " + (Types.ENCRYPTION_ASYMMETRIC_BIT) + " != 0";
     return readerFor(masterSecret, rawQuery(where, null));
   }
@@ -340,36 +347,43 @@ public class MmsDatabase extends MessagingDatabase {
   }
 
   public void markAsOutbox(long messageId) {
+	Log.d(TAG, "void markAsOutbox(long messageId)");
     updateMailboxBitmask(messageId, Types.BASE_TYPE_MASK, Types.BASE_OUTBOX_TYPE);
     notifyConversationListeners(getThreadIdForMessage(messageId));
   }
 
   public void markAsForcedSms(long messageId) {
+	Log.d(TAG, "void markAsForcedSms(long messageId)");
     updateMailboxBitmask(messageId, Types.PUSH_MESSAGE_BIT, Types.MESSAGE_FORCE_SMS_BIT);
     notifyConversationListeners(getThreadIdForMessage(messageId));
   }
 
   public void markAsPendingInsecureSmsFallback(long messageId) {
+	Log.d(TAG, "void markAsPendingInsecureSmsFallback(long messageId)");
     updateMailboxBitmask(messageId, Types.BASE_TYPE_MASK, Types.BASE_PENDING_INSECURE_SMS_FALLBACK);
     notifyConversationListeners(getThreadIdForMessage(messageId));
   }
 
   public void markAsSending(long messageId) {
+	Log.d(TAG, "void markAsSending(long messageId)");
     updateMailboxBitmask(messageId, Types.BASE_TYPE_MASK, Types.BASE_SENDING_TYPE);
     notifyConversationListeners(getThreadIdForMessage(messageId));
   }
 
   public void markAsSentFailed(long messageId) {
+	Log.d(TAG, "void markAsSentFailed(long messageId)");
     updateMailboxBitmask(messageId, Types.BASE_TYPE_MASK, Types.BASE_SENT_FAILED_TYPE);
     notifyConversationListeners(getThreadIdForMessage(messageId));
   }
 
   public void markAsSent(long messageId) {
+	Log.d(TAG, "void markAsSent(long messageId)");
     updateMailboxBitmask(messageId, Types.BASE_TYPE_MASK, Types.BASE_SENT_TYPE);
     notifyConversationListeners(getThreadIdForMessage(messageId));
   }
 
   public void markDownloadState(long messageId, long state) {
+	Log.d(TAG, "void markDownloadState(long messageId, long state)");
     SQLiteDatabase database     = databaseHelper.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put(STATUS, state);
@@ -379,38 +393,46 @@ public class MmsDatabase extends MessagingDatabase {
   }
 
   public void markAsNoSession(long messageId, long threadId) {
+	Log.d(TAG, "void markAsNoSession(long messageId, long threadId)");
     updateMailboxBitmask(messageId, Types.ENCRYPTION_MASK, Types.ENCRYPTION_REMOTE_NO_SESSION_BIT);
     notifyConversationListeners(threadId);
   }
 
   public void markAsSecure(long messageId) {
+	Log.d(TAG, "void markAsSecure(long messageId)");
     updateMailboxBitmask(messageId, 0, Types.SECURE_MESSAGE_BIT);
   }
 
   public void markAsInsecure(long messageId) {
+	Log.d(TAG, "void markAsInsecure(long messageId)");
     updateMailboxBitmask(messageId, Types.SECURE_MESSAGE_BIT, 0);
   }
 
   public void markAsPush(long messageId) {
+	Log.d(TAG, "void markAsPush(long messageId)");
     updateMailboxBitmask(messageId, 0, Types.PUSH_MESSAGE_BIT);
   }
 
   public void markAsDecryptFailed(long messageId, long threadId) {
+	Log.d(TAG, "void markAsDecryptFailed(long messageId, long threadId)");
     updateMailboxBitmask(messageId, Types.ENCRYPTION_MASK, Types.ENCRYPTION_REMOTE_FAILED_BIT);
     notifyConversationListeners(threadId);
   }
 
   public void markAsDecryptDuplicate(long messageId, long threadId) {
+	Log.d(TAG, "void markAsDecryptDuplicate(long messageId, long threadId)");
     updateMailboxBitmask(messageId, Types.ENCRYPTION_MASK, Types.ENCRYPTION_REMOTE_DUPLICATE_BIT);
     notifyConversationListeners(threadId);
   }
 
   public void markAsLegacyVersion(long messageId, long threadId) {
+	Log.d(TAG, "void markAsLegacyVersion(long messageId, long threadId)");
     updateMailboxBitmask(messageId, Types.ENCRYPTION_MASK, Types.ENCRYPTION_REMOTE_LEGACY_BIT);
     notifyConversationListeners(threadId);
   }
 
   public void setMessagesRead(long threadId) {
+	Log.d(TAG, "void setMessagesRead(long threadId)");
     SQLiteDatabase database     = databaseHelper.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put(READ, 1);
@@ -419,6 +441,7 @@ public class MmsDatabase extends MessagingDatabase {
   }
 
   public void setAllMessagesRead() {
+	Log.d(TAG, "void setAllMessagesRead()");
     SQLiteDatabase database     = databaseHelper.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put(READ, 1);
@@ -427,6 +450,7 @@ public class MmsDatabase extends MessagingDatabase {
   }
 
   public void updateMessageBody(MasterSecretUnion masterSecret, long messageId, String body) {
+	Log.d(TAG, "void updateMessageBody(MasterSecretUnion masterSecret, long messageId, String body)");
     body = getEncryptedBody(masterSecret, body);
 
     long type;
@@ -457,6 +481,7 @@ public class MmsDatabase extends MessagingDatabase {
   }
 
   public Optional<NotificationInd> getNotification(long messageId) {
+	Log.d(TAG, "Optional<NotificationInd> getNotification(long messageId)");
     Cursor cursor = null;
 
     try {
@@ -691,6 +716,7 @@ public class MmsDatabase extends MessagingDatabase {
   }
 
   public void markIncomingNotificationReceived(long threadId) {
+	Log.d(TAG, "void markIncomingNotificationReceived(long threadId)");
     notifyConversationListeners(threadId);
     DatabaseFactory.getThreadDatabase(context).update(threadId);
 
@@ -813,6 +839,7 @@ public class MmsDatabase extends MessagingDatabase {
   }
 
   public boolean delete(long messageId) {
+	Log.d(TAG, "boolean delete(long messageId)");
     long               threadId           = getThreadIdForMessage(messageId);
     MmsAddressDatabase addrDatabase       = DatabaseFactory.getMmsAddressDatabase(context);
     AttachmentDatabase attachmentDatabase = DatabaseFactory.getAttachmentDatabase(context);
@@ -827,6 +854,7 @@ public class MmsDatabase extends MessagingDatabase {
   }
 
   public void deleteThread(long threadId) {
+	Log.d(TAG, "void deleteThread(long threadId)");
     Set<Long> singleThreadSet = new HashSet<>();
     singleThreadSet.add(threadId);
     deleteThreads(singleThreadSet);
@@ -885,6 +913,7 @@ public class MmsDatabase extends MessagingDatabase {
 
 
   public void deleteAllThreads() {
+	Log.d(TAG, "void deleteAllThreads()");
     DatabaseFactory.getAttachmentDatabase(context).deleteAllAttachments();
     DatabaseFactory.getMmsAddressDatabase(context).deleteAllAddresses();
 
@@ -893,6 +922,7 @@ public class MmsDatabase extends MessagingDatabase {
   }
 
   public Cursor getCarrierMmsInformation(String apn) {
+	Log.d(TAG, "Cursor getCarrierMmsInformation(String apn)");
     Uri uri                = Uri.withAppendedPath(Uri.parse("content://telephony/carriers"), "current");
     String selection       = TextUtils.isEmpty(apn) ? null : "apn = ?";
     String[] selectionArgs = TextUtils.isEmpty(apn) ? null : new String[] {apn.trim()};
@@ -908,6 +938,7 @@ public class MmsDatabase extends MessagingDatabase {
   }
 
   public Reader readerFor(MasterSecret masterSecret, Cursor cursor) {
+	Log.d(TAG, "Reader readerFor(MasterSecret masterSecret, Cursor cursor)");
     return new Reader(masterSecret, cursor);
   }
 
@@ -920,6 +951,7 @@ public class MmsDatabase extends MessagingDatabase {
     public static final int DOWNLOAD_APN_UNAVAILABLE = 6;
 
     public static boolean isDisplayDownloadButton(int status) {
+	Log.d(TAG, "boolean isDisplayDownloadButton(int status)");
       return
           status == DOWNLOAD_INITIALIZED     ||
           status == DOWNLOAD_NO_CONNECTIVITY ||
@@ -927,6 +959,7 @@ public class MmsDatabase extends MessagingDatabase {
     }
 
     public static String getLabelForStatus(Context context, int status) {
+	Log.d(TAG, "String getLabelForStatus(Context context, int status)");
       switch (status) {
         case DOWNLOAD_CONNECTING:      return context.getString(R.string.MmsDatabase_connecting_to_mms_server);
         case DOWNLOAD_INITIALIZED:     return context.getString(R.string.MmsDatabase_downloading_mms);
@@ -938,6 +971,7 @@ public class MmsDatabase extends MessagingDatabase {
     }
 
     public static boolean isHardError(int status) {
+	Log.d(TAG, "boolean isHardError(int status)");
       return status == DOWNLOAD_HARD_FAILURE;
     }
   }
@@ -957,6 +991,7 @@ public class MmsDatabase extends MessagingDatabase {
     }
 
     public MessageRecord getNext() {
+	Log.d(TAG, "MessageRecord getNext()");
       if (cursor == null || !cursor.moveToNext())
         return null;
 
@@ -964,6 +999,7 @@ public class MmsDatabase extends MessagingDatabase {
     }
 
     public MessageRecord getCurrent() {
+	Log.d(TAG, "MessageRecord getCurrent()");
       long mmsType = cursor.getLong(cursor.getColumnIndexOrThrow(MmsDatabase.MESSAGE_TYPE));
 
       if (mmsType == PduHeaders.MESSAGE_TYPE_NOTIFICATION_IND) {
@@ -1094,6 +1130,7 @@ public class MmsDatabase extends MessagingDatabase {
     }
 
     public void close() {
+	Log.d(TAG, "void close()");
       cursor.close();
     }
   }

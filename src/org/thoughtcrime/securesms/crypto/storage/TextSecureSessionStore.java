@@ -53,6 +53,7 @@ public class TextSecureSessionStore implements SessionStore {
 
   @Override
   public SessionRecord loadSession(@NonNull AxolotlAddress address) {
+	Log.d(TAG, "SessionRecord loadSession(@NonNull AxolotlAddress address)");
     synchronized (FILE_LOCK) {
       try {
         FileInputStream in            = new FileInputStream(getSessionFile(address));
@@ -89,6 +90,7 @@ public class TextSecureSessionStore implements SessionStore {
 
   @Override
   public void storeSession(@NonNull AxolotlAddress address, @NonNull SessionRecord record) {
+	Log.d(TAG, "void storeSession(@NonNull AxolotlAddress address, @NonNull SessionRecord record)");
     synchronized (FILE_LOCK) {
       try {
         RandomAccessFile sessionFile  = new RandomAccessFile(getSessionFile(address), "rw");
@@ -108,17 +110,20 @@ public class TextSecureSessionStore implements SessionStore {
 
   @Override
   public boolean containsSession(AxolotlAddress address) {
+	Log.d(TAG, "boolean containsSession(AxolotlAddress address)");
     return getSessionFile(address).exists() &&
            loadSession(address).getSessionState().hasSenderChain();
   }
 
   @Override
   public void deleteSession(AxolotlAddress address) {
+	Log.d(TAG, "void deleteSession(AxolotlAddress address)");
     getSessionFile(address).delete();
   }
 
   @Override
   public void deleteAllSessions(String name) {
+	Log.d(TAG, "void deleteAllSessions(String name)");
     List<Integer> devices = getSubDeviceSessions(name);
 
     deleteSession(new AxolotlAddress(name, TextSecureAddress.DEFAULT_DEVICE_ID));
@@ -130,6 +135,7 @@ public class TextSecureSessionStore implements SessionStore {
 
   @Override
   public List<Integer> getSubDeviceSessions(String name) {
+	Log.d(TAG, "List<Integer> getSubDeviceSessions(String name)");
     long          recipientId = RecipientFactory.getRecipientsFromString(context, name, true).getPrimaryRecipient().getRecipientId();
     List<Integer> results     = new LinkedList<>();
     File          parent      = getSessionDirectory();
@@ -154,6 +160,7 @@ public class TextSecureSessionStore implements SessionStore {
   }
 
   public void migrateSessions() {
+	Log.d(TAG, "void migrateSessions()");
     synchronized (FILE_LOCK) {
       File directory = getSessionDirectory();
 

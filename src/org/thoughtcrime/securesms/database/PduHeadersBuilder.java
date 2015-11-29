@@ -37,10 +37,12 @@ public class PduHeadersBuilder {
   }
 
   public PduHeaders getHeaders() {
+	Log.d("PduHeadersBuilder", "PduHeaders getHeaders()");
     return headers;
   }
 
   public void addLong(String key, int headersKey) {
+	Log.d("PduHeadersBuilder", "void addLong(String key, int headersKey)");
     int columnIndex = cursor.getColumnIndexOrThrow(key);
 
     if (!cursor.isNull(columnIndex))
@@ -55,11 +57,13 @@ public class PduHeadersBuilder {
   }
 
   public void addText(String key, int headersKey) {
+	Log.d("PduHeadersBuilder", "void addText(String key, int headersKey)");
     String value = cursor.getString(cursor.getColumnIndexOrThrow(key));
     if (value != null && value.trim().length() > 0)
       headers.setTextString(getBytes(value), headersKey);
   }
   public void add(String key, String charsetKey, int headersKey) {
+	Log.d("PduHeadersBuilder", "void add(String key, String charsetKey, int headersKey)");
     String value = cursor.getString(cursor.getColumnIndexOrThrow(key));
 
     if (value != null && value.trim().length() > 0) {

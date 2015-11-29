@@ -76,6 +76,7 @@ public class AvatarDownloadJob extends MasterSecretJob {
 
   @Override
   public boolean onShouldRetryThrowable(Exception exception) {
+	Log.d(TAG, "boolean onShouldRetryThrowable(Exception exception)");
     if (exception instanceof IOException) return true;
     return false;
   }

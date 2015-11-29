@@ -41,6 +41,7 @@ public class SmsReceiveJob extends ContextJob {
 
   @Override
   public void onRun() {
+	Log.d(TAG, "void onRun()");
     Optional<IncomingTextMessage> message      = assembleMessageFragments(pdus);
     MasterSecret                  masterSecret = KeyCachingService.getMasterSecret(context);
 
@@ -62,11 +63,13 @@ public class SmsReceiveJob extends ContextJob {
 
   @Override
   public void onCanceled() {
+	Log.d(TAG, "void onCanceled()");
 
   }
 
   @Override
   public boolean onShouldRetry(Exception exception) {
+	Log.d(TAG, "boolean onShouldRetry(Exception exception)");
     return false;
   }
 

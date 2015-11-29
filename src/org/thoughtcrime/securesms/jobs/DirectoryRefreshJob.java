@@ -42,6 +42,7 @@ public class DirectoryRefreshJob extends ContextJob {
 
   @Override
   public boolean onShouldRetry(Exception exception) {
+	Log.d("DirectoryRefreshJob", "boolean onShouldRetry(Exception exception)");
     if (exception instanceof PushNetworkException) return true;
     return false;
   }

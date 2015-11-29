@@ -47,11 +47,13 @@ public class ApplicationMigrationService extends Service
 
   @Override
   public void onCreate() {
+	Log.d(TAG, "void onCreate()");
     registerCompletedReceiver();
   }
 
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
+	Log.d(TAG, "int onStartCommand(Intent intent, int flags, int startId)");
     if (intent == null) return START_NOT_STICKY;
 
     if (intent.getAction() != null && intent.getAction().equals(MIGRATE_DATABASE)) {
@@ -63,15 +65,18 @@ public class ApplicationMigrationService extends Service
 
   @Override
   public void onDestroy() {
+	Log.d(TAG, "void onDestroy()");
     unregisterCompletedReceiver();
   }
 
   @Override
   public IBinder onBind(Intent intent) {
+	Log.d(TAG, "IBinder onBind(Intent intent)");
     return binder;
   }
 
   public void setImportStateHandler(Handler handler) {
+	Log.d(TAG, "void setImportStateHandler(Handler handler)");
     this.handler = new WeakReference<>(handler);
   }
 
@@ -95,10 +100,12 @@ public class ApplicationMigrationService extends Service
 
   @Override
   public void progressUpdate(ProgressDescription progress) {
+	Log.d(TAG, "void progressUpdate(ProgressDescription progress)");
     setState(new ImportState(ImportState.STATE_MIGRATING_IN_PROGRESS, progress));
   }
 
   public ImportState getState() {
+	Log.d(TAG, "ImportState getState()");
     return state;
   }
 
@@ -152,6 +159,7 @@ public class ApplicationMigrationService extends Service
 
     @Override
     public void run() {
+	Log.d(TAG, "void run()");
       notification              = initializeBackgroundNotification();
       PowerManager powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
       WakeLock     wakeLock     = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Migration");
@@ -179,6 +187,7 @@ public class ApplicationMigrationService extends Service
 
   public class ApplicationMigrationBinder extends Binder {
     public ApplicationMigrationService getService() {
+	Log.d(TAG, "ApplicationMigrationService getService()");
       return ApplicationMigrationService.this;
     }
   }
@@ -186,6 +195,7 @@ public class ApplicationMigrationService extends Service
   private static class CompletedReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+	Log.d(TAG, "void onReceive(Context context, Intent intent)");
       NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
       builder.setSmallIcon(R.drawable.icon_notification);
       builder.setContentTitle("Import Complete");
@@ -216,11 +226,13 @@ public class ApplicationMigrationService extends Service
   }
 
   public static boolean isDatabaseImported(Context context) {
+	Log.d(TAG, "boolean isDatabaseImported(Context context)");
     return context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
               .getBoolean(DATABASE_MIGRATED, false);
   }
 
   public static void setDatabaseImported(Context context) {
+	Log.d(TAG, "void setDatabaseImported(Context context)");
     context.getSharedPreferences(PREFERENCES_NAME, 0).edit().putBoolean(DATABASE_MIGRATED, true).apply();
   }
 }

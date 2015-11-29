@@ -56,6 +56,7 @@ public class MediaUtil {
   }
 
   public static Slide getSlideForAttachment(Context context, Attachment attachment) {
+	Log.d(TAG, "Slide getSlideForAttachment(Context context, Attachment attachment)");
     Slide slide = null;
     if (isGif(attachment.getContentType())) {
       slide = new GifSlide(context, attachment);
@@ -96,22 +97,27 @@ public class MediaUtil {
   }
 
   public static boolean isGif(String contentType) {
+	Log.d(TAG, "boolean isGif(String contentType)");
     return !TextUtils.isEmpty(contentType) && contentType.trim().equals("image/gif");
   }
 
   public static boolean isGif(Attachment attachment) {
+	Log.d(TAG, "boolean isGif(Attachment attachment)");
     return isGif(attachment.getContentType());
   }
 
   public static boolean isImage(Attachment attachment) {
+	Log.d(TAG, "boolean isImage(Attachment attachment)");
     return ContentType.isImageType(attachment.getContentType());
   }
 
   public static boolean isAudio(Attachment attachment) {
+	Log.d(TAG, "boolean isAudio(Attachment attachment)");
     return ContentType.isAudioType(attachment.getContentType());
   }
 
   public static boolean isVideo(Attachment attachment) {
+	Log.d(TAG, "boolean isVideo(Attachment attachment)");
     return ContentType.isVideoType(attachment.getContentType());
   }
 
@@ -130,14 +136,17 @@ public class MediaUtil {
     }
 
     public Bitmap getBitmap() {
+	Log.d(TAG, "Bitmap getBitmap()");
       return bitmap;
     }
 
     public float getAspectRatio() {
+	Log.d(TAG, "float getAspectRatio()");
       return aspectRatio;
     }
 
     public InputStream toDataStream() {
+	Log.d(TAG, "InputStream toDataStream()");
       return BitmapUtil.toCompressedJpeg(bitmap);
     }
   }

@@ -96,10 +96,12 @@ public class SmsSendtoActivity extends Activity {
     }
 
     public String getDestination() {
+	Log.d(TAG, "String getDestination()");
       return destination;
     }
 
     public String getBody() {
+	Log.d(TAG, "String getBody()");
       return body;
     }
   }

@@ -13,6 +13,7 @@ import ws.com.google.android.mms.pdu.PduPart;
 
 public class PartParser {
   public static String getMessageText(PduBody body) {
+	Log.d("PartParser", "String getMessageText(PduBody body)");
     String bodyText = null;
 
     for (int i=0;i<body.getPartsNum();i++) {
@@ -43,6 +44,7 @@ public class PartParser {
   }
 
   public static PduBody getSupportedMediaParts(PduBody body) {
+	Log.d("PartParser", "PduBody getSupportedMediaParts(PduBody body)");
     PduBody stripped = new PduBody();
 
     for (int i=0;i<body.getPartsNum();i++) {
@@ -55,6 +57,7 @@ public class PartParser {
   }
 
   public static int getSupportedMediaPartCount(PduBody body) {
+	Log.d("PartParser", "int getSupportedMediaPartCount(PduBody body)");
     int partCount = 0;
 
     for (int i=0;i<body.getPartsNum();i++) {
@@ -67,22 +70,27 @@ public class PartParser {
   }
 
   public static boolean isImage(PduPart part) {
+	Log.d("PartParser", "boolean isImage(PduPart part)");
     return ContentType.isImageType(Util.toIsoString(part.getContentType()));
   }
 
   public static boolean isAudio(PduPart part) {
+	Log.d("PartParser", "boolean isAudio(PduPart part)");
     return ContentType.isAudioType(Util.toIsoString(part.getContentType()));
   }
 
   public static boolean isVideo(PduPart part) {
+	Log.d("PartParser", "boolean isVideo(PduPart part)");
     return ContentType.isVideoType(Util.toIsoString(part.getContentType()));
   }
 
   public static boolean isText(PduPart part) {
+	Log.d("PartParser", "boolean isText(PduPart part)");
     return ContentType.isTextType(Util.toIsoString(part.getContentType()));
   }
 
   public static boolean isDisplayableMedia(PduPart part) {
+	Log.d("PartParser", "boolean isDisplayableMedia(PduPart part)");
     return isImage(part) || isAudio(part) || isVideo(part);
   }
 }

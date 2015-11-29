@@ -93,6 +93,7 @@ public class RecipientsEditor extends AppCompatMultiAutoCompleteTextView {
             }
 
             public void afterTextChanged(Editable s) {
+	Log.d("RecipientsEditor", "void afterTextChanged(Editable s)");
                 if (mAffected != null) {
                     for (Annotation a : mAffected) {
                         s.removeSpan(a);
@@ -106,6 +107,7 @@ public class RecipientsEditor extends AppCompatMultiAutoCompleteTextView {
 
     @Override
     public boolean enoughToFilter() {
+	Log.d("RecipientsEditor", "boolean enoughToFilter()");
         if (!super.enoughToFilter()) {
             return false;
         }
@@ -121,14 +123,17 @@ public class RecipientsEditor extends AppCompatMultiAutoCompleteTextView {
     }
 
     public int getRecipientCount() {
+	Log.d("RecipientsEditor", "int getRecipientCount()");
         return mTokenizer.getNumbers().size();
     }
 
     public List<String> getNumbers() {
+	Log.d("RecipientsEditor", "List<String> getNumbers()");
         return mTokenizer.getNumbers();
     }
 
     public Recipients constructContactsFromInput() {
+	Log.d("RecipientsEditor", "Recipients constructContactsFromInput()");
       return RecipientFactory.getRecipientsFromString(mContext, mTokenizer.getRawString(), false);
     }
 
@@ -144,6 +149,7 @@ public class RecipientsEditor extends AppCompatMultiAutoCompleteTextView {
     }
 
     public boolean hasValidRecipient(boolean isMms) {
+	Log.d("RecipientsEditor", "boolean hasValidRecipient(boolean isMms)");
         for (String number : mTokenizer.getNumbers()) {
             if (isValidAddress(number, isMms))
                 return true;
@@ -165,6 +171,7 @@ public class RecipientsEditor extends AppCompatMultiAutoCompleteTextView {
     }*/
 
     public String formatInvalidNumbers(boolean isMms) {
+	Log.d("RecipientsEditor", "String formatInvalidNumbers(boolean isMms)");
         StringBuilder sb = new StringBuilder();
         for (String number : mTokenizer.getNumbers()) {
             if (!isValidAddress(number, isMms)) {
@@ -190,6 +197,7 @@ public class RecipientsEditor extends AppCompatMultiAutoCompleteTextView {
     }*/
 
     public static CharSequence contactToToken(Recipient c) {
+	Log.d("RecipientsEditor", "CharSequence contactToToken(Recipient c)");
       String name       = c.getName();
       String number     = c.getNumber();
       SpannableString s = new SpannableString(RecipientsFormatter.formatNameAndNumber(name, number));
@@ -206,6 +214,7 @@ public class RecipientsEditor extends AppCompatMultiAutoCompleteTextView {
     }
 
     public void populate(Recipients list) {
+	Log.d("RecipientsEditor", "void populate(Recipients list)");
         SpannableStringBuilder sb = new SpannableStringBuilder();
 
         for (Recipient c : list.getRecipientsList()) {
@@ -239,6 +248,7 @@ public class RecipientsEditor extends AppCompatMultiAutoCompleteTextView {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+	Log.d("RecipientsEditor", "boolean onTouchEvent(MotionEvent ev)");
         final int action = ev.getAction();
         final int x = (int) ev.getX();
         final int y = (int) ev.getY();
@@ -305,6 +315,7 @@ public class RecipientsEditor extends AppCompatMultiAutoCompleteTextView {
          * It is a method from the MultiAutoCompleteTextView.Tokenizer interface.
          */
         public int findTokenStart(CharSequence text, int cursor) {
+	Log.d("RecipientsEditor", "int findTokenStart(CharSequence text, int cursor)");
             int i = cursor;
             char c;
 
@@ -324,6 +335,7 @@ public class RecipientsEditor extends AppCompatMultiAutoCompleteTextView {
          * It is a method from the MultiAutoCompleteTextView.Tokenizer interface.
          */
         public int findTokenEnd(CharSequence text, int cursor) {
+	Log.d("RecipientsEditor", "int findTokenEnd(CharSequence text, int cursor)");
             int i = cursor;
             int len = text.length();
             char c;
@@ -345,6 +357,7 @@ public class RecipientsEditor extends AppCompatMultiAutoCompleteTextView {
          * It is a method from the MultiAutoCompleteTextView.Tokenizer interface.
          */
         public CharSequence terminateToken(CharSequence text) {
+	Log.d("RecipientsEditor", "CharSequence terminateToken(CharSequence text)");
             int i = text.length();
 
             while (i > 0 && text.charAt(i - 1) == ' ') {
@@ -369,9 +382,11 @@ public class RecipientsEditor extends AppCompatMultiAutoCompleteTextView {
             }
         }
         public String getRawString() {
+	Log.d("RecipientsEditor", "String getRawString()");
         	return mList.getText().toString();
         }
         public List<String> getNumbers() {
+	Log.d("RecipientsEditor", "List<String> getNumbers()");
             Spanned sp = mList.getText();
             int len = sp.length();
             List<String> list = new ArrayList<String>();

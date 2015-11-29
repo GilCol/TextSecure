@@ -50,6 +50,7 @@ public class PassphraseChangeActivity extends PassphraseActivity {
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
+	Log.d("PassphraseChangeActivit", "void onCreate(Bundle savedInstanceState)");
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.change_passphrase_activity);
@@ -108,12 +109,14 @@ public class PassphraseChangeActivity extends PassphraseActivity {
 
   private class CancelButtonClickListener implements OnClickListener {
     public void onClick(View v) {
+	Log.d("PassphraseChangeActivit", "void onClick(View v)");
       finish();
     }
   }
 
   private class OkButtonClickListener implements OnClickListener {
     public void onClick(View v) {
+	Log.d("PassphraseChangeActivit", "void onClick(View v)");
       verifyAndSavePassphrases();
     }
   }

@@ -149,6 +149,7 @@ public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTa
   }
 
   public static void showWarningDialog(Context context, OnClickListener onAcceptListener) {
+	Log.d(TAG, "void showWarningDialog(Context context, OnClickListener onAcceptListener)");
     AlertDialogWrapper.Builder builder = new AlertDialogWrapper.Builder(context);
     builder.setTitle(R.string.ConversationFragment_save_to_sd_card);
     builder.setIconAttribute(R.attr.dialog_alert_icon);
@@ -159,4 +160,3 @@ public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTa
     builder.show();
   }
 }
-

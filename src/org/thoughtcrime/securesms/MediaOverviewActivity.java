@@ -83,6 +83,7 @@ public class MediaOverviewActivity extends PassphraseRequiredActionBarActivity i
 
   @Override
   public void onConfigurationChanged(Configuration newConfig) {
+	Log.d("MediaOverviewActivity", "void onConfigurationChanged(Configuration newConfig)");
     super.onConfigurationChanged(newConfig);
     if (gridManager != null) gridManager.setSpanCount(getResources().getInteger(R.integer.media_overview_cols));
   }
@@ -99,6 +100,7 @@ public class MediaOverviewActivity extends PassphraseRequiredActionBarActivity i
 
   @Override
   public void onResume() {
+	Log.d("MediaOverviewActivity", "void onResume()");
     super.onResume();
     dynamicLanguage.onResume(this);
   }
@@ -111,6 +113,7 @@ public class MediaOverviewActivity extends PassphraseRequiredActionBarActivity i
 
   @Override
   public void onPause() {
+	Log.d("MediaOverviewActivity", "void onPause()");
     super.onPause();
   }
 
@@ -129,6 +132,7 @@ public class MediaOverviewActivity extends PassphraseRequiredActionBarActivity i
       recipient.addListener(new RecipientModifiedListener() {
         @Override
         public void onModified(Recipient recipient) {
+	Log.d("MediaOverviewActivity", "void onModified(Recipient recipient)");
           initializeActionBar();
         }
       });
@@ -139,6 +143,7 @@ public class MediaOverviewActivity extends PassphraseRequiredActionBarActivity i
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
+	Log.d("MediaOverviewActivity", "boolean onOptionsItemSelected(MenuItem item)");
     super.onOptionsItemSelected(item);
 
     switch (item.getItemId()) {
@@ -150,11 +155,13 @@ public class MediaOverviewActivity extends PassphraseRequiredActionBarActivity i
 
   @Override
   public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+	Log.d("MediaOverviewActivity", "Loader<Cursor> onCreateLoader(int i, Bundle bundle)");
     return new ThreadMediaLoader(this, threadId);
   }
 
   @Override
   public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+	Log.d("MediaOverviewActivity", "void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor)");
     Log.w(TAG, "onLoadFinished()");
     gridView.setAdapter(new ImageMediaAdapter(this, masterSecret, cursor));
     noImages.setVisibility(gridView.getAdapter().getItemCount() > 0 ? View.GONE : View.VISIBLE);
@@ -162,6 +169,7 @@ public class MediaOverviewActivity extends PassphraseRequiredActionBarActivity i
 
   @Override
   public void onLoaderReset(Loader<Cursor> cursorLoader) {
+	Log.d("MediaOverviewActivity", "void onLoaderReset(Loader<Cursor> cursorLoader)");
     ((CursorRecyclerViewAdapter)gridView.getAdapter()).changeCursor(null);
   }
 
@@ -175,6 +183,7 @@ public class MediaOverviewActivity extends PassphraseRequiredActionBarActivity i
 
     @Override
     public Cursor getCursor() {
+	Log.d("MediaOverviewActivity", "Cursor getCursor()");
       return DatabaseFactory.getImageDatabase(getContext()).getImagesForThread(threadId);
     }
   }

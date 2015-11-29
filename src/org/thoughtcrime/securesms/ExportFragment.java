@@ -31,11 +31,13 @@ public class ExportFragment extends Fragment {
   private MasterSecret masterSecret;
 
   public void setMasterSecret(MasterSecret masterSecret) {
+	Log.d("ExportFragment", "void setMasterSecret(MasterSecret masterSecret)");
     this.masterSecret = masterSecret;
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
+	Log.d("ExportFragment", "View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle)");
     View layout              = inflater.inflate(R.layout.export_fragment, container, false);
 //    View exportEncryptedView = layout.findViewById(R.id.export_encrypted_backup);
     View exportPlaintextView = layout.findViewById(R.id.export_plaintext_backup);
@@ -50,6 +52,7 @@ public class ExportFragment extends Fragment {
     exportPlaintextView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+	Log.d("ExportFragment", "void onClick(View v)");
         handleExportPlaintextBackup();
       }
     });
@@ -80,6 +83,7 @@ public class ExportFragment extends Fragment {
     builder.setPositiveButton(getActivity().getString(R.string.ExportFragment_export), new Dialog.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialog, int which) {
+	Log.d("ExportFragment", "void onClick(DialogInterface dialog, int which)");
         new ExportPlaintextTask().execute();
       }
     });

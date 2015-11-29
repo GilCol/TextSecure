@@ -94,6 +94,7 @@ public class RegistrationProgressActivity extends BaseActionBarActivity {
 
   @Override
   public void onCreate(Bundle bundle) {
+	Log.d(TAG, "void onCreate(Bundle bundle)");
     super.onCreate(bundle);
     getSupportActionBar().setTitle(getString(R.string.RegistrationProgressActivity_verifying_number));
     setContentView(R.layout.registration_progress_activity);
@@ -105,24 +106,28 @@ public class RegistrationProgressActivity extends BaseActionBarActivity {
 
   @Override
   public void onDestroy() {
+	Log.d(TAG, "void onDestroy()");
     super.onDestroy();
     shutdownServiceBinding();
   }
 
   @Override
   public void onResume() {
+	Log.d(TAG, "void onResume()");
     super.onResume();
     handleActivityVisible();
   }
 
   @Override
   public void onPause() {
+	Log.d(TAG, "void onPause()");
     super.onPause();
     handleActivityNotVisible();
   }
 
   @Override
   public void onBackPressed() {
+	Log.d(TAG, "void onBackPressed()");
 
   }
 
@@ -172,6 +177,7 @@ public class RegistrationProgressActivity extends BaseActionBarActivity {
     spannableString.setSpan(new ClickableSpan() {
       @Override
       public void onClick(View widget) {
+	Log.d(TAG, "void onClick(View widget)");
         new MaterialDialog.Builder(RegistrationProgressActivity.this)
             .title(R.string.RegistrationProblemsActivity_possible_problems)
             .customView(R.layout.registration_problems, true)
@@ -384,6 +390,7 @@ public class RegistrationProgressActivity extends BaseActionBarActivity {
   private class RegistrationServiceConnection implements ServiceConnection {
     @Override
     public void onServiceConnected(ComponentName className, IBinder service) {
+	Log.d(TAG, "void onServiceConnected(ComponentName className, IBinder service)");
       registrationService  = ((RegistrationService.RegistrationServiceBinder)service).getService();
       registrationService.setRegistrationStateHandler(registrationStateHandler);
 
@@ -395,6 +402,7 @@ public class RegistrationProgressActivity extends BaseActionBarActivity {
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
+	Log.d(TAG, "void onServiceDisconnected(ComponentName name)");
       registrationService.setRegistrationStateHandler(null);
     }
   }
@@ -402,6 +410,7 @@ public class RegistrationProgressActivity extends BaseActionBarActivity {
   private class RegistrationStateHandler extends Handler {
     @Override
     public void handleMessage(Message message) {
+	Log.d(TAG, "void handleMessage(Message message)");
       RegistrationState state = (RegistrationState)message.obj;
 
       switch (message.what) {
@@ -424,6 +433,7 @@ public class RegistrationProgressActivity extends BaseActionBarActivity {
   private class EditButtonListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
+	Log.d(TAG, "void onClick(View v)");
       shutdownService();
 
       Intent activityIntent = new Intent(RegistrationProgressActivity.this, RegistrationActivity.class);
@@ -436,6 +446,7 @@ public class RegistrationProgressActivity extends BaseActionBarActivity {
   private static class RegistrationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+	Log.d(TAG, "void onReceive(Context context, Intent intent)");
       abortBroadcast();
     }
   }
@@ -464,6 +475,7 @@ public class RegistrationProgressActivity extends BaseActionBarActivity {
 
     @Override
     public void onClick(View v) {
+	Log.d(TAG, "void onClick(View v)");
       final String code = codeEditText.getText().toString();
 
       if (TextUtils.isEmpty(code)) {
@@ -559,6 +571,7 @@ public class RegistrationProgressActivity extends BaseActionBarActivity {
 
     @Override
     public void onClick(View v) {
+	Log.d(TAG, "void onClick(View v)");
       new AsyncTask<Void, Void, Integer>() {
         private ProgressDialog progressDialog;
 
@@ -587,6 +600,7 @@ public class RegistrationProgressActivity extends BaseActionBarActivity {
               new Handler().postDelayed(new Runnable(){
                 @Override
                 public void run() {
+	Log.d(TAG, "void run()");
                   callButton.setEnabled(true);
                 }
               }, 15000);

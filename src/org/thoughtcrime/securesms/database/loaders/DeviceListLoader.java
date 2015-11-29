@@ -27,6 +27,7 @@ public class DeviceListLoader extends AsyncTaskLoader<List<DeviceInfo>> {
 
   @Override
   public List<DeviceInfo> loadInBackground() {
+	Log.d(TAG, "List<DeviceInfo> loadInBackground()");
     try {
       List<DeviceInfo>     devices  = accountManager.getDevices();
       Iterator<DeviceInfo> iterator = devices.iterator();
@@ -50,6 +51,7 @@ public class DeviceListLoader extends AsyncTaskLoader<List<DeviceInfo>> {
 
     @Override
     public int compare(DeviceInfo lhs, DeviceInfo rhs) {
+	Log.d(TAG, "int compare(DeviceInfo lhs, DeviceInfo rhs)");
       if      (lhs.getCreated() < rhs.getCreated())  return -1;
       else if (lhs.getCreated() != rhs.getCreated()) return 1;
       else                                           return 0;

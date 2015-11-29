@@ -36,6 +36,7 @@ public class PushDatabase extends Database {
   }
 
   public long insert(@NonNull TextSecureEnvelope envelope) {
+	Log.d(TAG, "long insert(@NonNull TextSecureEnvelope envelope)");
     Optional<Long> messageId = find(envelope);
 
     if (messageId.isPresent()) {
@@ -85,14 +86,17 @@ public class PushDatabase extends Database {
   }
 
   public Cursor getPending() {
+	Log.d(TAG, "Cursor getPending()");
     return databaseHelper.getReadableDatabase().query(TABLE_NAME, null, null, null, null, null, null);
   }
 
   public void delete(long id) {
+	Log.d(TAG, "void delete(long id)");
     databaseHelper.getWritableDatabase().delete(TABLE_NAME, ID_WHERE, new String[] {id+""});
   }
 
   public Reader readerFor(Cursor cursor) {
+	Log.d(TAG, "Reader readerFor(Cursor cursor)");
     return new Reader(cursor);
   }
 
@@ -130,6 +134,7 @@ public class PushDatabase extends Database {
     }
 
     public TextSecureEnvelope getNext() {
+	Log.d(TAG, "TextSecureEnvelope getNext()");
       try {
         if (cursor == null || !cursor.moveToNext())
           return null;
@@ -150,6 +155,7 @@ public class PushDatabase extends Database {
     }
 
     public void close() {
+	Log.d(TAG, "void close()");
       this.cursor.close();
     }
   }

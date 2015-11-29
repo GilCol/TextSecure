@@ -94,6 +94,7 @@ public class DatabaseFactory {
   private final ContactsDatabase contactsDatabase;
 
   public static DatabaseFactory getInstance(Context context) {
+	Log.d("DatabaseFactory", "DatabaseFactory getInstance(Context context)");
     synchronized (lock) {
       if (instance == null)
         instance = new DatabaseFactory(context.getApplicationContext());
@@ -103,62 +104,77 @@ public class DatabaseFactory {
   }
 
   public static MmsSmsDatabase getMmsSmsDatabase(Context context) {
+	Log.d("DatabaseFactory", "MmsSmsDatabase getMmsSmsDatabase(Context context)");
     return getInstance(context).mmsSmsDatabase;
   }
 
   public static ThreadDatabase getThreadDatabase(Context context) {
+	Log.d("DatabaseFactory", "ThreadDatabase getThreadDatabase(Context context)");
     return getInstance(context).thread;
   }
 
   public static SmsDatabase getSmsDatabase(Context context) {
+	Log.d("DatabaseFactory", "SmsDatabase getSmsDatabase(Context context)");
     return getInstance(context).sms;
   }
 
   public static MmsDatabase getMmsDatabase(Context context) {
+	Log.d("DatabaseFactory", "MmsDatabase getMmsDatabase(Context context)");
     return getInstance(context).mms;
   }
 
   public static CanonicalAddressDatabase getAddressDatabase(Context context) {
+	Log.d("DatabaseFactory", "CanonicalAddressDatabase getAddressDatabase(Context context)");
     return getInstance(context).address;
   }
 
   public static EncryptingSmsDatabase getEncryptingSmsDatabase(Context context) {
+	Log.d("DatabaseFactory", "EncryptingSmsDatabase getEncryptingSmsDatabase(Context context)");
     return getInstance(context).encryptingSms;
   }
 
   public static AttachmentDatabase getAttachmentDatabase(Context context) {
+	Log.d("DatabaseFactory", "AttachmentDatabase getAttachmentDatabase(Context context)");
     return getInstance(context).attachments;
   }
 
   public static ImageDatabase getImageDatabase(Context context) {
+	Log.d("DatabaseFactory", "ImageDatabase getImageDatabase(Context context)");
     return getInstance(context).image;
   }
 
   public static MmsAddressDatabase getMmsAddressDatabase(Context context) {
+	Log.d("DatabaseFactory", "MmsAddressDatabase getMmsAddressDatabase(Context context)");
     return getInstance(context).mmsAddress;
   }
 
   public static IdentityDatabase getIdentityDatabase(Context context) {
+	Log.d("DatabaseFactory", "IdentityDatabase getIdentityDatabase(Context context)");
     return getInstance(context).identityDatabase;
   }
 
   public static DraftDatabase getDraftDatabase(Context context) {
+	Log.d("DatabaseFactory", "DraftDatabase getDraftDatabase(Context context)");
     return getInstance(context).draftDatabase;
   }
 
   public static PushDatabase getPushDatabase(Context context) {
+	Log.d("DatabaseFactory", "PushDatabase getPushDatabase(Context context)");
     return getInstance(context).pushDatabase;
   }
 
   public static GroupDatabase getGroupDatabase(Context context) {
+	Log.d("DatabaseFactory", "GroupDatabase getGroupDatabase(Context context)");
     return getInstance(context).groupDatabase;
   }
 
   public static RecipientPreferenceDatabase getRecipientPreferenceDatabase(Context context) {
+	Log.d("DatabaseFactory", "RecipientPreferenceDatabase getRecipientPreferenceDatabase(Context context)");
     return getInstance(context).recipientPreferenceDatabase;
   }
 
   public static ContactsDatabase getContactsDatabase(Context context) {
+	Log.d("DatabaseFactory", "ContactsDatabase getContactsDatabase(Context context)");
     return getInstance(context).contactsDatabase;
   }
 
@@ -182,6 +198,7 @@ public class DatabaseFactory {
   }
 
   public void reset(Context context) {
+	Log.d("DatabaseFactory", "void reset(Context context)");
     DatabaseHelper old = this.databaseHelper;
     this.databaseHelper = new DatabaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
 
@@ -498,6 +515,7 @@ public class DatabaseFactory {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+	Log.d("DatabaseFactory", "void onCreate(SQLiteDatabase db)");
       db.execSQL(SmsDatabase.CREATE_TABLE);
       db.execSQL(MmsDatabase.CREATE_TABLE);
       db.execSQL(AttachmentDatabase.CREATE_TABLE);
@@ -520,6 +538,7 @@ public class DatabaseFactory {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+	Log.d("DatabaseFactory", "void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)");
       db.beginTransaction();
 
       if (oldVersion < INTRODUCED_IDENTITIES_VERSION) {

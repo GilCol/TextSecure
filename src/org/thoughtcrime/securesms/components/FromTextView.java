@@ -30,14 +30,17 @@ public class FromTextView extends EmojiTextView {
   }
 
   public void setText(Recipient recipient) {
+	Log.d(TAG, "void setText(Recipient recipient)");
     setText(RecipientFactory.getRecipientsFor(getContext(), recipient, true));
   }
 
   public void setText(Recipients recipients) {
+	Log.d(TAG, "void setText(Recipients recipients)");
     setText(recipients, true);
   }
 
   public void setText(Recipients recipients, boolean read) {
+	Log.d(TAG, "void setText(Recipients recipients, boolean read)");
     int        attributes[]   = new int[]{R.attr.conversation_list_item_count_color};
     TypedArray colors         = getContext().obtainStyledAttributes(attributes);
     boolean    isUnnamedGroup = recipients.isGroupRecipient() && TextUtils.isEmpty(recipients.getPrimaryRecipient().getName());

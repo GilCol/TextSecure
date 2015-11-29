@@ -41,6 +41,7 @@ public class PushContentReceiveJob extends PushReceivedJob {
 
   @Override
   public void onRun() {
+	Log.d(TAG, "void onRun()");
     try {
       String             sessionKey = TextSecurePreferences.getSignalingKey(context);
       TextSecureEnvelope envelope   = new TextSecureEnvelope(data, sessionKey);
@@ -53,11 +54,13 @@ public class PushContentReceiveJob extends PushReceivedJob {
 
   @Override
   public void onCanceled() {
+	Log.d(TAG, "void onCanceled()");
 
   }
 
   @Override
   public boolean onShouldRetry(Exception exception) {
+	Log.d(TAG, "boolean onShouldRetry(Exception exception)");
     return false;
   }
 }

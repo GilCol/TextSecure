@@ -94,46 +94,57 @@ public class TextSecurePreferences {
   private static final String MULTI_DEVICE_PROVISIONED_PREF    = "pref_multi_device";
 
   public static void setMultiDevice(Context context, boolean value) {
+	Log.d(TAG, "void setMultiDevice(Context context, boolean value)");
     setBooleanPreference(context, MULTI_DEVICE_PROVISIONED_PREF, value);
   }
 
   public static boolean isMultiDevice(Context context) {
+	Log.d(TAG, "boolean isMultiDevice(Context context)");
     return getBooleanPreference(context, MULTI_DEVICE_PROVISIONED_PREF, false);
   }
 
   public static NotificationPrivacyPreference getNotificationPrivacy(Context context) {
+	Log.d(TAG, "NotificationPrivacyPreference getNotificationPrivacy(Context context)");
     return new NotificationPrivacyPreference(getStringPreference(context, NOTIFICATION_PRIVACY_PREF, "all"));
   }
 
   public static long getRatingLaterTimestamp(Context context) {
+	Log.d(TAG, "long getRatingLaterTimestamp(Context context)");
     return getLongPreference(context, RATING_LATER_PREF, 0);
   }
 
   public static void setRatingLaterTimestamp(Context context, long timestamp) {
+	Log.d(TAG, "void setRatingLaterTimestamp(Context context, long timestamp)");
     setLongPreference(context, RATING_LATER_PREF, timestamp);
   }
 
   public static boolean isRatingEnabled(Context context) {
+	Log.d(TAG, "boolean isRatingEnabled(Context context)");
     return getBooleanPreference(context, RATING_ENABLED_PREF, true);
   }
 
   public static void setRatingEnabled(Context context, boolean enabled) {
+	Log.d(TAG, "void setRatingEnabled(Context context, boolean enabled)");
     setBooleanPreference(context, RATING_ENABLED_PREF, enabled);
   }
 
   public static boolean isWebsocketRegistered(Context context) {
+	Log.d(TAG, "boolean isWebsocketRegistered(Context context)");
     return getBooleanPreference(context, WEBSOCKET_REGISTERED_PREF, false);
   }
 
   public static void setWebsocketRegistered(Context context, boolean registered) {
+	Log.d(TAG, "void setWebsocketRegistered(Context context, boolean registered)");
     setBooleanPreference(context, WEBSOCKET_REGISTERED_PREF, registered);
   }
 
   public static boolean isWifiSmsEnabled(Context context) {
+	Log.d(TAG, "boolean isWifiSmsEnabled(Context context)");
     return getBooleanPreference(context, WIFI_SMS_PREF, false);
   }
 
   public static int getRepeatAlertsCount(Context context) {
+	Log.d(TAG, "int getRepeatAlertsCount(Context context)");
     try {
       return Integer.parseInt(getStringPreference(context, REPEAT_ALERTS_PREF, "0"));
     } catch (NumberFormatException e) {
@@ -143,23 +154,28 @@ public class TextSecurePreferences {
   }
 
   public static void setRepeatAlertsCount(Context context, int count) {
+	Log.d(TAG, "void setRepeatAlertsCount(Context context, int count)");
     setStringPreference(context, REPEAT_ALERTS_PREF, String.valueOf(count));
   }
 
   public static boolean isSignedPreKeyRegistered(Context context) {
+	Log.d(TAG, "boolean isSignedPreKeyRegistered(Context context)");
     return getBooleanPreference(context, SIGNED_PREKEY_REGISTERED_PREF, false);
   }
 
   public static void setSignedPreKeyRegistered(Context context, boolean value) {
+	Log.d(TAG, "void setSignedPreKeyRegistered(Context context, boolean value)");
     setBooleanPreference(context, SIGNED_PREKEY_REGISTERED_PREF, value);
   }
 
   public static void setGcmRegistrationId(Context context, String registrationId) {
+	Log.d(TAG, "void setGcmRegistrationId(Context context, String registrationId)");
     setStringPreference(context, GCM_REGISTRATION_ID_PREF, registrationId);
     setIntegerPrefrence(context, GCM_REGISTRATION_ID_VERSION_PREF, Util.getCurrentApkReleaseVersion(context));
   }
 
   public static String getGcmRegistrationId(Context context) {
+	Log.d(TAG, "String getGcmRegistrationId(Context context)");
     int storedRegistrationIdVersion = getIntegerPreference(context, GCM_REGISTRATION_ID_VERSION_PREF, 0);
 
     if (storedRegistrationIdVersion != Util.getCurrentApkReleaseVersion(context)) {
@@ -170,6 +186,7 @@ public class TextSecurePreferences {
   }
 
   public static boolean isSmsEnabled(Context context) {
+	Log.d(TAG, "boolean isSmsEnabled(Context context)");
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
       return Util.isDefaultSmsProvider(context);
     } else {
@@ -178,151 +195,187 @@ public class TextSecurePreferences {
   }
 
   public static int getLocalRegistrationId(Context context) {
+	Log.d(TAG, "int getLocalRegistrationId(Context context)");
     return getIntegerPreference(context, LOCAL_REGISTRATION_ID_PREF, 0);
   }
 
   public static void setLocalRegistrationId(Context context, int registrationId) {
+	Log.d(TAG, "void setLocalRegistrationId(Context context, int registrationId)");
     setIntegerPrefrence(context, LOCAL_REGISTRATION_ID_PREF, registrationId);
   }
 
   public static boolean isInThreadNotifications(Context context) {
+	Log.d(TAG, "boolean isInThreadNotifications(Context context)");
     return getBooleanPreference(context, IN_THREAD_NOTIFICATION_PREF, true);
   }
 
   public static long getDirectoryRefreshTime(Context context) {
+	Log.d(TAG, "long getDirectoryRefreshTime(Context context)");
     return getLongPreference(context, DIRECTORY_FRESH_TIME_PREF, 0L);
   }
 
   public static void setDirectoryRefreshTime(Context context, long value) {
+	Log.d(TAG, "void setDirectoryRefreshTime(Context context, long value)");
     setLongPreference(context, DIRECTORY_FRESH_TIME_PREF, value);
   }
 
   public static String getLocalNumber(Context context) {
+	Log.d(TAG, "String getLocalNumber(Context context)");
     return getStringPreference(context, LOCAL_NUMBER_PREF, "No Stored Number");
   }
 
   public static void setLocalNumber(Context context, String localNumber) {
+	Log.d(TAG, "void setLocalNumber(Context context, String localNumber)");
     setStringPreference(context, LOCAL_NUMBER_PREF, localNumber);
   }
 
   public static String getPushServerPassword(Context context) {
+	Log.d(TAG, "String getPushServerPassword(Context context)");
     return getStringPreference(context, GCM_PASSWORD_PREF, null);
   }
 
   public static void setPushServerPassword(Context context, String password) {
+	Log.d(TAG, "void setPushServerPassword(Context context, String password)");
     setStringPreference(context, GCM_PASSWORD_PREF, password);
   }
 
   public static void setSignalingKey(Context context, String signalingKey) {
+	Log.d(TAG, "void setSignalingKey(Context context, String signalingKey)");
     setStringPreference(context, SIGNALING_KEY_PREF, signalingKey);
   }
 
   public static String getSignalingKey(Context context) {
+	Log.d(TAG, "String getSignalingKey(Context context)");
     return getStringPreference(context, SIGNALING_KEY_PREF, null);
   }
 
   public static boolean isEnterImeKeyEnabled(Context context) {
+	Log.d(TAG, "boolean isEnterImeKeyEnabled(Context context)");
     return getBooleanPreference(context, ENTER_PRESENT_PREF, false);
   }
 
   public static boolean isEnterSendsEnabled(Context context) {
+	Log.d(TAG, "boolean isEnterSendsEnabled(Context context)");
     return getBooleanPreference(context, ENTER_SENDS_PREF, false);
   }
 
   public static boolean isPasswordDisabled(Context context) {
+	Log.d(TAG, "boolean isPasswordDisabled(Context context)");
     return getBooleanPreference(context, DISABLE_PASSPHRASE_PREF, false);
   }
 
   public static void setPasswordDisabled(Context context, boolean disabled) {
+	Log.d(TAG, "void setPasswordDisabled(Context context, boolean disabled)");
     setBooleanPreference(context, DISABLE_PASSPHRASE_PREF, disabled);
   }
 
   public static boolean getUseCustomMmsc(Context context) {
+	Log.d(TAG, "boolean getUseCustomMmsc(Context context)");
     boolean legacy = TextSecurePreferences.isLegacyUseLocalApnsEnabled(context);
     return getBooleanPreference(context, MMSC_CUSTOM_HOST_PREF, legacy);
   }
 
   public static void setUseCustomMmsc(Context context, boolean value) {
+	Log.d(TAG, "void setUseCustomMmsc(Context context, boolean value)");
     setBooleanPreference(context, MMSC_CUSTOM_HOST_PREF, value);
   }
 
   public static String getMmscUrl(Context context) {
+	Log.d(TAG, "String getMmscUrl(Context context)");
     return getStringPreference(context, MMSC_HOST_PREF, "");
   }
 
   public static void setMmscUrl(Context context, String mmsc) {
+	Log.d(TAG, "void setMmscUrl(Context context, String mmsc)");
     setStringPreference(context, MMSC_HOST_PREF, mmsc);
   }
 
   public static boolean getUseCustomMmscProxy(Context context) {
+	Log.d(TAG, "boolean getUseCustomMmscProxy(Context context)");
     boolean legacy = TextSecurePreferences.isLegacyUseLocalApnsEnabled(context);
     return getBooleanPreference(context, MMSC_CUSTOM_PROXY_PREF, legacy);
   }
 
   public static void setUseCustomMmscProxy(Context context, boolean value) {
+	Log.d(TAG, "void setUseCustomMmscProxy(Context context, boolean value)");
     setBooleanPreference(context, MMSC_CUSTOM_PROXY_PREF, value);
   }
 
   public static String getMmscProxy(Context context) {
+	Log.d(TAG, "String getMmscProxy(Context context)");
     return getStringPreference(context, MMSC_PROXY_HOST_PREF, "");
   }
 
   public static void setMmscProxy(Context context, String value) {
+	Log.d(TAG, "void setMmscProxy(Context context, String value)");
     setStringPreference(context, MMSC_PROXY_HOST_PREF, value);
   }
 
   public static boolean getUseCustomMmscProxyPort(Context context) {
+	Log.d(TAG, "boolean getUseCustomMmscProxyPort(Context context)");
     boolean legacy = TextSecurePreferences.isLegacyUseLocalApnsEnabled(context);
     return getBooleanPreference(context, MMSC_CUSTOM_PROXY_PORT_PREF, legacy);
   }
 
   public static void setUseCustomMmscProxyPort(Context context, boolean value) {
+	Log.d(TAG, "void setUseCustomMmscProxyPort(Context context, boolean value)");
     setBooleanPreference(context, MMSC_CUSTOM_PROXY_PORT_PREF, value);
   }
 
   public static String getMmscProxyPort(Context context) {
+	Log.d(TAG, "String getMmscProxyPort(Context context)");
     return getStringPreference(context, MMSC_PROXY_PORT_PREF, "");
   }
 
   public static void setMmscProxyPort(Context context, String value) {
+	Log.d(TAG, "void setMmscProxyPort(Context context, String value)");
     setStringPreference(context, MMSC_PROXY_PORT_PREF, value);
   }
 
   public static boolean getUseCustomMmscUsername(Context context) {
+	Log.d(TAG, "boolean getUseCustomMmscUsername(Context context)");
     boolean legacy = TextSecurePreferences.isLegacyUseLocalApnsEnabled(context);
     return getBooleanPreference(context, MMSC_CUSTOM_USERNAME_PREF, legacy);
   }
 
   public static void setUseCustomMmscUsername(Context context, boolean value) {
+	Log.d(TAG, "void setUseCustomMmscUsername(Context context, boolean value)");
     setBooleanPreference(context, MMSC_CUSTOM_USERNAME_PREF, value);
   }
 
   public static String getMmscUsername(Context context) {
+	Log.d(TAG, "String getMmscUsername(Context context)");
     return getStringPreference(context, MMSC_USERNAME_PREF, "");
   }
 
   public static void setMmscUsername(Context context, String value) {
+	Log.d(TAG, "void setMmscUsername(Context context, String value)");
     setStringPreference(context, MMSC_USERNAME_PREF, value);
   }
 
   public static boolean getUseCustomMmscPassword(Context context) {
+	Log.d(TAG, "boolean getUseCustomMmscPassword(Context context)");
     boolean legacy = TextSecurePreferences.isLegacyUseLocalApnsEnabled(context);
     return getBooleanPreference(context, MMSC_CUSTOM_PASSWORD_PREF, legacy);
   }
 
   public static void setUseCustomMmscPassword(Context context, boolean value) {
+	Log.d(TAG, "void setUseCustomMmscPassword(Context context, boolean value)");
     setBooleanPreference(context, MMSC_CUSTOM_PASSWORD_PREF, value);
   }
 
   public static String getMmscPassword(Context context) {
+	Log.d(TAG, "String getMmscPassword(Context context)");
     return getStringPreference(context, MMSC_PASSWORD_PREF, "");
   }
 
   public static void setMmscPassword(Context context, String value) {
+	Log.d(TAG, "void setMmscPassword(Context context, String value)");
     setStringPreference(context, MMSC_PASSWORD_PREF, value);
   }
 
   public static String getMmsUserAgent(Context context, String defaultUserAgent) {
+	Log.d(TAG, "String getMmsUserAgent(Context context, String defaultUserAgent)");
     boolean useCustom = getBooleanPreference(context, MMS_CUSTOM_USER_AGENT, false);
 
     if (useCustom) return getStringPreference(context, MMS_USER_AGENT, defaultUserAgent);
@@ -330,22 +383,27 @@ public class TextSecurePreferences {
   }
 
   public static String getIdentityContactUri(Context context) {
+	Log.d(TAG, "String getIdentityContactUri(Context context)");
     return getStringPreference(context, IDENTITY_PREF, null);
   }
 
   public static void setIdentityContactUri(Context context, String identityUri) {
+	Log.d(TAG, "void setIdentityContactUri(Context context, String identityUri)");
     setStringPreference(context, IDENTITY_PREF, identityUri);
   }
 
   public static boolean isScreenSecurityEnabled(Context context) {
+	Log.d(TAG, "boolean isScreenSecurityEnabled(Context context)");
     return getBooleanPreference(context, SCREEN_SECURITY_PREF, true);
   }
 
   public static boolean isLegacyUseLocalApnsEnabled(Context context) {
+	Log.d(TAG, "boolean isLegacyUseLocalApnsEnabled(Context context)");
     return getBooleanPreference(context, ENABLE_MANUAL_MMS_PREF, false);
   }
 
   public static int getLastVersionCode(Context context) {
+	Log.d(TAG, "int getLastVersionCode(Context context)");
     return getIntegerPreference(context, LAST_VERSION_CODE_PREF, 0);
   }
 
@@ -356,127 +414,158 @@ public class TextSecurePreferences {
   }
 
   public static int getLastExperienceVersionCode(Context context) {
+	Log.d(TAG, "int getLastExperienceVersionCode(Context context)");
     return getIntegerPreference(context, LAST_EXPERIENCE_VERSION_PREF, 0);
   }
 
   public static void setLastExperienceVersionCode(Context context, int versionCode) {
+	Log.d(TAG, "void setLastExperienceVersionCode(Context context, int versionCode)");
     setIntegerPrefrence(context, LAST_EXPERIENCE_VERSION_PREF, versionCode);
   }
 
   public static String getTheme(Context context) {
+	Log.d(TAG, "String getTheme(Context context)");
     return getStringPreference(context, THEME_PREF, "light");
   }
 
   public static boolean isVerifying(Context context) {
+	Log.d(TAG, "boolean isVerifying(Context context)");
     return getBooleanPreference(context, VERIFYING_STATE_PREF, false);
   }
 
   public static void setVerifying(Context context, boolean verifying) {
+	Log.d(TAG, "void setVerifying(Context context, boolean verifying)");
     setBooleanPreference(context, VERIFYING_STATE_PREF, verifying);
   }
 
   public static boolean isPushRegistered(Context context) {
+	Log.d(TAG, "boolean isPushRegistered(Context context)");
     return getBooleanPreference(context, REGISTERED_GCM_PREF, false);
   }
 
   public static void setPushRegistered(Context context, boolean registered) {
+	Log.d(TAG, "void setPushRegistered(Context context, boolean registered)");
     Log.w("TextSecurePreferences", "Setting push registered: " + registered);
     setBooleanPreference(context, REGISTERED_GCM_PREF, registered);
   }
 
   public static boolean isPassphraseTimeoutEnabled(Context context) {
+	Log.d(TAG, "boolean isPassphraseTimeoutEnabled(Context context)");
     return getBooleanPreference(context, PASSPHRASE_TIMEOUT_PREF, false);
   }
 
   public static int getPassphraseTimeoutInterval(Context context) {
+	Log.d(TAG, "int getPassphraseTimeoutInterval(Context context)");
     return getIntegerPreference(context, PASSPHRASE_TIMEOUT_INTERVAL_PREF, 5 * 60);
   }
 
   public static void setPassphraseTimeoutInterval(Context context, int interval) {
+	Log.d(TAG, "void setPassphraseTimeoutInterval(Context context, int interval)");
     setIntegerPrefrence(context, PASSPHRASE_TIMEOUT_INTERVAL_PREF, interval);
   }
 
   public static String getLanguage(Context context) {
+	Log.d(TAG, "String getLanguage(Context context)");
     return getStringPreference(context, LANGUAGE_PREF, "zz");
   }
 
   public static void setLanguage(Context context, String language) {
+	Log.d(TAG, "void setLanguage(Context context, String language)");
     setStringPreference(context, LANGUAGE_PREF, language);
   }
 
   public static boolean isSmsDeliveryReportsEnabled(Context context) {
+	Log.d(TAG, "boolean isSmsDeliveryReportsEnabled(Context context)");
     return getBooleanPreference(context, SMS_DELIVERY_REPORT_PREF, false);
   }
 
   public static boolean hasPromptedPushRegistration(Context context) {
+	Log.d(TAG, "boolean hasPromptedPushRegistration(Context context)");
     return getBooleanPreference(context, PROMPTED_PUSH_REGISTRATION_PREF, false);
   }
 
   public static void setPromptedPushRegistration(Context context, boolean value) {
+	Log.d(TAG, "void setPromptedPushRegistration(Context context, boolean value)");
     setBooleanPreference(context, PROMPTED_PUSH_REGISTRATION_PREF, value);
   }
 
   public static boolean hasPromptedDefaultSmsProvider(Context context) {
+	Log.d(TAG, "boolean hasPromptedDefaultSmsProvider(Context context)");
     return getBooleanPreference(context, PROMPTED_DEFAULT_SMS_PREF, false);
   }
 
   public static void setPromptedDefaultSmsProvider(Context context, boolean value) {
+	Log.d(TAG, "void setPromptedDefaultSmsProvider(Context context, boolean value)");
     setBooleanPreference(context, PROMPTED_DEFAULT_SMS_PREF, value);
   }
 
   public static boolean hasPromptedShare(Context context) {
+	Log.d(TAG, "boolean hasPromptedShare(Context context)");
     return getBooleanPreference(context, PROMPTED_SHARE_PREF, false);
   }
 
   public static void setPromptedShare(Context context, boolean value) {
+	Log.d(TAG, "void setPromptedShare(Context context, boolean value)");
     setBooleanPreference(context, PROMPTED_SHARE_PREF, value);
   }
 
   public static boolean isInterceptAllMmsEnabled(Context context) {
+	Log.d(TAG, "boolean isInterceptAllMmsEnabled(Context context)");
     return getBooleanPreference(context, ALL_MMS_PREF, true);
   }
 
   public static boolean isInterceptAllSmsEnabled(Context context) {
+	Log.d(TAG, "boolean isInterceptAllSmsEnabled(Context context)");
     return getBooleanPreference(context, ALL_SMS_PREF, true);
   }
 
   public static boolean isNotificationsEnabled(Context context) {
+	Log.d(TAG, "boolean isNotificationsEnabled(Context context)");
     return getBooleanPreference(context, NOTIFICATION_PREF, true);
   }
 
   public static String getNotificationRingtone(Context context) {
+	Log.d(TAG, "String getNotificationRingtone(Context context)");
     return getStringPreference(context, RINGTONE_PREF, Settings.System.DEFAULT_NOTIFICATION_URI.toString());
   }
 
   public static boolean isNotificationVibrateEnabled(Context context) {
+	Log.d(TAG, "boolean isNotificationVibrateEnabled(Context context)");
     return getBooleanPreference(context, VIBRATE_PREF, true);
   }
 
   public static String getNotificationLedColor(Context context) {
+	Log.d(TAG, "String getNotificationLedColor(Context context)");
     return getStringPreference(context, LED_COLOR_PREF, "blue");
   }
 
   public static String getNotificationLedPattern(Context context) {
+	Log.d(TAG, "String getNotificationLedPattern(Context context)");
     return getStringPreference(context, LED_BLINK_PREF, "500,2000");
   }
 
   public static String getNotificationLedPatternCustom(Context context) {
+	Log.d(TAG, "String getNotificationLedPatternCustom(Context context)");
     return getStringPreference(context, LED_BLINK_PREF_CUSTOM, "500,2000");
   }
 
   public static void setNotificationLedPatternCustom(Context context, String pattern) {
+	Log.d(TAG, "void setNotificationLedPatternCustom(Context context, String pattern)");
     setStringPreference(context, LED_BLINK_PREF_CUSTOM, pattern);
   }
 
   public static boolean isThreadLengthTrimmingEnabled(Context context) {
+	Log.d(TAG, "boolean isThreadLengthTrimmingEnabled(Context context)");
     return getBooleanPreference(context, THREAD_TRIM_ENABLED, false);
   }
 
   public static int getThreadTrimLength(Context context) {
+	Log.d(TAG, "int getThreadTrimLength(Context context)");
     return Integer.parseInt(getStringPreference(context, THREAD_TRIM_LENGTH, "500"));
   }
 
   public static boolean isSystemEmojiPreferred(Context context) {
+	Log.d(TAG, "boolean isSystemEmojiPreferred(Context context)");
     return getBooleanPreference(context, SYSTEM_EMOJI_PREF, false);
   }
 
@@ -499,18 +588,22 @@ public class TextSecurePreferences {
   }
 
   public static void setBooleanPreference(Context context, String key, boolean value) {
+	Log.d(TAG, "void setBooleanPreference(Context context, String key, boolean value)");
     PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(key, value).apply();
   }
 
   public static boolean getBooleanPreference(Context context, String key, boolean defaultValue) {
+	Log.d(TAG, "boolean getBooleanPreference(Context context, String key, boolean defaultValue)");
     return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, defaultValue);
   }
 
   public static void setStringPreference(Context context, String key, String value) {
+	Log.d(TAG, "void setStringPreference(Context context, String key, String value)");
     PreferenceManager.getDefaultSharedPreferences(context).edit().putString(key, value).apply();
   }
 
   public static String getStringPreference(Context context, String key, String defaultValue) {
+	Log.d(TAG, "String getStringPreference(Context context, String key, String defaultValue)");
     return PreferenceManager.getDefaultSharedPreferences(context).getString(key, defaultValue);
   }
 

@@ -51,6 +51,7 @@ public class IdentityDatabase extends Database {
   }
 
   public Cursor getIdentities() {
+	Log.d("IdentityDatabase", "Cursor getIdentities()");
     SQLiteDatabase database = databaseHelper.getReadableDatabase();
     Cursor cursor           = database.query(TABLE_NAME, null, null, null, null, null, null);
 
@@ -106,6 +107,7 @@ public class IdentityDatabase extends Database {
   }
 
   public void deleteIdentity(long id) {
+	Log.d("IdentityDatabase", "void deleteIdentity(long id)");
     SQLiteDatabase database = databaseHelper.getWritableDatabase();
     database.delete(TABLE_NAME, ID_WHERE, new String[] {id+""});
 
@@ -113,6 +115,7 @@ public class IdentityDatabase extends Database {
   }
 
   public Reader readerFor(Cursor cursor) {
+	Log.d("IdentityDatabase", "Reader readerFor(Cursor cursor)");
     return new Reader(cursor);
   }
 
@@ -124,6 +127,7 @@ public class IdentityDatabase extends Database {
     }
 
     public Identity getCurrent() {
+	Log.d("IdentityDatabase", "Identity getCurrent()");
       long       recipientId = cursor.getLong(cursor.getColumnIndexOrThrow(RECIPIENT));
       Recipients recipients  = RecipientFactory.getRecipientsForIds(context, new long[]{recipientId}, true);
 
@@ -152,10 +156,12 @@ public class IdentityDatabase extends Database {
     }
 
     public Recipients getRecipients() {
+	Log.d("IdentityDatabase", "Recipients getRecipients()");
       return recipients;
     }
 
     public IdentityKey getIdentityKey() {
+	Log.d("IdentityDatabase", "IdentityKey getIdentityKey()");
       return identityKey;
     }
   }

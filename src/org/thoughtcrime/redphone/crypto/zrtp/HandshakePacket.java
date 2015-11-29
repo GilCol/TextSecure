@@ -168,17 +168,20 @@ public class HandshakePacket extends RtpPacket {
   }
 
   public boolean verifyCRC() {
+	Log.d("HandshakePacket", "boolean verifyCRC()");
     long myCRC    = calculateCRC(this.data, getPacketLength());
     long theirCRC = Conversions.byteArray4ToLong(this.data, getPacketLength()-4);
     return myCRC == theirCRC;
   }
 
   public void setCRC() {
+	Log.d("HandshakePacket", "void setCRC()");
     Conversions.longTo4ByteArray(this.data, getPacketLength()-4,
                                  calculateCRC(this.data, this.getPacketLength()));
   }
 
   public String getType() {
+	Log.d("HandshakePacket", "String getType()");
     if (this.data[PREFIX_OFFSET] != 0x10 && this.data[PREFIX_OFFSET] != 0x20) {
       return ConfAckPacket.TYPE;
     }
@@ -226,6 +229,7 @@ public class HandshakePacket extends RtpPacket {
   }
 
   public boolean isLegacyHeaderBugPresent() {
+	Log.d("HandshakePacket", "boolean isLegacyHeaderBugPresent()");
     return data[PREFIX_OFFSET] == LEGACY_HEADER_BUG_PREFIX_VALUE;
   }
 

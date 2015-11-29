@@ -38,15 +38,18 @@ public class IdentityKeyMismatch {
   }
 
   public long getRecipientId() {
+	Log.d(TAG, "long getRecipientId()");
     return recipientId;
   }
 
   public IdentityKey getIdentityKey() {
+	Log.d(TAG, "IdentityKey getIdentityKey()");
     return identityKey;
   }
 
   @Override
   public boolean equals(Object other) {
+	Log.d(TAG, "boolean equals(Object other)");
     if (other == null || !(other instanceof IdentityKeyMismatch)) {
       return false;
     }
@@ -57,6 +60,7 @@ public class IdentityKeyMismatch {
 
   @Override
   public int hashCode() {
+	Log.d(TAG, "int hashCode()");
     return (int)recipientId ^ identityKey.hashCode();
   }
 

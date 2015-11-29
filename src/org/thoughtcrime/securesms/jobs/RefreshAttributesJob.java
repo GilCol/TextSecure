@@ -50,11 +50,13 @@ public class RefreshAttributesJob extends ContextJob implements InjectableType {
 
   @Override
   public boolean onShouldRetry(Exception e) {
+	Log.d(TAG, "boolean onShouldRetry(Exception e)");
     return e instanceof NetworkFailureException;
   }
 
   @Override
   public void onCanceled() {
+	Log.d(TAG, "void onCanceled()");
     Log.w(TAG, "Failed to update account attributes!");
   }
 }

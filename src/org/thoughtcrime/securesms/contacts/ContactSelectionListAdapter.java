@@ -62,11 +62,13 @@ public class ContactSelectionListAdapter extends    CursorAdapter
 
   @Override
   public View newView(Context context, Cursor cursor, ViewGroup parent) {
+	Log.d("ContactSelectionListAda", "View newView(Context context, Cursor cursor, ViewGroup parent)");
     return li.inflate(R.layout.contact_selection_list_item, parent, false);
   }
 
   @Override
   public void bindView(View view, Context context, Cursor cursor) {
+	Log.d("ContactSelectionListAda", "void bindView(View view, Context context, Cursor cursor)");
     long   id          = cursor.getLong(cursor.getColumnIndexOrThrow(ContactsDatabase.ID_COLUMN));
     int    contactType = cursor.getInt(cursor.getColumnIndexOrThrow(ContactsDatabase.CONTACT_TYPE_COLUMN));
     String name        = cursor.getString(cursor.getColumnIndexOrThrow(ContactsDatabase.NAME_COLUMN));
@@ -87,6 +89,7 @@ public class ContactSelectionListAdapter extends    CursorAdapter
 
   @Override
   public View getHeaderView(int i, View convertView, ViewGroup viewGroup) {
+	Log.d("ContactSelectionListAda", "View getHeaderView(int i, View convertView, ViewGroup viewGroup)");
     Cursor cursor = getCursor();
 
     final TextView text;
@@ -108,6 +111,7 @@ public class ContactSelectionListAdapter extends    CursorAdapter
 
   @Override
   public long getHeaderId(int i) {
+	Log.d("ContactSelectionListAda", "long getHeaderId(int i)");
     Cursor cursor = getCursor();
     cursor.moveToPosition(i);
 

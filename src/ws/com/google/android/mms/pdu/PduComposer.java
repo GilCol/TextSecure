@@ -149,6 +149,7 @@ public class PduComposer {
      *         the PDU is invalid.
      */
     public byte[] make() {
+	Log.d("PduComposer", "byte[] make()");
         // Get Message-type.
         int type = mPdu.getMessageType();
 

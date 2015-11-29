@@ -59,6 +59,7 @@ public class ContactsCursorLoader extends CursorLoader {
 
   @Override
   public Cursor loadInBackground() {
+	Log.d(TAG, "Cursor loadInBackground()");
     ContactsDatabase  contactsDatabase = DatabaseFactory.getContactsDatabase(getContext());
     ArrayList<Cursor> cursorList       = new ArrayList<>(3);
 

@@ -68,6 +68,7 @@ public class GroupDatabase extends Database {
   }
 
   public GroupRecord getGroup(byte[] groupId) {
+	Log.d(TAG, "GroupRecord getGroup(byte[] groupId)");
     Cursor cursor = databaseHelper.getReadableDatabase().query(TABLE_NAME, null, GROUP_ID + " = ?",
                                                                new String[] {GroupUtil.getEncodedId(groupId)},
                                                                null, null, null);
@@ -80,6 +81,7 @@ public class GroupDatabase extends Database {
   }
 
   public Reader getGroupsFilteredByTitle(String constraint) {
+	Log.d(TAG, "Reader getGroupsFilteredByTitle(String constraint)");
     Cursor cursor = databaseHelper.getReadableDatabase().query(TABLE_NAME, null, TITLE + " LIKE ?",
                                                                new String[]{"%" + constraint + "%"},
                                                                null, null, null);
@@ -88,11 +90,13 @@ public class GroupDatabase extends Database {
   }
 
   public Reader getGroups() {
+	Log.d(TAG, "Reader getGroups()");
     Cursor cursor = databaseHelper.getReadableDatabase().query(TABLE_NAME, null, null, null, null, null, null);
     return new Reader(cursor);
   }
 
   public Recipients getGroupMembers(byte[] groupId, boolean includeSelf) {
+	Log.d(TAG, "Recipients getGroupMembers(byte[] groupId, boolean includeSelf)");
     String          localNumber = TextSecurePreferences.getLocalNumber(context);
     List<String>    members     = getCurrentMembers(groupId);
     List<Recipient> recipients  = new LinkedList<>();
@@ -130,6 +134,7 @@ public class GroupDatabase extends Database {
   }
 
   public void update(byte[] groupId, String title, TextSecureAttachmentPointer avatar) {
+	Log.d(TAG, "void update(byte[] groupId, String title, TextSecureAttachmentPointer avatar)");
     ContentValues contentValues = new ContentValues();
     if (title != null) contentValues.put(TITLE, title);
 
@@ -148,6 +153,7 @@ public class GroupDatabase extends Database {
   }
 
   public void updateTitle(byte[] groupId, String title) {
+	Log.d(TAG, "void updateTitle(byte[] groupId, String title)");
     ContentValues contentValues = new ContentValues();
     contentValues.put(TITLE, title);
     databaseHelper.getWritableDatabase().update(TABLE_NAME, contentValues, GROUP_ID +  " = ?",
@@ -158,10 +164,12 @@ public class GroupDatabase extends Database {
   }
 
   public void updateAvatar(byte[] groupId, Bitmap avatar) {
+	Log.d(TAG, "void updateAvatar(byte[] groupId, Bitmap avatar)");
     updateAvatar(groupId, BitmapUtil.toByteArray(avatar));
   }
 
   public void updateAvatar(byte[] groupId, byte[] avatar) {
+	Log.d(TAG, "void updateAvatar(byte[] groupId, byte[] avatar)");
     ContentValues contentValues = new ContentValues();
     contentValues.put(AVATAR, avatar);
 
@@ -173,6 +181,7 @@ public class GroupDatabase extends Database {
   }
 
   public void updateMembers(byte[] id, List<String> members) {
+	Log.d(TAG, "void updateMembers(byte[] id, List<String> members)");
     ContentValues contents = new ContentValues();
     contents.put(MEMBERS, Util.join(members, ","));
     contents.put(ACTIVE, 1);
@@ -182,6 +191,7 @@ public class GroupDatabase extends Database {
   }
 
   public void remove(byte[] id, String source) {
+	Log.d(TAG, "void remove(byte[] id, String source)");
     List<String> currentMembers = getCurrentMembers(id);
     currentMembers.remove(source);
 
@@ -213,11 +223,13 @@ public class GroupDatabase extends Database {
   }
 
   public boolean isActive(byte[] id) {
+	Log.d(TAG, "boolean isActive(byte[] id)");
     GroupRecord record = getGroup(id);
     return record != null && record.isActive();
   }
 
   public void setActive(byte[] id, boolean active) {
+	Log.d(TAG, "void setActive(byte[] id, boolean active)");
     SQLiteDatabase database = databaseHelper.getWritableDatabase();
     ContentValues  values   = new ContentValues();
     values.put(ACTIVE, active ? 1 : 0);
@@ -226,6 +238,7 @@ public class GroupDatabase extends Database {
 
 
   public byte[] allocateGroupId() {
+	Log.d(TAG, "byte[] allocateGroupId()");
     try {
       byte[] groupId = new byte[16];
       SecureRandom.getInstance("SHA1PRNG").nextBytes(groupId);
@@ -249,6 +262,7 @@ public class GroupDatabase extends Database {
     }
 
     public GroupRecord getNext() {
+	Log.d(TAG, "GroupRecord getNext()");
       if (cursor == null || !cursor.moveToNext()) {
         return null;
       }
@@ -265,6 +279,7 @@ public class GroupDatabase extends Database {
     }
 
     public void close() {
+	Log.d(TAG, "void close()");
       if (this.cursor != null)
         this.cursor.close();
     }
@@ -298,6 +313,7 @@ public class GroupDatabase extends Database {
     }
 
     public byte[] getId() {
+	Log.d(TAG, "byte[] getId()");
       try {
         return GroupUtil.getDecodedId(id);
       } catch (IOException ioe) {
@@ -306,38 +322,47 @@ public class GroupDatabase extends Database {
     }
 
     public String getEncodedId() {
+	Log.d(TAG, "String getEncodedId()");
       return id;
     }
 
     public String getTitle() {
+	Log.d(TAG, "String getTitle()");
       return title;
     }
 
     public List<String> getMembers() {
+	Log.d(TAG, "List<String> getMembers()");
       return members;
     }
 
     public byte[] getAvatar() {
+	Log.d(TAG, "byte[] getAvatar()");
       return avatar;
     }
 
     public long getAvatarId() {
+	Log.d(TAG, "long getAvatarId()");
       return avatarId;
     }
 
     public byte[] getAvatarKey() {
+	Log.d(TAG, "byte[] getAvatarKey()");
       return avatarKey;
     }
 
     public String getAvatarContentType() {
+	Log.d(TAG, "String getAvatarContentType()");
       return avatarContentType;
     }
 
     public String getRelay() {
+	Log.d(TAG, "String getRelay()");
       return relay;
     }
 
     public boolean isActive() {
+	Log.d(TAG, "boolean isActive()");
       return active;
     }
   }

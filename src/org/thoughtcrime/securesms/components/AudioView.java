@@ -114,22 +114,26 @@ public class AudioView extends FrameLayout implements AudioSlidePlayer.Listener 
   }
 
   public void cleanup() {
+	Log.d(TAG, "void cleanup()");
     if (this.audioSlidePlayer != null && pauseButton.getVisibility() == View.VISIBLE) {
       this.audioSlidePlayer.stop();
     }
   }
 
   public void setDownloadClickListener(@Nullable SlideClickListener listener) {
+	Log.d(TAG, "void setDownloadClickListener(@Nullable SlideClickListener listener)");
     this.downloadListener = listener;
   }
 
   @Override
   public void onStart() {
+	Log.d(TAG, "void onStart()");
     this.controlToggle.display(this.pauseButton);
   }
 
   @Override
   public void onStop() {
+	Log.d(TAG, "void onStop()");
     this.controlToggle.display(this.playButton);
 
     if (seekBar.getProgress() + 5 >= seekBar.getMax()) {
@@ -140,6 +144,7 @@ public class AudioView extends FrameLayout implements AudioSlidePlayer.Listener 
 
   @Override
   public void onProgress(double progress, long millis) {
+	Log.d(TAG, "void onProgress(double progress, long millis)");
     int seekProgress = (int)Math.floor(progress * this.seekBar.getMax());
 
     if (seekProgress > seekBar.getProgress() || backwardsCounter > 3) {
@@ -154,6 +159,7 @@ public class AudioView extends FrameLayout implements AudioSlidePlayer.Listener 
   }
 
   public void setTint(int tint) {
+	Log.d(TAG, "void setTint(int tint)");
     this.playButton.setColorFilter(tint, PorterDuff.Mode.SRC_IN);
     this.pauseButton.setColorFilter(tint, PorterDuff.Mode.SRC_IN);
     this.downloadButton.setColorFilter(tint, PorterDuff.Mode.SRC_IN);
@@ -178,6 +184,7 @@ public class AudioView extends FrameLayout implements AudioSlidePlayer.Listener 
   private class PlayClickedListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
+	Log.d(TAG, "void onClick(View v)");
       try {
         Log.w(TAG, "playbutton onClick");
         if (audioSlidePlayer != null) {
@@ -193,6 +200,7 @@ public class AudioView extends FrameLayout implements AudioSlidePlayer.Listener 
   private class PauseClickedListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
+	Log.d(TAG, "void onClick(View v)");
       Log.w(TAG, "pausebutton onClick");
       if (audioSlidePlayer != null) {
         controlToggle.display(playButton);
@@ -210,6 +218,7 @@ public class AudioView extends FrameLayout implements AudioSlidePlayer.Listener 
 
     @Override
     public void onClick(View v) {
+	Log.d(TAG, "void onClick(View v)");
       if (downloadListener != null) downloadListener.onClick(v, slide);
     }
   }
@@ -239,10 +248,12 @@ public class AudioView extends FrameLayout implements AudioSlidePlayer.Listener 
 
   @SuppressWarnings("unused")
   public void onEventAsync(final PartProgressEvent event) {
+	Log.d(TAG, "void onEventAsync(final PartProgressEvent event)");
     if (audioSlidePlayer != null && event.attachment.equals(this.audioSlidePlayer.getAudioSlide().asAttachment())) {
       Util.runOnMain(new Runnable() {
         @Override
         public void run() {
+	Log.d(TAG, "void run()");
           downloadProgress.setInstantProgress(((float) event.progress) / event.total);
         }
       });

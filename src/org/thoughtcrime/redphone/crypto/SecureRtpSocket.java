@@ -49,18 +49,22 @@ public class SecureRtpSocket {
   }
 
   public String getRemoteIp() {
+	Log.d(TAG, "String getRemoteIp()");
     return socket.getRemoteIp();
   }
 
   public int getRemotePort() {
+	Log.d(TAG, "int getRemotePort()");
     return socket.getRemotePort();
   }
 
   public DatagramSocket getDatagramSocket() {
+	Log.d(TAG, "DatagramSocket getDatagramSocket()");
     return socket.getDatagramSocket();
   }
 
   public void close() {
+	Log.d(TAG, "void close()");
     this.socket.close();
   }
 
@@ -86,6 +90,7 @@ public class SecureRtpSocket {
   }
 
   public void setTimeout(int timeoutMillis) {
+	Log.d(TAG, "void setTimeout(int timeoutMillis)");
     socket.setTimeout(timeoutMillis);
   }
 }

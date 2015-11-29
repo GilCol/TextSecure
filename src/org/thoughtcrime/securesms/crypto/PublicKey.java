@@ -63,26 +63,32 @@ public class PublicKey {
   }
 
   public int getType() {
+	Log.d("PublicKey", "int getType()");
     return publicKey.getType();
   }
 	
   public void setId(int id) {
+	Log.d("PublicKey", "void setId(int id)");
     this.id = id;
   }
 
   public int getId() {
+	Log.d("PublicKey", "int getId()");
     return id;
   }
 	
   public ECPublicKey getKey() {
+	Log.d("PublicKey", "ECPublicKey getKey()");
     return publicKey;
   }
 	
   public String getFingerprint() {
+	Log.d("PublicKey", "String getFingerprint()");
     return Hex.toString(getFingerprintBytes());
   }
 	
   public byte[] getFingerprintBytes() {
+	Log.d("PublicKey", "byte[] getFingerprintBytes()");
     try {
       MessageDigest md = MessageDigest.getInstance("SHA-1");
       return md.digest(serialize());
@@ -93,6 +99,7 @@ public class PublicKey {
   }
 	
   public byte[] serialize() {
+	Log.d("PublicKey", "byte[] serialize()");
     byte[] keyIdBytes      = Conversions.mediumToByteArray(id);
     byte[] serializedPoint = publicKey.serialize();
 

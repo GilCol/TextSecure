@@ -267,6 +267,7 @@ public class ContactsDatabase {
   }
 
   public Cursor getNewNumberCursor(String filter) {
+	Log.d(TAG, "Cursor getNewNumberCursor(String filter)");
     MatrixCursor newNumberCursor = new MatrixCursor(new String[] {ID_COLUMN, NAME_COLUMN, NUMBER_COLUMN, NUMBER_TYPE_COLUMN, LABEL_COLUMN, CONTACT_TYPE_COLUMN}, 1);
     newNumberCursor.addRow(new Object[]{-1L, context.getString(R.string.contact_selection_list__unknown_contact),
                                         filter, ContactsContract.CommonDataKinds.Phone.TYPE_CUSTOM,
@@ -335,11 +336,13 @@ public class ContactsDatabase {
 
     @Override
     public int getColumnCount() {
+	Log.d(TAG, "int getColumnCount()");
       return super.getColumnCount() + extras.length;
     }
 
     @Override
     public int getColumnIndex(String columnName) {
+	Log.d(TAG, "int getColumnIndex(String columnName)");
       for (int i=0;i<extras.length;i++) {
         if (extras[i].first.equals(columnName)) {
           return super.getColumnCount() + i;
@@ -359,6 +362,7 @@ public class ContactsDatabase {
 
     @Override
     public String getColumnName(int columnIndex) {
+	Log.d(TAG, "String getColumnName(int columnIndex)");
       int baseColumnCount = super.getColumnCount();
 
       if (columnIndex >= baseColumnCount) {
@@ -371,6 +375,7 @@ public class ContactsDatabase {
 
     @Override
     public String[] getColumnNames() {
+	Log.d(TAG, "String[] getColumnNames()");
       String[] names    = super.getColumnNames();
       String[] allNames = new String[names.length + extras.length];
 
@@ -387,6 +392,7 @@ public class ContactsDatabase {
 
     @Override
     public int getInt(int columnIndex) {
+	Log.d(TAG, "int getInt(int columnIndex)");
       if (columnIndex >= super.getColumnCount()) {
         int offset = columnIndex - super.getColumnCount();
         return (Integer)extras[offset].second;
@@ -397,6 +403,7 @@ public class ContactsDatabase {
 
     @Override
     public String getString(int columnIndex) {
+	Log.d(TAG, "String getString(int columnIndex)");
       if (columnIndex >= super.getColumnCount()) {
         int offset = columnIndex - super.getColumnCount();
         return (String)extras[offset].second;

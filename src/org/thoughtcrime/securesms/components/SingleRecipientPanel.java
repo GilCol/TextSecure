@@ -69,12 +69,14 @@ public class SingleRecipientPanel extends RelativeLayout implements RecipientsMo
   }
 
   public void addRecipient(String name, String number) {
+	Log.d("SingleRecipientPanel", "void addRecipient(String name, String number)");
     Log.i(TAG, "addRecipient for " + name + "/" + number);
     if (name != null) recipientsText.append(name + "< " + number + ">, ");
     else recipientsText.append(number + ", ");
   }
 
   public void addRecipients(Recipients recipients) {
+	Log.d("SingleRecipientPanel", "void addRecipients(Recipients recipients)");
     List<Recipient> recipientList = recipients.getRecipientsList();
     Iterator<Recipient> iterator = recipientList.iterator();
 
@@ -85,6 +87,7 @@ public class SingleRecipientPanel extends RelativeLayout implements RecipientsMo
   }
 
   public void addContacts(List<ContactAccessor.ContactData> contacts) {
+	Log.d("SingleRecipientPanel", "void addContacts(List<ContactAccessor.ContactData> contacts)");
     for (ContactAccessor.ContactData contact : contacts) {
       for (ContactAccessor.NumberData number : contact.numbers) {
         addRecipient(contact.name, number.number);
@@ -103,15 +106,18 @@ public class SingleRecipientPanel extends RelativeLayout implements RecipientsMo
   }
 
   public void disable() {
+	Log.d("SingleRecipientPanel", "void disable()");
     clear();
     panel.setVisibility(View.GONE);
   }
 
   public void clear() {
+	Log.d("SingleRecipientPanel", "void clear()");
     recipientsText.setText("");
   }
 
   public void setPanelChangeListener(RecipientsPanelChangedListener panelChangeListener) {
+	Log.d("SingleRecipientPanel", "void setPanelChangeListener(RecipientsPanelChangedListener panelChangeListener)");
     this.panelChangeListener = panelChangeListener;
   }
 
@@ -141,6 +147,7 @@ public class SingleRecipientPanel extends RelativeLayout implements RecipientsMo
     recipientsText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+	Log.d("SingleRecipientPanel", "void onItemClick(AdapterView<?> adapterView, View view, int i, long l)");
         if (panelChangeListener != null) {
           try {
             panelChangeListener.onRecipientsPanelUpdate(getRecipients());
@@ -159,6 +166,7 @@ public class SingleRecipientPanel extends RelativeLayout implements RecipientsMo
 
   private class FocusChangedListener implements OnFocusChangeListener {
     public void onFocusChange(View v, boolean hasFocus) {
+	Log.d("SingleRecipientPanel", "void onFocusChange(View v, boolean hasFocus)");
       if (!hasFocus && (panelChangeListener != null)) {
         try {
           panelChangeListener.onRecipientsPanelUpdate(getRecipients());

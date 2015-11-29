@@ -19,6 +19,7 @@ public class GroupUtil {
   private static final String TAG                  = GroupUtil.class.getSimpleName();
 
   public static String getEncodedId(byte[] groupId) {
+	Log.d(TAG, "String getEncodedId(byte[] groupId)");
     return ENCODED_GROUP_PREFIX + Hex.toStringCondensed(groupId);
   }
 
@@ -31,6 +32,7 @@ public class GroupUtil {
   }
 
   public static boolean isEncodedGroup(@NonNull String groupId) {
+	Log.d(TAG, "boolean isEncodedGroup(@NonNull String groupId)");
     return groupId.startsWith(ENCODED_GROUP_PREFIX);
   }
 
@@ -66,6 +68,7 @@ public class GroupUtil {
     }
 
     public String toString() {
+	Log.d(TAG, "String toString()");
       if (groupContext == null) {
         return context.getString(R.string.GroupUtil_group_updated);
       }
@@ -90,6 +93,7 @@ public class GroupUtil {
     }
 
     public void addListener(Recipients.RecipientsModifiedListener listener) {
+	Log.d(TAG, "void addListener(Recipients.RecipientsModifiedListener listener)");
       if (this.members != null) {
         this.members.addListener(listener);
       }

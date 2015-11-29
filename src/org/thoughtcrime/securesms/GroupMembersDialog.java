@@ -52,6 +52,7 @@ public class GroupMembersDialog extends AsyncTask<Void, Void, Recipients> {
 
   @Override
   public void onPostExecute(Recipients members) {
+	Log.d(TAG, "void onPostExecute(Recipients members)");
     GroupMembers groupMembers = new GroupMembers(members);
     AlertDialogWrapper.Builder builder = new AlertDialogWrapper.Builder(context);
     builder.setTitle(R.string.ConversationActivity_group_members);
@@ -63,6 +64,7 @@ public class GroupMembersDialog extends AsyncTask<Void, Void, Recipients> {
   }
 
   public void display() {
+	Log.d(TAG, "void display()");
     if (recipients.isGroupRecipient()) execute();
     else                               onPostExecute(recipients);
   }
@@ -78,6 +80,7 @@ public class GroupMembersDialog extends AsyncTask<Void, Void, Recipients> {
 
     @Override
     public void onClick(DialogInterface dialogInterface, int item) {
+	Log.d(TAG, "void onClick(DialogInterface dialogInterface, int item)");
       Recipient recipient = groupMembers.get(item);
 
       if (recipient.getContactUri() != null) {
@@ -117,6 +120,7 @@ public class GroupMembersDialog extends AsyncTask<Void, Void, Recipients> {
     }
 
     public String[] getRecipientStrings() {
+	Log.d(TAG, "String[] getRecipientStrings()");
       List<String> recipientStrings = new LinkedList<>();
 
       for (Recipient recipient : members) {
@@ -131,6 +135,7 @@ public class GroupMembersDialog extends AsyncTask<Void, Void, Recipients> {
     }
 
     public Recipient get(int index) {
+	Log.d(TAG, "Recipient get(int index)");
       return members.get(index);
     }
 

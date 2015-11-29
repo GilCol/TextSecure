@@ -50,26 +50,32 @@ public class OutgoingRinger implements MediaPlayer.OnCompletionListener, MediaPl
   }
 
   public void playSonar() {
+	Log.d(TAG, "void playSonar()");
     start(R.raw.redphone_sonarping);
   }
 
   public void playHandshake() {
+	Log.d(TAG, "void playHandshake()");
     start(R.raw.redphone_handshake);
   }
 
   public void playRing() {
+	Log.d(TAG, "void playRing()");
     start(R.raw.redphone_outring);
   }
 
   public void playComplete() {
+	Log.d(TAG, "void playComplete()");
     stop(R.raw.redphone_completed);
   }
 
   public void playFailure() {
+	Log.d(TAG, "void playFailure()");
     stop(R.raw.redphone_failure);
   }
 
   public void playBusy() {
+	Log.d(TAG, "void playBusy()");
     start(R.raw.redphone_busy);
   }
 
@@ -111,6 +117,7 @@ public class OutgoingRinger implements MediaPlayer.OnCompletionListener, MediaPl
   }
 
   public void stop() {
+	Log.d(TAG, "void stop()");
     if( mediaPlayer == null ) return;
     try {
       mediaPlayer.stop();
@@ -125,11 +132,13 @@ public class OutgoingRinger implements MediaPlayer.OnCompletionListener, MediaPl
   }
 
   public void onCompletion(MediaPlayer mp) {
+	Log.d(TAG, "void onCompletion(MediaPlayer mp)");
     //mediaPlayer.release();
     //mediaPlayer = null;
   }
 
   public void onPrepared(MediaPlayer mp) {
+	Log.d(TAG, "void onPrepared(MediaPlayer mp)");
     mediaPlayer.setLooping(loopEnabled);
 
     AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);

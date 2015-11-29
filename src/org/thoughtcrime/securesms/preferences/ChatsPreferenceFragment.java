@@ -30,6 +30,7 @@ public class ChatsPreferenceFragment extends PreferenceFragment {
 
   @Override
   public void onCreate(Bundle paramBundle) {
+	Log.d(TAG, "void onCreate(Bundle paramBundle)");
     super.onCreate(paramBundle);
     addPreferencesFromResource(R.xml.preferences_chats);
 
@@ -49,6 +50,7 @@ public class ChatsPreferenceFragment extends PreferenceFragment {
 
   @Override
   public void onResume() {
+	Log.d(TAG, "void onResume()");
     super.onResume();
     ((ApplicationPreferencesActivity)getActivity()).getSupportActionBar().setTitle(R.string.preferences__chats);
     setMediaDownloadSummaries();
@@ -79,6 +81,7 @@ public class ChatsPreferenceFragment extends PreferenceFragment {
   private class TrimNowClickListener implements Preference.OnPreferenceClickListener {
     @Override
     public boolean onPreferenceClick(Preference preference) {
+	Log.d(TAG, "boolean onPreferenceClick(Preference preference)");
       final int threadLengthLimit = TextSecurePreferences.getThreadTrimLength(getActivity());
       AlertDialogWrapper.Builder builder = new AlertDialogWrapper.Builder(getActivity());
       builder.setTitle(R.string.ApplicationPreferencesActivity_delete_all_old_messages_now);
@@ -88,6 +91,7 @@ public class ChatsPreferenceFragment extends PreferenceFragment {
         new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
+	Log.d(TAG, "void onClick(DialogInterface dialog, int which)");
             Trimmer.trimAllThreads(getActivity(), threadLengthLimit);
           }
         });
@@ -117,6 +121,7 @@ public class ChatsPreferenceFragment extends PreferenceFragment {
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+	Log.d(TAG, "boolean onPreferenceChange(Preference preference, Object newValue)");
       if (newValue == null || ((String)newValue).trim().length() == 0) {
         return false;
       }
@@ -138,6 +143,7 @@ public class ChatsPreferenceFragment extends PreferenceFragment {
   }
 
   public static CharSequence getSummary(Context context) {
+	Log.d(TAG, "CharSequence getSummary(Context context)");
     return null;
   }
 }

@@ -168,14 +168,17 @@ public class ConversationListActivityTest extends TextSecureEspressoTestCase<Con
   }
 
   public static Matcher<Object> isThreadFrom(final String contactName) {
+	Log.d("ConversationListActivit", "Matcher<Object> isThreadFrom(final String contactName)");
     return new TypeSafeMatcher<Object>() {
       @Override
       public void describeTo(Description description) {
+	Log.d("ConversationListActivit", "void describeTo(Description description)");
         description.appendText("is thread from: " + contactName);
       }
 
       @Override
       public boolean matchesSafely(Object object) {
+	Log.d("ConversationListActivit", "boolean matchesSafely(Object object)");
         if (!(object instanceof ConversationListItem)) {
           return false;
         }
@@ -188,14 +191,17 @@ public class ConversationListActivityTest extends TextSecureEspressoTestCase<Con
   }
 
   public static Matcher<Object> withThreadSnippet(final String snippet) {
+	Log.d("ConversationListActivit", "Matcher<Object> withThreadSnippet(final String snippet)");
     return new TypeSafeMatcher<Object>() {
       @Override
       public void describeTo(Description description) {
+	Log.d("ConversationListActivit", "void describeTo(Description description)");
         description.appendText("is thread with snippet: " + snippet);
       }
 
       @Override
       public boolean matchesSafely(Object object) {
+	Log.d("ConversationListActivit", "boolean matchesSafely(Object object)");
         if (!(object instanceof ConversationListItem)) {
           return false;
         }

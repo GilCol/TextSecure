@@ -139,6 +139,7 @@ public class ThreadDatabase extends Database {
   }
 
   public void updateSnippet(long threadId, String snippet, @Nullable Uri attachment, long date, long type) {
+	Log.d(TAG, "void updateSnippet(long threadId, String snippet, @Nullable Uri attachment, long date, long type)");
     ContentValues contentValues = new ContentValues(3);
 
     contentValues.put(DATE, date - date % 1000);
@@ -177,6 +178,7 @@ public class ThreadDatabase extends Database {
   }
 
   public void trimAllThreads(int length, ProgressListener listener) {
+	Log.d(TAG, "void trimAllThreads(int length, ProgressListener listener)");
     Cursor cursor   = null;
     int threadCount = 0;
     int complete    = 0;
@@ -200,6 +202,7 @@ public class ThreadDatabase extends Database {
   }
 
   public void trimThread(long threadId, int length) {
+	Log.d(TAG, "void trimThread(long threadId, int length)");
     Log.w("ThreadDatabase", "Trimming thread: " + threadId + " to: " + length);
     Cursor cursor = null;
 
@@ -227,6 +230,7 @@ public class ThreadDatabase extends Database {
   }
 
   public void setAllThreadsRead() {
+	Log.d(TAG, "void setAllThreadsRead()");
     SQLiteDatabase db           = databaseHelper.getWritableDatabase();
     ContentValues contentValues = new ContentValues(1);
     contentValues.put(READ, 1);
@@ -239,6 +243,7 @@ public class ThreadDatabase extends Database {
   }
 
   public void setRead(long threadId) {
+	Log.d(TAG, "void setRead(long threadId)");
     ContentValues contentValues = new ContentValues(1);
     contentValues.put(READ, 1);
 
@@ -251,6 +256,7 @@ public class ThreadDatabase extends Database {
   }
 
   public void setUnread(long threadId) {
+	Log.d(TAG, "void setUnread(long threadId)");
     ContentValues contentValues = new ContentValues(1);
     contentValues.put(READ, 0);
 
@@ -260,6 +266,7 @@ public class ThreadDatabase extends Database {
   }
 
   public void setDistributionType(long threadId, int distributionType) {
+	Log.d(TAG, "void setDistributionType(long threadId, int distributionType)");
     ContentValues contentValues = new ContentValues(1);
     contentValues.put(TYPE, distributionType);
 
@@ -269,6 +276,7 @@ public class ThreadDatabase extends Database {
   }
 
   public Cursor getFilteredConversationList(List<String> filter) {
+	Log.d(TAG, "Cursor getFilteredConversationList(List<String> filter)");
     if (filter == null || filter.size() == 0)
       return null;
 
@@ -302,6 +310,7 @@ public class ThreadDatabase extends Database {
   }
 
   public Cursor getConversationList() {
+	Log.d(TAG, "Cursor getConversationList()");
     SQLiteDatabase db = databaseHelper.getReadableDatabase();
     Cursor cursor     =  db.query(TABLE_NAME, null, null, null, null, null, DATE + " DESC");
     setNotifyConverationListListeners(cursor);
@@ -309,6 +318,7 @@ public class ThreadDatabase extends Database {
   }
 
   public void deleteConversation(long threadId) {
+	Log.d(TAG, "void deleteConversation(long threadId)");
     DatabaseFactory.getSmsDatabase(context).deleteThread(threadId);
     DatabaseFactory.getMmsDatabase(context).deleteThread(threadId);
     DatabaseFactory.getDraftDatabase(context).clearDrafts(threadId);
@@ -319,6 +329,7 @@ public class ThreadDatabase extends Database {
 
 
   public void deleteConversations(Set<Long> selectedConversations) {
+	Log.d(TAG, "void deleteConversations(Set<Long> selectedConversations)");
     DatabaseFactory.getSmsDatabase(context).deleteThreads(selectedConversations);
     DatabaseFactory.getMmsDatabase(context).deleteThreads(selectedConversations);
     DatabaseFactory.getDraftDatabase(context).clearDrafts(selectedConversations);
@@ -328,6 +339,7 @@ public class ThreadDatabase extends Database {
   }
 
   public void deleteAllConversations() {
+	Log.d(TAG, "void deleteAllConversations()");
     DatabaseFactory.getSmsDatabase(context).deleteAllThreads();
     DatabaseFactory.getMmsDatabase(context).deleteAllThreads();
     DatabaseFactory.getDraftDatabase(context).clearAllDrafts();
@@ -335,6 +347,7 @@ public class ThreadDatabase extends Database {
   }
 
   public long getThreadIdIfExistsFor(Recipients recipients) {
+	Log.d(TAG, "long getThreadIdIfExistsFor(Recipients recipients)");
     long[] recipientIds    = getRecipientIds(recipients);
     String recipientsList  = getRecipientsAsString(recipientIds);
     SQLiteDatabase db      = databaseHelper.getReadableDatabase();
@@ -356,10 +369,12 @@ public class ThreadDatabase extends Database {
   }
 
   public long getThreadIdFor(Recipients recipients) {
+	Log.d(TAG, "long getThreadIdFor(Recipients recipients)");
     return getThreadIdFor(recipients, DistributionTypes.DEFAULT);
   }
 
   public long getThreadIdFor(Recipients recipients, int distributionType) {
+	Log.d(TAG, "long getThreadIdFor(Recipients recipients, int distributionType)");
     long[] recipientIds    = getRecipientIds(recipients);
     String recipientsList  = getRecipientsAsString(recipientIds);
     SQLiteDatabase db      = databaseHelper.getReadableDatabase();
@@ -400,6 +415,7 @@ public class ThreadDatabase extends Database {
   }
 
   public boolean update(long threadId) {
+	Log.d(TAG, "boolean update(long threadId)");
     MmsSmsDatabase mmsSmsDatabase = DatabaseFactory.getMmsSmsDatabase(context);
     long count                    = mmsSmsDatabase.getConversationCount(threadId);
 
@@ -449,6 +465,7 @@ public class ThreadDatabase extends Database {
   }
 
   public Reader readerFor(Cursor cursor, MasterCipher masterCipher) {
+	Log.d(TAG, "Reader readerFor(Cursor cursor, MasterCipher masterCipher)");
     return new Reader(cursor, masterCipher);
   }
 
@@ -469,6 +486,7 @@ public class ThreadDatabase extends Database {
     }
 
     public ThreadRecord getNext() {
+	Log.d(TAG, "ThreadRecord getNext()");
       if (cursor == null || !cursor.moveToNext())
         return null;
 
@@ -476,6 +494,7 @@ public class ThreadDatabase extends Database {
     }
 
     public ThreadRecord getCurrent() {
+	Log.d(TAG, "ThreadRecord getCurrent()");
       long       threadId    = cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.ID));
       String     recipientId = cursor.getString(cursor.getColumnIndexOrThrow(ThreadDatabase.RECIPIENT_IDS));
       Recipients recipients  = RecipientFactory.getRecipientsForIds(context, recipientId, true);
@@ -524,6 +543,7 @@ public class ThreadDatabase extends Database {
     }
 
     public void close() {
+	Log.d(TAG, "void close()");
       cursor.close();
     }
   }

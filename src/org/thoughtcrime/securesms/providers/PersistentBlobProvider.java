@@ -37,6 +37,7 @@ public class PersistentBlobProvider {
   private static volatile PersistentBlobProvider instance;
 
   public static PersistentBlobProvider getInstance(Context context) {
+	Log.d("PersistentBlobProvider", "PersistentBlobProvider getInstance(Context context)");
     if (instance == null) {
       synchronized (PersistentBlobProvider.class) {
         if (instance == null) {
@@ -103,6 +104,7 @@ public class PersistentBlobProvider {
   }
 
   public boolean delete(@NonNull Uri uri) {
+	Log.d("PersistentBlobProvider", "boolean delete(@NonNull Uri uri)");
     switch (MATCHER.match(uri)) {
     case MATCH: return getFile(ContentUris.parseId(uri)).delete();
     default:    return new File(uri.getPath()).delete();
@@ -130,6 +132,7 @@ public class PersistentBlobProvider {
   }
 
   public static boolean isAuthority(@NonNull Context context, @NonNull Uri uri) {
+	Log.d("PersistentBlobProvider", "boolean isAuthority(@NonNull Context context, @NonNull Uri uri)");
     try {
       return MATCHER.match(uri) == MATCH || uri.getPath().startsWith(getExternalDir(context).getAbsolutePath());
     } catch (IOException ioe) {

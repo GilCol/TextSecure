@@ -111,6 +111,7 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
 
   @Override
   public void onCreate() {
+	Log.d(TAG, "void onCreate()");
     super.onCreate();
 
     initializeResources();
@@ -121,6 +122,7 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
 
   @Override
   public void onStart(Intent intent, int startId) {
+	Log.d(TAG, "void onStart(Intent intent, int startId)");
     Log.w(TAG, "onStart(): " + intent);
     if (intent == null) return;
     new Thread(new IntentRunnable(intent)).start();
@@ -128,11 +130,13 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
 
   @Override
   public IBinder onBind(Intent intent) {
+	Log.d(TAG, "IBinder onBind(Intent intent)");
     return null;
   }
 
   @Override
   public void onDestroy() {
+	Log.d(TAG, "void onDestroy()");
     super.onDestroy();
     unregisterReceiver(pstnCallListener);
     NotificationBarManager.setCallEnded(this);
@@ -303,6 +307,7 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
   }
 
   public int getState() {
+	Log.d(TAG, "int getState()");
     return state;
   }
 
@@ -375,12 +380,14 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
   ///////// CallStateListener Implementation
 
   public void notifyCallStale() {
+	Log.d(TAG, "void notifyCallStale()");
     Log.w(TAG, "Got a stale call, probably an old SMS...");
     handleMissedCall(remoteNumber);
     this.terminate();
   }
 
   public void notifyCallFresh() {
+	Log.d(TAG, "void notifyCallFresh()");
     Log.w(TAG, "Good call, time to ring and display call card...");
     sendMessage(Type.INCOMING_CALL, getRecipient(), null);
 
@@ -393,6 +400,7 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
   }
 
   public void notifyBusy() {
+	Log.d(TAG, "void notifyBusy()");
     Log.w("RedPhoneService", "Got busy signal from responder!");
     sendMessage(Type.CALL_BUSY, getRecipient(), null);
 
@@ -400,17 +408,20 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
     serviceHandler.postDelayed(new Runnable() {
       @Override
       public void run() {
+	Log.d(TAG, "void run()");
         RedPhoneService.this.terminate();
       }
     }, RedPhone.BUSY_SIGNAL_DELAY_FINISH);
   }
 
   public void notifyCallRinging() {
+	Log.d(TAG, "void notifyCallRinging()");
     outgoingRinger.playRing();
     sendMessage(Type.CALL_RINGING, getRecipient(), null);
   }
 
   public void notifyCallConnected(SASInfo sas) {
+	Log.d(TAG, "void notifyCallConnected(SASInfo sas)");
     outgoingRinger.playComplete();
     lockManager.updatePhoneState(LockManager.PhoneState.IN_CALL);
     state = STATE_CONNECTED;
@@ -418,10 +429,12 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
   }
 
   public void notifyConnectingtoInitiator() {
+	Log.d(TAG, "void notifyConnectingtoInitiator()");
     sendMessage(Type.CONNECTING_TO_INITIATOR, getRecipient(), null);
   }
 
   public void notifyCallDisconnected() {
+	Log.d(TAG, "void notifyCallDisconnected()");
     if (state == STATE_RINGING)
       handleMissedCall(remoteNumber);
 
@@ -430,6 +443,7 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
   }
 
   public void notifyHandshakeFailed() {
+	Log.d(TAG, "void notifyHandshakeFailed()");
     state = STATE_IDLE;
     outgoingRinger.playFailure();
     sendMessage(Type.HANDSHAKE_FAILED, getRecipient(), null);
@@ -437,6 +451,7 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
   }
 
   public void notifyRecipientUnavailable() {
+	Log.d(TAG, "void notifyRecipientUnavailable()");
     state = STATE_IDLE;
     outgoingRinger.playFailure();
     sendMessage(Type.RECIPIENT_UNAVAILABLE, getRecipient(), null);
@@ -444,11 +459,13 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
   }
 
   public void notifyPerformingHandshake() {
+	Log.d(TAG, "void notifyPerformingHandshake()");
     outgoingRinger.playHandshake();
     sendMessage(Type.PERFORMING_HANDSHAKE, getRecipient(), null);
   }
 
   public void notifyServerFailure() {
+	Log.d(TAG, "void notifyServerFailure()");
     if (state == STATE_RINGING)
       handleMissedCall(remoteNumber);
 
@@ -459,6 +476,7 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
   }
 
   public void notifyClientFailure() {
+	Log.d(TAG, "void notifyClientFailure()");
     if (state == STATE_RINGING)
       handleMissedCall(remoteNumber);
 
@@ -469,6 +487,7 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
   }
 
   public void notifyLoginFailed() {
+	Log.d(TAG, "void notifyLoginFailed()");
     if (state == STATE_RINGING)
       handleMissedCall(remoteNumber);
 
@@ -479,21 +498,25 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
   }
 
   public void notifyNoSuchUser() {
+	Log.d(TAG, "void notifyNoSuchUser()");
     sendMessage(Type.NO_SUCH_USER, getRecipient(), null);
     this.terminate();
   }
 
   public void notifyServerMessage(String message) {
+	Log.d(TAG, "void notifyServerMessage(String message)");
     sendMessage(Type.SERVER_MESSAGE, getRecipient(), message);
     this.terminate();
   }
 
   public void notifyClientError(String msg) {
+	Log.d(TAG, "void notifyClientError(String msg)");
     sendMessage(Type.CLIENT_FAILURE, getRecipient(), msg);
     this.terminate();
   }
 
   public void notifyCallConnecting() {
+	Log.d(TAG, "void notifyCallConnecting()");
     outgoingRinger.playSonar();
   }
 
@@ -514,12 +537,14 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
     }
 
     public void run() {
+	Log.d(TAG, "void run()");
       onIntentReceived(intent);
     }
   }
 
   @Override
   public boolean isInCall() {
+	Log.d(TAG, "boolean isInCall()");
     switch(state) {
       case STATE_IDLE:
         return false;
@@ -543,6 +568,7 @@ public class RedPhoneService extends Service implements CallStateListener, CallS
 
     @Override
     public void uncaughtException(Thread thread, Throwable throwable) {
+	Log.d(TAG, "void uncaughtException(Thread thread, Throwable throwable)");
       Log.d(TAG, "Uncaught exception - releasing proximity lock", throwable);
       lockManager.updatePhoneState(LockManager.PhoneState.IDLE);
     }

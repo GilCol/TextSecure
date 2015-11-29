@@ -55,6 +55,7 @@ public class EmojiProvider {
   private final float   verticalPad;
 
   public static EmojiProvider getInstance(Context context) {
+	Log.d("EmojiProvider", "EmojiProvider getInstance(Context context)");
     if (instance == null) {
       synchronized (EmojiProvider.class) {
         if (instance == null) {
@@ -97,6 +98,7 @@ public class EmojiProvider {
   }
 
   public Drawable getEmojiDrawable(int emojiCode) {
+	Log.d("EmojiProvider", "Drawable getEmojiDrawable(int emojiCode)");
     return getEmojiDrawable(offsets.get(emojiCode));
   }
 
@@ -144,6 +146,7 @@ public class EmojiProvider {
 
     @Override
     public void draw(Canvas canvas) {
+	Log.d("EmojiProvider", "void draw(Canvas canvas)");
       if (bmp == null) {
         return;
       }
@@ -162,6 +165,7 @@ public class EmojiProvider {
 
     @TargetApi(VERSION_CODES.HONEYCOMB_MR1)
     public void setBitmap(Bitmap bitmap) {
+	Log.d("EmojiProvider", "void setBitmap(Bitmap bitmap)");
       Util.assertMainThread();
       if (VERSION.SDK_INT < VERSION_CODES.HONEYCOMB_MR1 || bmp == null || !bmp.sameAs(bitmap)) {
         bmp = bitmap;
@@ -171,6 +175,7 @@ public class EmojiProvider {
 
     @Override
     public int getOpacity() {
+	Log.d("EmojiProvider", "int getOpacity()");
       return PixelFormat.TRANSLUCENT;
     }
 
@@ -192,6 +197,7 @@ public class EmojiProvider {
 
     @Override
     public String toString() {
+	Log.d("EmojiProvider", "String toString()");
       return "DrawInfo{" +
           "page=" + page +
           ", index=" + index +

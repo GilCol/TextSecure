@@ -37,12 +37,14 @@ import javax.inject.Inject;
 
 public class DeviceListActivity extends PassphraseRequiredActionBarActivity {
 
+  private static final String TAG = DeviceListActivity.class.getSimpleName();
 
   private final DynamicTheme    dynamicTheme    = new DynamicTheme();
   private final DynamicLanguage dynamicLanguage = new DynamicLanguage();
 
   @Override
   public void onPreCreate() {
+	Log.d(TAG, "void onPreCreate()");
     dynamicTheme.onCreate(this);
     dynamicLanguage.onCreate(this);
   }
@@ -50,12 +52,14 @@ public class DeviceListActivity extends PassphraseRequiredActionBarActivity {
 
   @Override
   public void onCreate(Bundle bundle, @NonNull MasterSecret masterSecret) {
+	Log.d(TAG, "void onCreate(Bundle bundle, @NonNull MasterSecret masterSecret)");
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     initFragment(android.R.id.content, new DeviceListFragment(), masterSecret);
   }
 
   @Override
   public void onResume() {
+	Log.d(TAG, "void onResume()");
     super.onResume();
     dynamicTheme.onResume(this);
     dynamicLanguage.onResume(this);
@@ -63,6 +67,7 @@ public class DeviceListActivity extends PassphraseRequiredActionBarActivity {
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
+	Log.d(TAG, "boolean onOptionsItemSelected(MenuItem item)");
     switch (item.getItemId()) {
       case android.R.id.home: finish(); return true;
     }
@@ -83,12 +88,14 @@ public class DeviceListActivity extends PassphraseRequiredActionBarActivity {
 
     @Override
     public void onAttach(Activity activity) {
+	Log.d(TAG, "void onAttach(Activity activity)");
       super.onAttach(activity);
       ApplicationContext.getInstance(activity).injectDependencies(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
+	Log.d(TAG, "View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle)");
       View view = inflater.inflate(R.layout.device_list_fragment, container, false);
 
       this.empty             = view.findViewById(R.id.empty);
@@ -99,6 +106,7 @@ public class DeviceListActivity extends PassphraseRequiredActionBarActivity {
 
     @Override
     public void onActivityCreated(Bundle bundle) {
+	Log.d(TAG, "void onActivityCreated(Bundle bundle)");
       super.onActivityCreated(bundle);
       getLoaderManager().initLoader(0, null, this).forceLoad();
       getListView().setOnItemClickListener(this);
@@ -106,6 +114,7 @@ public class DeviceListActivity extends PassphraseRequiredActionBarActivity {
 
     @Override
     public Loader<List<DeviceInfo>> onCreateLoader(int id, Bundle args) {
+	Log.d(TAG, "Loader<List<DeviceInfo>> onCreateLoader(int id, Bundle args)");
       empty.setVisibility(View.GONE);
       progressContainer.setVisibility(View.VISIBLE);
 
@@ -114,6 +123,7 @@ public class DeviceListActivity extends PassphraseRequiredActionBarActivity {
 
     @Override
     public void onLoadFinished(Loader<List<DeviceInfo>> loader, List<DeviceInfo> data) {
+	Log.d(TAG, "void onLoadFinished(Loader<List<DeviceInfo>> loader, List<DeviceInfo> data)");
       progressContainer.setVisibility(View.GONE);
 
       if (data == null) {
@@ -133,11 +143,13 @@ public class DeviceListActivity extends PassphraseRequiredActionBarActivity {
 
     @Override
     public void onLoaderReset(Loader<List<DeviceInfo>> loader) {
+	Log.d(TAG, "void onLoaderReset(Loader<List<DeviceInfo>> loader)");
       setListAdapter(null);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	Log.d(TAG, "void onItemClick(AdapterView<?> parent, View view, int position, long id)");
       final String deviceName = ((DeviceListItem)view).getDeviceName();
       final long   deviceId   = ((DeviceListItem)view).getDeviceId();
 
@@ -148,6 +160,7 @@ public class DeviceListActivity extends PassphraseRequiredActionBarActivity {
       builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
+	Log.d(TAG, "void onClick(DialogInterface dialog, int which)");
           handleDisconnectDevice(deviceId);
         }
       });
@@ -161,6 +174,7 @@ public class DeviceListActivity extends PassphraseRequiredActionBarActivity {
                                 new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
+	Log.d(TAG, "void onClick(DialogInterface dialog, int which)");
           getLoaderManager().initLoader(0, null, DeviceListFragment.this);
         }
       });
@@ -202,6 +216,7 @@ public class DeviceListActivity extends PassphraseRequiredActionBarActivity {
 
       @Override
       public View getView(int position, View convertView, ViewGroup parent) {
+	Log.d(TAG, "View getView(int position, View convertView, ViewGroup parent)");
         if (convertView == null) {
           convertView = ((Activity)getContext()).getLayoutInflater().inflate(resource, parent, false);
         }

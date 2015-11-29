@@ -22,15 +22,18 @@ public class UncaughtExceptionHandlerManager implements Thread.UncaughtException
   }
 
   public void registerHandler(Thread.UncaughtExceptionHandler handler) {
+	Log.d("UncaughtExceptionHandle", "void registerHandler(Thread.UncaughtExceptionHandler handler)");
     handlers.add(handler);
   }
 
   public void unregister() {
+	Log.d("UncaughtExceptionHandle", "void unregister()");
     Thread.setDefaultUncaughtExceptionHandler(originalHandler);
   }
 
   @Override
   public void uncaughtException(Thread thread, Throwable throwable) {
+	Log.d("UncaughtExceptionHandle", "void uncaughtException(Thread thread, Throwable throwable)");
     for (int i = handlers.size() - 1; i >= 0; i--) {
       try {
         handlers.get(i).uncaughtException(thread, throwable);

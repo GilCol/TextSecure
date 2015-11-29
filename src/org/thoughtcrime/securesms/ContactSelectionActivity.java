@@ -81,6 +81,7 @@ public abstract class ContactSelectionActivity extends PassphraseRequiredActionB
 
   @Override
   public void onResume() {
+	Log.d(TAG, "void onResume()");
     super.onResume();
     dynamicTheme.onResume(this);
     dynamicLanguage.onResume(this);
@@ -114,6 +115,7 @@ public abstract class ContactSelectionActivity extends PassphraseRequiredActionB
 
   @Override
   public void onRefresh() {
+	Log.d(TAG, "void onRefresh()");
     new RefreshDirectoryTask(this).execute(getApplicationContext());
   }
 

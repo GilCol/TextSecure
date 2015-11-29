@@ -70,17 +70,20 @@ public class ThumbnailView extends FrameLayout {
 
   @Override
   public void setOnClickListener(OnClickListener l) {
+	Log.d(TAG, "void setOnClickListener(OnClickListener l)");
     parentClickListener = l;
   }
 
   @Override
   public void setFocusable(boolean focusable) {
+	Log.d(TAG, "void setFocusable(boolean focusable)");
     super.setFocusable(focusable);
     if (transferControls.isPresent()) transferControls.get().setFocusable(focusable);
   }
 
   @Override
   public void setClickable(boolean clickable) {
+	Log.d(TAG, "void setClickable(boolean clickable)");
     super.setClickable(clickable);
     if (transferControls.isPresent()) transferControls.get().setClickable(clickable);
   }
@@ -93,10 +96,12 @@ public class ThumbnailView extends FrameLayout {
   }
 
   public void setBackgroundColorHint(int color) {
+	Log.d(TAG, "void setBackgroundColorHint(int color)");
     this.backgroundColorHint = color;
   }
 
   public void setImageResource(@NonNull MasterSecret masterSecret, @NonNull Slide slide, boolean showControls) {
+	Log.d(TAG, "void setImageResource(@NonNull MasterSecret masterSecret, @NonNull Slide slide, boolean showControls)");
     if (showControls) {
       getTransferControls().setSlide(slide);
       getTransferControls().setDownloadClickListener(new DownloadClickDispatcher());
@@ -125,6 +130,7 @@ public class ThumbnailView extends FrameLayout {
   }
 
   public void setImageResource(@NonNull MasterSecret masterSecret, @NonNull Uri uri) {
+	Log.d(TAG, "void setImageResource(@NonNull MasterSecret masterSecret, @NonNull Uri uri)");
     if (transferControls.isPresent()) getTransferControls().setVisibility(View.GONE);
 
     Glide.with(getContext()).load(new DecryptableUri(masterSecret, uri))
@@ -134,14 +140,17 @@ public class ThumbnailView extends FrameLayout {
   }
 
   public void setThumbnailClickListener(SlideClickListener listener) {
+	Log.d(TAG, "void setThumbnailClickListener(SlideClickListener listener)");
     this.thumbnailClickListener = listener;
   }
 
   public void setDownloadClickListener(SlideClickListener listener) {
+	Log.d(TAG, "void setDownloadClickListener(SlideClickListener listener)");
     this.downloadClickListener = listener;
   }
 
   public void clear() {
+	Log.d(TAG, "void clear()");
     if (isContextValid())             Glide.clear(image);
     if (transferControls.isPresent()) getTransferControls().clear();
 
@@ -149,6 +158,7 @@ public class ThumbnailView extends FrameLayout {
   }
 
   public void showProgressSpinner() {
+	Log.d(TAG, "void showProgressSpinner()");
     getTransferControls().showProgressSpinner();
   }
 
@@ -177,6 +187,7 @@ public class ThumbnailView extends FrameLayout {
   private class ThumbnailClickDispatcher implements View.OnClickListener {
     @Override
     public void onClick(View view) {
+	Log.d(TAG, "void onClick(View view)");
       if (thumbnailClickListener            != null &&
           slide                             != null &&
           slide.asAttachment().getDataUri() != null &&
@@ -192,6 +203,7 @@ public class ThumbnailView extends FrameLayout {
   private class DownloadClickDispatcher implements View.OnClickListener {
     @Override
     public void onClick(View view) {
+	Log.d(TAG, "void onClick(View view)");
       if (downloadClickListener != null && slide != null) {
         downloadClickListener.onClick(view, slide);
       }

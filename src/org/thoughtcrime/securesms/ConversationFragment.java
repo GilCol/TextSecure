@@ -91,6 +91,7 @@ public class ConversationFragment extends Fragment
 
   @Override
   public void onCreate(Bundle icicle) {
+	Log.d(TAG, "void onCreate(Bundle icicle)");
     super.onCreate(icicle);
     this.masterSecret = getArguments().getParcelable("master_secret");
     this.locale       = (Locale) getArguments().getSerializable(PassphraseRequiredActionBarActivity.LOCALE_EXTRA);
@@ -98,6 +99,7 @@ public class ConversationFragment extends Fragment
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
+	Log.d(TAG, "View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle)");
     final View view = inflater.inflate(R.layout.conversation_fragment, container, false);
     list = ViewUtil.findById(view, android.R.id.list);
     final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true);
@@ -117,6 +119,7 @@ public class ConversationFragment extends Fragment
 
   @Override
   public void onActivityCreated(Bundle bundle) {
+	Log.d(TAG, "void onActivityCreated(Bundle bundle)");
     super.onActivityCreated(bundle);
 
     initializeResources();
@@ -125,12 +128,14 @@ public class ConversationFragment extends Fragment
 
   @Override
   public void onAttach(Activity activity) {
+	Log.d(TAG, "void onAttach(Activity activity)");
     super.onAttach(activity);
     this.listener = (ConversationFragmentListener)activity;
   }
 
   @Override
   public void onResume() {
+	Log.d(TAG, "void onResume()");
     super.onResume();
 
     if (list.getAdapter() != null) {
@@ -139,6 +144,7 @@ public class ConversationFragment extends Fragment
   }
 
   public void onNewIntent() {
+	Log.d(TAG, "void onNewIntent()");
     if (actionMode != null) {
       actionMode.finish();
     }
@@ -202,6 +208,7 @@ public class ConversationFragment extends Fragment
   }
 
   public void reload(Recipients recipients, long threadId) {
+	Log.d(TAG, "void reload(Recipients recipients, long threadId)");
     this.recipients = recipients;
 
     if (this.threadId != threadId) {
@@ -211,9 +218,11 @@ public class ConversationFragment extends Fragment
   }
 
   public void scrollToBottom() {
+	Log.d(TAG, "void scrollToBottom()");
     list.post(new Runnable() {
       @Override
       public void run() {
+	Log.d(TAG, "void run()");
         list.stopScroll();
         list.smoothScrollToPosition(0);
       }
@@ -225,6 +234,7 @@ public class ConversationFragment extends Fragment
     Collections.sort(messageList, new Comparator<MessageRecord>() {
       @Override
       public int compare(MessageRecord lhs, MessageRecord rhs) {
+	Log.d(TAG, "int compare(MessageRecord lhs, MessageRecord rhs)");
         if      (lhs.getDateReceived() < rhs.getDateReceived())  return -1;
         else if (lhs.getDateReceived() == rhs.getDateReceived()) return 0;
         else                                                     return 1;
@@ -263,6 +273,7 @@ public class ConversationFragment extends Fragment
     builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialog, int which) {
+	Log.d(TAG, "void onClick(DialogInterface dialog, int which)");
         new ProgressDialogAsyncTask<MessageRecord, Void, Void>(getActivity(),
                                                                R.string.ConversationFragment_deleting,
                                                                R.string.ConversationFragment_deleting_messages)
@@ -323,6 +334,7 @@ public class ConversationFragment extends Fragment
   private void handleSaveAttachment(final MediaMmsMessageRecord message) {
     SaveAttachmentTask.showWarningDialog(getActivity(), new DialogInterface.OnClickListener() {
       public void onClick(DialogInterface dialog, int which) {
+	Log.d(TAG, "void onClick(DialogInterface dialog, int which)");
         for (Slide slide : message.getSlideDeck().getSlides()) {
           if (slide.hasImage() || slide.hasVideo() || slide.hasAudio()) {
             SaveAttachmentTask saveTask = new SaveAttachmentTask(getActivity(), masterSecret);
@@ -339,11 +351,13 @@ public class ConversationFragment extends Fragment
 
   @Override
   public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+	Log.d(TAG, "Loader<Cursor> onCreateLoader(int id, Bundle args)");
     return new ConversationLoader(getActivity(), threadId, args.getLong("limit", PARTIAL_CONVERSATION_LIMIT));
   }
 
   @Override
   public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+	Log.d(TAG, "void onLoadFinished(Loader<Cursor> loader, Cursor cursor)");
     if (list.getAdapter() != null) {
       if (cursor.getCount() >= PARTIAL_CONVERSATION_LIMIT && ((ConversationLoader)loader).hasLimit()) {
         getListAdapter().setFooterView(loadMoreView);
@@ -356,6 +370,7 @@ public class ConversationFragment extends Fragment
 
   @Override
   public void onLoaderReset(Loader<Cursor> arg0) {
+	Log.d(TAG, "void onLoaderReset(Loader<Cursor> arg0)");
     if (list.getAdapter() != null) {
       getListAdapter().changeCursor(null);
     }
@@ -369,6 +384,7 @@ public class ConversationFragment extends Fragment
 
     @Override
     public void onItemClick(ConversationItem item) {
+	Log.d(TAG, "void onItemClick(ConversationItem item)");
       if (actionMode != null) {
         MessageRecord messageRecord = item.getMessageRecord();
         ((ConversationAdapter) list.getAdapter()).toggleSelection(messageRecord);
@@ -380,6 +396,7 @@ public class ConversationFragment extends Fragment
 
     @Override
     public void onItemLongClick(ConversationItem item) {
+	Log.d(TAG, "void onItemLongClick(ConversationItem item)");
       if (actionMode == null) {
         ((ConversationAdapter) list.getAdapter()).toggleSelection(item.getMessageRecord());
         list.getAdapter().notifyDataSetChanged();
@@ -395,6 +412,7 @@ public class ConversationFragment extends Fragment
 
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+	Log.d(TAG, "boolean onCreateActionMode(ActionMode mode, Menu menu)");
       MenuInflater inflater = mode.getMenuInflater();
       inflater.inflate(R.menu.conversation_context, menu);
 
@@ -410,11 +428,13 @@ public class ConversationFragment extends Fragment
 
     @Override
     public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+	Log.d(TAG, "boolean onPrepareActionMode(ActionMode actionMode, Menu menu)");
       return false;
     }
 
     @Override
     public void onDestroyActionMode(ActionMode mode) {
+	Log.d(TAG, "void onDestroyActionMode(ActionMode mode)");
       ((ConversationAdapter)list.getAdapter()).clearSelection();
       list.getAdapter().notifyDataSetChanged();
 
@@ -427,6 +447,7 @@ public class ConversationFragment extends Fragment
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+	Log.d(TAG, "boolean onActionItemClicked(ActionMode mode, MenuItem item)");
       switch(item.getItemId()) {
         case R.id.menu_context_copy:
           handleCopyMessage(getListAdapter().getSelectedItems());

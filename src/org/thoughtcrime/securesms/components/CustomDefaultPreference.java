@@ -59,11 +59,13 @@ public class CustomDefaultPreference extends DialogPreference {
   }
 
   public CustomDefaultPreference setValidator(CustomPreferenceValidator validator) {
+	Log.d(TAG, "CustomDefaultPreference setValidator(CustomPreferenceValidator validator)");
     this.validator = validator;
     return this;
   }
 
   public CustomDefaultPreference setDefaultValue(String defaultValue) {
+	Log.d(TAG, "CustomDefaultPreference setDefaultValue(String defaultValue)");
     this.defaultValue = defaultValue;
     this.setSummary(getSummary());
     return this;
@@ -71,6 +73,7 @@ public class CustomDefaultPreference extends DialogPreference {
 
   @Override
   public String getSummary() {
+	Log.d(TAG, "String getSummary()");
     if (isCustom()) {
       return getContext().getString(R.string.CustomDefaultPreference_using_custom,
                                     getPrettyPrintValue(getCustomValue()));
@@ -143,6 +146,7 @@ public class CustomDefaultPreference extends DialogPreference {
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+	Log.d(TAG, "void onItemSelected(AdapterView<?> parent, View view, int position, long id)");
       defaultLabel.setVisibility(position == 0 ? View.VISIBLE : View.GONE);
       customText.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
       positiveButton.setEnabled(position == 0 || validator.isValid(customText.getText().toString()));
@@ -150,6 +154,7 @@ public class CustomDefaultPreference extends DialogPreference {
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+	Log.d(TAG, "void onNothingSelected(AdapterView<?> parent)");
       defaultLabel.setVisibility(View.VISIBLE);
       customText.setVisibility(View.GONE);
     }
@@ -165,6 +170,7 @@ public class CustomDefaultPreference extends DialogPreference {
 
     @Override
     public void afterTextChanged(Editable s) {
+	Log.d(TAG, "void afterTextChanged(Editable s)");
       if (spinner.getSelectedItemPosition() == 1) {
         positiveButton.setEnabled(validator.isValid(s.toString()));
       }
@@ -178,6 +184,7 @@ public class CustomDefaultPreference extends DialogPreference {
   private static class NullValidator implements CustomPreferenceValidator {
     @Override
     public boolean isValid(String value) {
+	Log.d(TAG, "boolean isValid(String value)");
       return true;
     }
   }
@@ -185,6 +192,7 @@ public class CustomDefaultPreference extends DialogPreference {
   public static class UriValidator implements CustomPreferenceValidator {
     @Override
     public boolean isValid(String value) {
+	Log.d(TAG, "boolean isValid(String value)");
       if (TextUtils.isEmpty(value)) return true;
 
       try {
@@ -199,6 +207,7 @@ public class CustomDefaultPreference extends DialogPreference {
   public static class HostnameValidator implements CustomPreferenceValidator {
     @Override
     public boolean isValid(String value) {
+	Log.d(TAG, "boolean isValid(String value)");
       if (TextUtils.isEmpty(value)) return true;
 
       try {
@@ -213,6 +222,7 @@ public class CustomDefaultPreference extends DialogPreference {
   public static class PortValidator implements CustomPreferenceValidator {
     @Override
     public boolean isValid(String value) {
+	Log.d(TAG, "boolean isValid(String value)");
       try {
         Integer.parseInt(value);
         return true;

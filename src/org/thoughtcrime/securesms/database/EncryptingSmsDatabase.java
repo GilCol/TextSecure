@@ -127,6 +127,7 @@ public class EncryptingSmsDatabase extends SmsDatabase {
   }
 
   public void updateMessageBody(MasterSecretUnion masterSecret, long messageId, String body) {
+	Log.d("EncryptingSmsDatabase", "void updateMessageBody(MasterSecretUnion masterSecret, long messageId, String body)");
     long type;
 
     if (masterSecret.getMasterSecret().isPresent()) {
@@ -141,11 +142,13 @@ public class EncryptingSmsDatabase extends SmsDatabase {
   }
 
   public Reader getMessages(MasterSecret masterSecret, int skip, int limit) {
+	Log.d("EncryptingSmsDatabase", "Reader getMessages(MasterSecret masterSecret, int skip, int limit)");
     Cursor cursor = super.getMessages(skip, limit);
     return new DecryptingReader(masterSecret, cursor);
   }
 
   public Reader getOutgoingMessages(MasterSecret masterSecret) {
+	Log.d("EncryptingSmsDatabase", "Reader getOutgoingMessages(MasterSecret masterSecret)");
     Cursor cursor = super.getOutgoingMessages();
     return new DecryptingReader(masterSecret, cursor);
   }
@@ -162,11 +165,13 @@ public class EncryptingSmsDatabase extends SmsDatabase {
   }
 
   public Reader getDecryptInProgressMessages(MasterSecret masterSecret) {
+	Log.d("EncryptingSmsDatabase", "Reader getDecryptInProgressMessages(MasterSecret masterSecret)");
     Cursor cursor = super.getDecryptInProgressMessages();
     return new DecryptingReader(masterSecret, cursor);
   }
 
   public Reader readerFor(MasterSecret masterSecret, Cursor cursor) {
+	Log.d("EncryptingSmsDatabase", "Reader readerFor(MasterSecret masterSecret, Cursor cursor)");
     return new DecryptingReader(masterSecret, cursor);
   }
 
@@ -215,10 +220,12 @@ public class EncryptingSmsDatabase extends SmsDatabase {
         Collections.synchronizedMap(new LRUCache<String, SoftReference<String>>(MAX_CACHE_SIZE));
 
     public void put(String ciphertext, String plaintext) {
+	Log.d("EncryptingSmsDatabase", "void put(String ciphertext, String plaintext)");
       decryptedBodyCache.put(ciphertext, new SoftReference<String>(plaintext));
     }
 
     public String get(String ciphertext) {
+	Log.d("EncryptingSmsDatabase", "String get(String ciphertext)");
       SoftReference<String> plaintextReference = decryptedBodyCache.get(ciphertext);
 
       if (plaintextReference != null) {

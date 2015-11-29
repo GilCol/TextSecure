@@ -55,6 +55,7 @@ public class RegistrationActivity extends BaseActionBarActivity {
 
   @Override
   public void onCreate(Bundle icicle) {
+	Log.d("RegistrationActivity", "void onCreate(Bundle icicle)");
     super.onCreate(icicle);
     setContentView(R.layout.registration_activity);
 
@@ -96,6 +97,7 @@ public class RegistrationActivity extends BaseActionBarActivity {
     findViewById(R.id.twilio_shoutout).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+	Log.d("RegistrationActivity", "void onClick(View v)");
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
@@ -115,6 +117,7 @@ public class RegistrationActivity extends BaseActionBarActivity {
     this.countrySpinner.setOnTouchListener(new View.OnTouchListener() {
       @Override
       public boolean onTouch(View v, MotionEvent event) {
+	Log.d("RegistrationActivity", "boolean onTouch(View v, MotionEvent event)");
         if (event.getAction() == MotionEvent.ACTION_UP) {
           Intent intent = new Intent(RegistrationActivity.this, CountrySelectionActivity.class);
           startActivityForResult(intent, PICK_COUNTRY);
@@ -169,6 +172,7 @@ public class RegistrationActivity extends BaseActionBarActivity {
   private class CreateButtonListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
+	Log.d("RegistrationActivity", "void onClick(View v)");
       final RegistrationActivity self = RegistrationActivity.this;
 
       if (TextUtils.isEmpty(countryCode.getText())) {
@@ -214,6 +218,7 @@ public class RegistrationActivity extends BaseActionBarActivity {
                                new DialogInterface.OnClickListener() {
                                  @Override
                                  public void onClick(DialogInterface dialog, int which) {
+	Log.d("RegistrationActivity", "void onClick(DialogInterface dialog, int which)");
                                    Intent intent = new Intent(self, RegistrationProgressActivity.class);
                                    intent.putExtra("e164number", e164number);
                                    intent.putExtra("master_secret", masterSecret);
@@ -229,6 +234,7 @@ public class RegistrationActivity extends BaseActionBarActivity {
   private class CountryCodeChangedListener implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
+	Log.d("RegistrationActivity", "void afterTextChanged(Editable s)");
       if (TextUtils.isEmpty(s)) {
         setCountryDisplay(getString(R.string.RegistrationActivity_select_your_country));
         countryFormatter = null;
@@ -248,10 +254,12 @@ public class RegistrationActivity extends BaseActionBarActivity {
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+	Log.d("RegistrationActivity", "void beforeTextChanged(CharSequence s, int start, int count, int after)");
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+	Log.d("RegistrationActivity", "void onTextChanged(CharSequence s, int start, int before, int count)");
     }
   }
 
@@ -259,6 +267,7 @@ public class RegistrationActivity extends BaseActionBarActivity {
 
     @Override
     public void afterTextChanged(Editable s) {
+	Log.d("RegistrationActivity", "void afterTextChanged(Editable s)");
       if (countryFormatter == null)
         return;
 
@@ -281,10 +290,12 @@ public class RegistrationActivity extends BaseActionBarActivity {
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+	Log.d("RegistrationActivity", "void beforeTextChanged(CharSequence s, int start, int count, int after)");
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+	Log.d("RegistrationActivity", "void onTextChanged(CharSequence s, int start, int before, int count)");
 
     }
   }
@@ -292,6 +303,7 @@ public class RegistrationActivity extends BaseActionBarActivity {
   private class CancelButtonListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
+	Log.d("RegistrationActivity", "void onClick(View v)");
       TextSecurePreferences.setPromptedPushRegistration(RegistrationActivity.this, true);
       Intent nextIntent = getIntent().getParcelableExtra("next_intent");
 

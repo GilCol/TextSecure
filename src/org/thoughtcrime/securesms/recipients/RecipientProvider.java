@@ -218,11 +218,13 @@ public class RecipientProvider {
     }
 
     public boolean equals(Object other) {
+	Log.d(TAG, "boolean equals(Object other)");
       if (other == null || !(other instanceof RecipientIds)) return false;
       return Arrays.equals(this.ids, ((RecipientIds) other).ids);
     }
 
     public int hashCode() {
+	Log.d(TAG, "int hashCode()");
       return Arrays.hashCode(ids);
     }
   }

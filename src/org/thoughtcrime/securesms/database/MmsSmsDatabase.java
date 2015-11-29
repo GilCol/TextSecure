@@ -70,6 +70,7 @@ public class MmsSmsDatabase extends Database {
   }
 
   public Cursor getConversation(long threadId, long limit) {
+	Log.d(TAG, "Cursor getConversation(long threadId, long limit)");
     String order     = MmsSmsColumns.NORMALIZED_DATE_RECEIVED + " DESC";
     String selection = MmsSmsColumns.THREAD_ID + " = " + threadId;
 
@@ -80,10 +81,12 @@ public class MmsSmsDatabase extends Database {
   }
 
   public Cursor getConversation(long threadId) {
+	Log.d(TAG, "Cursor getConversation(long threadId)");
     return getConversation(threadId, 0);
   }
 
   public Cursor getIdentityConflictMessagesForThread(long threadId) {
+	Log.d(TAG, "Cursor getIdentityConflictMessagesForThread(long threadId)");
     String order           = MmsSmsColumns.NORMALIZED_DATE_RECEIVED + " ASC";
     String selection       = MmsSmsColumns.THREAD_ID + " = " + threadId + " AND " + MmsSmsColumns.MISMATCHED_IDENTITIES + " IS NOT NULL";
 
@@ -94,6 +97,7 @@ public class MmsSmsDatabase extends Database {
   }
 
   public Cursor getConversationSnippet(long threadId) {
+	Log.d(TAG, "Cursor getConversationSnippet(long threadId)");
     String order     = MmsSmsColumns.NORMALIZED_DATE_RECEIVED + " DESC";
     String selection = MmsSmsColumns.THREAD_ID + " = " + threadId;
 
@@ -101,6 +105,7 @@ public class MmsSmsDatabase extends Database {
   }
 
   public Cursor getUnread() {
+	Log.d(TAG, "Cursor getUnread()");
     String order           = MmsSmsColumns.NORMALIZED_DATE_RECEIVED + " ASC";
     String selection       = MmsSmsColumns.READ + " = 0";
 
@@ -108,6 +113,7 @@ public class MmsSmsDatabase extends Database {
   }
 
   public int getConversationCount(long threadId) {
+	Log.d(TAG, "int getConversationCount(long threadId)");
     int count = DatabaseFactory.getSmsDatabase(context).getMessageCountForThread(threadId);
     count    += DatabaseFactory.getMmsDatabase(context).getMessageCountForThread(threadId);
 
@@ -115,6 +121,7 @@ public class MmsSmsDatabase extends Database {
   }
 
   public void incrementDeliveryReceiptCount(String address, long timestamp) {
+	Log.d(TAG, "void incrementDeliveryReceiptCount(String address, long timestamp)");
     DatabaseFactory.getSmsDatabase(context).incrementDeliveryReceiptCount(address, timestamp);
     DatabaseFactory.getMmsDatabase(context).incrementDeliveryReceiptCount(address, timestamp);
   }
@@ -239,10 +246,12 @@ public class MmsSmsDatabase extends Database {
   }
 
   public Reader readerFor(@NonNull Cursor cursor, @Nullable MasterSecret masterSecret) {
+	Log.d(TAG, "Reader readerFor(@NonNull Cursor cursor, @Nullable MasterSecret masterSecret)");
     return new Reader(cursor, masterSecret);
   }
 
   public Reader readerFor(@NonNull Cursor cursor) {
+	Log.d(TAG, "Reader readerFor(@NonNull Cursor cursor)");
     return new Reader(cursor);
   }
 
@@ -280,6 +289,7 @@ public class MmsSmsDatabase extends Database {
     }
 
     public MessageRecord getNext() {
+	Log.d(TAG, "MessageRecord getNext()");
       if (cursor == null || !cursor.moveToNext())
         return null;
 
@@ -287,6 +297,7 @@ public class MmsSmsDatabase extends Database {
     }
 
     public MessageRecord getCurrent() {
+	Log.d(TAG, "MessageRecord getCurrent()");
       String type = cursor.getString(cursor.getColumnIndexOrThrow(TRANSPORT));
 
       if      (MmsSmsDatabase.MMS_TRANSPORT.equals(type)) return getMmsReader().getCurrent();
@@ -295,6 +306,7 @@ public class MmsSmsDatabase extends Database {
     }
 
     public void close() {
+	Log.d(TAG, "void close()");
       cursor.close();
     }
   }

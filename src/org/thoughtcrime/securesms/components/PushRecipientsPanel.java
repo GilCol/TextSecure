@@ -75,11 +75,13 @@ public class PushRecipientsPanel extends RelativeLayout implements RecipientsMod
   }
 
   public void addRecipient(String name, String number) {
+	Log.d("PushRecipientsPanel", "void addRecipient(String name, String number)");
     if (name != null) recipientsText.append(name + "< " + number + ">, ");
     else recipientsText.append(number + ", ");
   }
 
   public void addRecipients(Recipients recipients) {
+	Log.d("PushRecipientsPanel", "void addRecipients(Recipients recipients)");
     List<Recipient> recipientList = recipients.getRecipientsList();
     Iterator<Recipient> iterator = recipientList.iterator();
 
@@ -100,11 +102,13 @@ public class PushRecipientsPanel extends RelativeLayout implements RecipientsMod
   }
 
   public void disable() {
+	Log.d("PushRecipientsPanel", "void disable()");
     recipientsText.setText("");
     panel.setVisibility(View.GONE);
   }
 
   public void setPanelChangeListener(RecipientsPanelChangedListener panelChangeListener) {
+	Log.d("PushRecipientsPanel", "void setPanelChangeListener(RecipientsPanelChangedListener panelChangeListener)");
     this.panelChangeListener = panelChangeListener;
   }
 
@@ -139,6 +143,7 @@ public class PushRecipientsPanel extends RelativeLayout implements RecipientsMod
     recipientsText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+	Log.d("PushRecipientsPanel", "void onItemClick(AdapterView<?> adapterView, View view, int i, long l)");
         if (panelChangeListener != null) {
           try {
             panelChangeListener.onRecipientsPanelUpdate(getRecipients());
@@ -157,6 +162,7 @@ public class PushRecipientsPanel extends RelativeLayout implements RecipientsMod
 
   private class FocusChangedListener implements View.OnFocusChangeListener {
     public void onFocusChange(View v, boolean hasFocus) {
+	Log.d("PushRecipientsPanel", "void onFocusChange(View v, boolean hasFocus)");
       if (!hasFocus && (panelChangeListener != null)) {
         try {
           panelChangeListener.onRecipientsPanelUpdate(getRecipients());

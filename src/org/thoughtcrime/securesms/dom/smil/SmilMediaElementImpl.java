@@ -68,34 +68,40 @@ public class SmilMediaElementImpl extends SmilElementImpl implements
             }
 
             public boolean beginElement() {
+	Log.d("SmilMediaElementImpl", "boolean beginElement()");
                 Event startEvent = createEvent(SMIL_MEDIA_START_EVENT);
                 dispatchEvent(startEvent);
                 return true;
             }
 
             public boolean endElement() {
+	Log.d("SmilMediaElementImpl", "boolean endElement()");
                 Event endEvent = createEvent(SMIL_MEDIA_END_EVENT);
                 dispatchEvent(endEvent);
                 return true;
             }
 
             public void resumeElement() {
+	Log.d("SmilMediaElementImpl", "void resumeElement()");
                 Event resumeEvent = createEvent(SMIL_MEDIA_START_EVENT);
                 dispatchEvent(resumeEvent);
             }
 
             public void pauseElement() {
+	Log.d("SmilMediaElementImpl", "void pauseElement()");
                 Event pauseEvent = createEvent(SMIL_MEDIA_PAUSE_EVENT);
                 dispatchEvent(pauseEvent);
             }
 
             public void seekElement(float seekTo) {
+	Log.d("SmilMediaElementImpl", "void seekElement(float seekTo)");
                 Event seekEvent = createEvent(SMIL_MEDIA_SEEK_EVENT, (int) seekTo);
                 dispatchEvent(seekEvent);
             }
 
             @Override
             public float getDur() {
+	Log.d("SmilMediaElementImpl", "float getDur()");
                 float dur = super.getDur();
                 if (dur == 0) {
                     // Duration is not specified, So get the implicit duration.
@@ -133,62 +139,77 @@ public class SmilMediaElementImpl extends SmilElementImpl implements
      */
 
     public String getAbstractAttr() {
+	Log.d("SmilMediaElementImpl", "String getAbstractAttr()");
         return this.getAttribute("abstract");
     }
 
     public String getAlt() {
+	Log.d("SmilMediaElementImpl", "String getAlt()");
         return this.getAttribute("alt");
     }
 
     public String getAuthor() {
+	Log.d("SmilMediaElementImpl", "String getAuthor()");
         return this.getAttribute("author");
     }
 
     public String getClipBegin() {
+	Log.d("SmilMediaElementImpl", "String getClipBegin()");
         return this.getAttribute("clipBegin");
     }
 
     public String getClipEnd() {
+	Log.d("SmilMediaElementImpl", "String getClipEnd()");
         return this.getAttribute("clipEnd");
     }
 
     public String getCopyright() {
+	Log.d("SmilMediaElementImpl", "String getCopyright()");
         return this.getAttribute("copyright");
     }
 
     public String getLongdesc() {
+	Log.d("SmilMediaElementImpl", "String getLongdesc()");
         return this.getAttribute("longdesc");
     }
 
     public String getPort() {
+	Log.d("SmilMediaElementImpl", "String getPort()");
         return this.getAttribute("port");
     }
 
     public String getReadIndex() {
+	Log.d("SmilMediaElementImpl", "String getReadIndex()");
         return this.getAttribute("readIndex");
     }
 
     public String getRtpformat() {
+	Log.d("SmilMediaElementImpl", "String getRtpformat()");
         return this.getAttribute("rtpformat");
     }
 
     public String getSrc() {
+	Log.d("SmilMediaElementImpl", "String getSrc()");
         return this.getAttribute("src");
     }
 
     public String getStripRepeat() {
+	Log.d("SmilMediaElementImpl", "String getStripRepeat()");
         return this.getAttribute("stripRepeat");
     }
 
     public String getTitle() {
+	Log.d("SmilMediaElementImpl", "String getTitle()");
         return this.getAttribute("title");
     }
 
     public String getTransport() {
+	Log.d("SmilMediaElementImpl", "String getTransport()");
         return this.getAttribute("transport");
     }
 
     public String getType() {
+	Log.d("SmilMediaElementImpl", "String getType()");
         return this.getAttribute("type");
     }
 
@@ -258,54 +279,67 @@ public class SmilMediaElementImpl extends SmilElementImpl implements
      */
 
     public boolean beginElement() {
+	Log.d("SmilMediaElementImpl", "boolean beginElement()");
         return mElementTime.beginElement();
     }
 
     public boolean endElement() {
+	Log.d("SmilMediaElementImpl", "boolean endElement()");
         return mElementTime.endElement();
     }
 
     public TimeList getBegin() {
+	Log.d("SmilMediaElementImpl", "TimeList getBegin()");
         return mElementTime.getBegin();
     }
 
     public float getDur() {
+	Log.d("SmilMediaElementImpl", "float getDur()");
         return mElementTime.getDur();
     }
 
     public TimeList getEnd() {
+	Log.d("SmilMediaElementImpl", "TimeList getEnd()");
         return mElementTime.getEnd();
     }
 
     public short getFill() {
+	Log.d("SmilMediaElementImpl", "short getFill()");
         return mElementTime.getFill();
     }
 
     public short getFillDefault() {
+	Log.d("SmilMediaElementImpl", "short getFillDefault()");
         return mElementTime.getFillDefault();
     }
 
     public float getRepeatCount() {
+	Log.d("SmilMediaElementImpl", "float getRepeatCount()");
         return mElementTime.getRepeatCount();
     }
 
     public float getRepeatDur() {
+	Log.d("SmilMediaElementImpl", "float getRepeatDur()");
         return mElementTime.getRepeatDur();
     }
 
     public short getRestart() {
+	Log.d("SmilMediaElementImpl", "short getRestart()");
         return mElementTime.getRestart();
     }
 
     public void pauseElement() {
+	Log.d("SmilMediaElementImpl", "void pauseElement()");
         mElementTime.pauseElement();
     }
 
     public void resumeElement() {
+	Log.d("SmilMediaElementImpl", "void resumeElement()");
         mElementTime.resumeElement();
     }
 
     public void seekElement(float seekTo) {
+	Log.d("SmilMediaElementImpl", "void seekElement(float seekTo)");
         mElementTime.seekElement(seekTo);
     }
 

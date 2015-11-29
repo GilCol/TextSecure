@@ -39,11 +39,13 @@ public class TrimThreadJob extends Job {
 
   @Override
   public void onAdded() {
+	Log.d(TAG, "void onAdded()");
 
   }
 
   @Override
   public void onRun() {
+	Log.d(TAG, "void onRun()");
     boolean trimmingEnabled   = TextSecurePreferences.isThreadLengthTrimmingEnabled(context);
     int     threadLengthLimit = TextSecurePreferences.getThreadTrimLength(context);
 
@@ -55,11 +57,13 @@ public class TrimThreadJob extends Job {
 
   @Override
   public boolean onShouldRetry(Exception exception) {
+	Log.d(TAG, "boolean onShouldRetry(Exception exception)");
     return false;
   }
 
   @Override
   public void onCanceled() {
+	Log.d(TAG, "void onCanceled()");
     Log.w(TAG, "Canceling trim attempt: " + threadId);
   }
 }

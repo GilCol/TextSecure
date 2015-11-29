@@ -25,6 +25,7 @@ public class NotificationState {
   private int notificationCount = 0;
 
   public void addNotification(NotificationItem item) {
+	Log.d("NotificationState", "void addNotification(NotificationItem item)");
     notifications.addFirst(item);
     threads.add(item.getThreadId());
     notificationCount++;
@@ -43,6 +44,7 @@ public class NotificationState {
   }
 
   public VibrateState getVibrate() {
+	Log.d("NotificationState", "VibrateState getVibrate()");
     if (!notifications.isEmpty()) {
       Recipients recipients = notifications.getFirst().getRecipients();
 
@@ -55,22 +57,27 @@ public class NotificationState {
   }
 
   public boolean hasMultipleThreads() {
+	Log.d("NotificationState", "boolean hasMultipleThreads()");
     return threads.size() > 1;
   }
 
   public int getThreadCount() {
+	Log.d("NotificationState", "int getThreadCount()");
     return threads.size();
   }
 
   public int getMessageCount() {
+	Log.d("NotificationState", "int getMessageCount()");
     return notificationCount;
   }
 
   public List<NotificationItem> getNotifications() {
+	Log.d("NotificationState", "List<NotificationItem> getNotifications()");
     return notifications;
   }
 
   public PendingIntent getMarkAsReadIntent(Context context) {
+	Log.d("NotificationState", "PendingIntent getMarkAsReadIntent(Context context)");
     long[] threadArray = new long[threads.size()];
     int    index       = 0;
 
@@ -93,6 +100,7 @@ public class NotificationState {
   }
 
   public PendingIntent getWearableReplyIntent(Context context, Recipients recipients) {
+	Log.d("NotificationState", "PendingIntent getWearableReplyIntent(Context context, Recipients recipients)");
     if (threads.size() != 1) throw new AssertionError("We only support replies to single thread notifications!");
 
     Intent intent = new Intent(WearReplyReceiver.REPLY_ACTION);
@@ -103,6 +111,7 @@ public class NotificationState {
   }
 
   public PendingIntent getQuickReplyIntent(Context context, Recipients recipients) {
+	Log.d("NotificationState", "PendingIntent getQuickReplyIntent(Context context, Recipients recipients)");
     if (threads.size() != 1) throw new AssertionError("We only support replies to single thread notifications!");
 
     Intent     intent           = new Intent(context, ConversationPopupActivity.class);

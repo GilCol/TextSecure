@@ -82,17 +82,20 @@ public class MultiDeviceGroupUpdateJob extends MasterSecretJob implements Inject
 
   @Override
   public boolean onShouldRetryThrowable(Exception exception) {
+	Log.d(TAG, "boolean onShouldRetryThrowable(Exception exception)");
     if (exception instanceof PushNetworkException) return true;
     return false;
   }
 
   @Override
   public void onAdded() {
+	Log.d(TAG, "void onAdded()");
 
   }
 
   @Override
   public void onCanceled() {
+	Log.d(TAG, "void onCanceled()");
 
   }
 

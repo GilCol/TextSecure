@@ -38,6 +38,7 @@ public class SingleUseBlobProvider {
   private static final SingleUseBlobProvider instance = new SingleUseBlobProvider();
 
   public static SingleUseBlobProvider getInstance() {
+	Log.d(TAG, "SingleUseBlobProvider getInstance()");
     return instance;
   }
 

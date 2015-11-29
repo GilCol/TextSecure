@@ -145,6 +145,7 @@ public class GroupCreateActivity extends PassphraseRequiredActionBarActivity {
 
   @Override
   public void onResume() {
+	Log.d("GroupCreateActivity", "void onResume()");
     super.onResume();
     dynamicTheme.onResume(this);
     dynamicLanguage.onResume(this);
@@ -256,6 +257,7 @@ public class GroupCreateActivity extends PassphraseRequiredActionBarActivity {
       public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) { }
       @Override
       public void afterTextChanged(Editable editable) {
+	Log.d("GroupCreateActivity", "void afterTextChanged(Editable editable)");
         final int prefixResId = (groupId != null)
                                 ? R.string.GroupCreateActivity_actionbar_update_title
                                 : R.string.GroupCreateActivity_actionbar_title;
@@ -271,6 +273,7 @@ public class GroupCreateActivity extends PassphraseRequiredActionBarActivity {
     adapter.setOnRecipientDeletedListener(new SelectedRecipientsAdapter.OnRecipientDeletedListener() {
       @Override
       public void onRecipientDeleted(Recipient recipient) {
+	Log.d("GroupCreateActivity", "void onRecipientDeleted(Recipient recipient)");
         removeSelectedContact(recipient);
       }
     });
@@ -279,6 +282,7 @@ public class GroupCreateActivity extends PassphraseRequiredActionBarActivity {
     recipientsPanel.setPanelChangeListener(new PushRecipientsPanel.RecipientsPanelChangedListener() {
       @Override
       public void onRecipientsPanelUpdate(Recipients recipients) {
+	Log.d("GroupCreateActivity", "void onRecipientsPanelUpdate(Recipients recipients)");
         Log.i(TAG, "onRecipientsPanelUpdate received.");
         if (recipients != null) {
           addAllSelectedContacts(recipients.getRecipientsList());
@@ -291,6 +295,7 @@ public class GroupCreateActivity extends PassphraseRequiredActionBarActivity {
     avatar.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
+	Log.d("GroupCreateActivity", "void onClick(View view)");
         Crop.pickImage(GroupCreateActivity.this);
       }
     });
@@ -300,6 +305,7 @@ public class GroupCreateActivity extends PassphraseRequiredActionBarActivity {
 
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
+	Log.d("GroupCreateActivity", "boolean onPrepareOptionsMenu(Menu menu)");
     MenuInflater inflater = this.getMenuInflater();
     menu.clear();
 
@@ -310,6 +316,7 @@ public class GroupCreateActivity extends PassphraseRequiredActionBarActivity {
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
+	Log.d("GroupCreateActivity", "boolean onOptionsItemSelected(MenuItem item)");
     super.onOptionsItemSelected(item);
     switch (item.getItemId()) {
       case android.R.id.home:
@@ -379,6 +386,7 @@ public class GroupCreateActivity extends PassphraseRequiredActionBarActivity {
 
   @Override
   public void onActivityResult(int reqCode, int resultCode, final Intent data) {
+	Log.d("GroupCreateActivity", "void onActivityResult(int reqCode, int resultCode, final Intent data)");
     super.onActivityResult(reqCode, resultCode, data);
     Uri outputFile = Uri.fromFile(new File(getCacheDir(), "cropped"));
 
@@ -422,6 +430,7 @@ public class GroupCreateActivity extends PassphraseRequiredActionBarActivity {
   private class AddRecipientButtonListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
+	Log.d("GroupCreateActivity", "void onClick(View v)");
       Intent intent = new Intent(GroupCreateActivity.this, PushContactSelectionActivity.class);
       if (existingContacts != null) intent.putExtra(ContactSelectionListFragment.DISPLAY_MODE,
                                                     ContactSelectionListFragment.DISPLAY_MODE_PUSH_ONLY);

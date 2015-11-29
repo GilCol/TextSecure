@@ -46,6 +46,7 @@ public class MmsBodyProvider extends ContentProvider {
 
   @Override
   public boolean onCreate() {
+	Log.d(TAG, "boolean onCreate()");
     return true;
   }
 
@@ -82,6 +83,7 @@ public class MmsBodyProvider extends ContentProvider {
 
   @Override
   public int delete(Uri uri, String arg1, String[] arg2) {
+	Log.d(TAG, "int delete(Uri uri, String arg1, String[] arg2)");
     switch (uriMatcher.match(uri)) {
     case SINGLE_ROW:
       return getFile(uri).delete() ? 1 : 0;
@@ -91,24 +93,29 @@ public class MmsBodyProvider extends ContentProvider {
 
   @Override
   public String getType(Uri arg0) {
+	Log.d(TAG, "String getType(Uri arg0)");
     return null;
   }
 
   @Override
   public Uri insert(Uri arg0, ContentValues arg1) {
+	Log.d(TAG, "Uri insert(Uri arg0, ContentValues arg1)");
     return null;
   }
 
   @Override
   public Cursor query(Uri arg0, String[] arg1, String arg2, String[] arg3, String arg4) {
+	Log.d(TAG, "Cursor query(Uri arg0, String[] arg1, String arg2, String[] arg3, String arg4)");
     return null;
   }
 
   @Override
   public int update(Uri arg0, ContentValues arg1, String arg2, String[] arg3) {
+	Log.d(TAG, "int update(Uri arg0, ContentValues arg1, String arg2, String[] arg3)");
     return 0;
   }
   public static Pointer makeTemporaryPointer(Context context) {
+	Log.d(TAG, "Pointer makeTemporaryPointer(Context context)");
     return new Pointer(context, ContentUris.withAppendedId(MmsBodyProvider.CONTENT_URI, System.currentTimeMillis()));
   }
 
@@ -122,6 +129,7 @@ public class MmsBodyProvider extends ContentProvider {
     }
 
     public Uri getUri() {
+	Log.d(TAG, "Uri getUri()");
       return uri;
     }
 
@@ -134,6 +142,7 @@ public class MmsBodyProvider extends ContentProvider {
     }
 
     public void close() {
+	Log.d(TAG, "void close()");
       context.getContentResolver().delete(uri, null, null);
     }
   }

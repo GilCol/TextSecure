@@ -21,6 +21,7 @@ public class RatingManager {
   private static final String TAG = RatingManager.class.getSimpleName();
 
   public static void showRatingDialogIfNecessary(Context context) {
+	Log.d(TAG, "void showRatingDialogIfNecessary(Context context)");
     if (!TextSecurePreferences.isRatingEnabled(context)) return;
 
     long daysSinceInstall = getDaysSinceInstalled(context);
@@ -43,6 +44,7 @@ public class RatingManager {
         .callback(new MaterialDialog.ButtonCallback() {
           @Override
           public void onPositive(MaterialDialog dialog) {
+	Log.d(TAG, "void onPositive(MaterialDialog dialog)");
             TextSecurePreferences.setRatingEnabled(context, false);
             startPlayStore(context);
             super.onPositive(dialog);
@@ -50,12 +52,14 @@ public class RatingManager {
 
           @Override
           public void onNegative(MaterialDialog dialog) {
+	Log.d(TAG, "void onNegative(MaterialDialog dialog)");
             TextSecurePreferences.setRatingEnabled(context, false);
             super.onNegative(dialog);
           }
 
           @Override
           public void onNeutral(MaterialDialog dialog) {
+	Log.d(TAG, "void onNeutral(MaterialDialog dialog)");
             long waitUntil = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(DAYS_UNTIL_REPROMPT_THRESHOLD);
             TextSecurePreferences.setRatingLaterTimestamp(context, waitUntil);
             super.onNeutral(dialog);

@@ -88,6 +88,7 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
     preferences.addListener(new FutureTaskListener<RecipientsPreferences>() {
       @Override
       public void onSuccess(RecipientsPreferences result) {
+	Log.d(TAG, "void onSuccess(RecipientsPreferences result)");
         if (result != null) {
 
           Set<RecipientsModifiedListener> localListeners;
@@ -109,6 +110,7 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
 
       @Override
       public void onFailure(Throwable error) {
+	Log.d(TAG, "void onFailure(Throwable error)");
         Log.w(TAG, error);
       }
     });
@@ -119,6 +121,7 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
   }
 
   public void setRingtone(Uri ringtone) {
+	Log.d(TAG, "void setRingtone(Uri ringtone)");
     synchronized (this) {
       this.ringtone = ringtone;
     }
@@ -131,6 +134,7 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
   }
 
   public void setMuted(long mutedUntil) {
+	Log.d(TAG, "void setMuted(long mutedUntil)");
     synchronized (this) {
       this.mutedUntil = mutedUntil;
     }
@@ -143,6 +147,7 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
   }
 
   public void setBlocked(boolean blocked) {
+	Log.d(TAG, "void setBlocked(boolean blocked)");
     synchronized (this) {
       this.blocked = blocked;
     }
@@ -155,6 +160,7 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
   }
 
   public void setVibrate(VibrateState vibrate) {
+	Log.d(TAG, "void setVibrate(VibrateState vibrate)");
     synchronized (this) {
       this.vibrate = vibrate;
     }
@@ -199,6 +205,7 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
   }
 
   public boolean isEmailRecipient() {
+	Log.d(TAG, "boolean isEmailRecipient()");
     for (Recipient recipient : recipients) {
       if (NumberUtil.isValidEmail(recipient.getNumber()))
         return true;
@@ -208,14 +215,17 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
   }
 
   public boolean isGroupRecipient() {
+	Log.d(TAG, "boolean isGroupRecipient()");
     return isSingleRecipient() && GroupUtil.isEncodedGroup(recipients.get(0).getNumber());
   }
 
   public boolean isEmpty() {
+	Log.d(TAG, "boolean isEmpty()");
     return this.recipients.isEmpty();
   }
 
   public boolean isSingleRecipient() {
+	Log.d(TAG, "boolean isSingleRecipient()");
     return this.recipients.size() == 1;
   }
 
@@ -227,10 +237,12 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
   }
 
   public List<Recipient> getRecipientsList() {
+	Log.d(TAG, "List<Recipient> getRecipientsList()");
     return this.recipients;
   }
 
   public long[] getIds() {
+	Log.d(TAG, "long[] getIds()");
     long[] ids = new long[recipients.size()];
     for (int i=0; i<recipients.size(); i++) {
       ids[i] = recipients.get(i).getRecipientId();
@@ -239,6 +251,7 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
   }
 
   public String getSortedIdsString() {
+	Log.d(TAG, "String getSortedIdsString()");
     Set<Long> recipientSet  = new HashSet<>();
 
     for (Recipient recipient : this.recipients) {
@@ -286,6 +299,7 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
   }
 
   public String toShortString() {
+	Log.d(TAG, "String toShortString()");
     String fromString = "";
 
     for (int i=0;i<recipients.size();i++) {
@@ -300,11 +314,13 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
 
   @Override
   public Iterator<Recipient> iterator() {
+	Log.d(TAG, "Iterator<Recipient> iterator()");
     return recipients.iterator();
   }
 
   @Override
   public void onModified(Recipient recipient) {
+	Log.d(TAG, "void onModified(Recipient recipient)");
     notifyListeners();
   }
 

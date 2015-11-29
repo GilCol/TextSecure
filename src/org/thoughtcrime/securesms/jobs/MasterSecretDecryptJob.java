@@ -35,6 +35,7 @@ public class MasterSecretDecryptJob extends MasterSecretJob {
 
   @Override
   public void onRun(MasterSecret masterSecret) {
+	Log.d(TAG, "void onRun(MasterSecret masterSecret)");
     EncryptingSmsDatabase smsDatabase = DatabaseFactory.getEncryptingSmsDatabase(context);
     SmsDatabase.Reader    smsReader   = smsDatabase.getDecryptInProgressMessages(masterSecret);
 
@@ -71,16 +72,19 @@ public class MasterSecretDecryptJob extends MasterSecretJob {
 
   @Override
   public boolean onShouldRetryThrowable(Exception exception) {
+	Log.d(TAG, "boolean onShouldRetryThrowable(Exception exception)");
     return false;
   }
 
   @Override
   public void onAdded() {
+	Log.d(TAG, "void onAdded()");
 
   }
 
   @Override
   public void onCanceled() {
+	Log.d(TAG, "void onCanceled()");
 
   }
 

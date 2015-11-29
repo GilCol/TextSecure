@@ -71,6 +71,7 @@ public class AudioSlidePlayer {
     mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
       @Override
       public void onPrepared(MediaPlayer mp) {
+	Log.d(TAG, "void onPrepared(MediaPlayer mp)");
         Log.w(TAG, "onPrepared");
         synchronized (AudioSlidePlayer.this) {
           if (mediaPlayer == null) return;
@@ -92,6 +93,7 @@ public class AudioSlidePlayer {
     mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
       @Override
       public void onCompletion(MediaPlayer mp) {
+	Log.d(TAG, "void onCompletion(MediaPlayer mp)");
         Log.w(TAG, "onComplete");
         synchronized (AudioSlidePlayer.this) {
           mediaPlayer = null;
@@ -107,6 +109,7 @@ public class AudioSlidePlayer {
     mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
       @Override
       public boolean onError(MediaPlayer mp, int what, int extra) {
+	Log.d(TAG, "boolean onError(MediaPlayer mp, int what, int extra)");
         Log.w(TAG, "MediaPlayer Error: " + what + " , " + extra);
         notifyOnStop();
         return true;
@@ -140,6 +143,7 @@ public class AudioSlidePlayer {
   }
 
   public void setListener(@NonNull Listener listener) {
+	Log.d(TAG, "void setListener(@NonNull Listener listener)");
     this.listener = new WeakReference<>(listener);
 
     if (this.mediaPlayer != null && this.mediaPlayer.isPlaying()) {
@@ -164,6 +168,7 @@ public class AudioSlidePlayer {
     Util.runOnMain(new Runnable() {
       @Override
       public void run() {
+	Log.d(TAG, "void run()");
         getListener().onStart();
       }
     });
@@ -173,6 +178,7 @@ public class AudioSlidePlayer {
     Util.runOnMain(new Runnable() {
       @Override
       public void run() {
+	Log.d(TAG, "void run()");
         getListener().onStop();
       }
     });
@@ -182,6 +188,7 @@ public class AudioSlidePlayer {
     Util.runOnMain(new Runnable() {
       @Override
       public void run() {
+	Log.d(TAG, "void run()");
         getListener().onProgress(progress, millis);
       }
     });
@@ -232,6 +239,7 @@ public class AudioSlidePlayer {
 
     @Override
     public void handleMessage(Message msg) {
+	Log.d(TAG, "void handleMessage(Message msg)");
       AudioSlidePlayer player = playerReference.get();
 
       if (player == null || player.mediaPlayer == null || !player.mediaPlayer.isPlaying()) {

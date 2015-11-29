@@ -47,6 +47,7 @@ public class TextSecureDirectory {
   private static volatile TextSecureDirectory instance;
 
   public static TextSecureDirectory getInstance(Context context) {
+	Log.d("TextSecureDirectory", "TextSecureDirectory getInstance(Context context)");
     if (instance == null) {
       synchronized (instanceLock) {
         if (instance == null) {
@@ -117,6 +118,7 @@ public class TextSecureDirectory {
   }
 
   public String getRelay(String e164number) {
+	Log.d("TextSecureDirectory", "String getRelay(String e164number)");
     SQLiteDatabase database = databaseHelper.getReadableDatabase();
     Cursor         cursor   = null;
 
@@ -135,6 +137,7 @@ public class TextSecureDirectory {
   }
 
   public void setNumber(ContactTokenDetails token, boolean active) {
+	Log.d("TextSecureDirectory", "void setNumber(ContactTokenDetails token, boolean active)");
     SQLiteDatabase db     = databaseHelper.getWritableDatabase();
     ContentValues  values = new ContentValues();
     values.put(NUMBER, token.getNumber());
@@ -145,6 +148,7 @@ public class TextSecureDirectory {
   }
 
   public void setNumbers(List<ContactTokenDetails> activeTokens, Collection<String> inactiveTokens) {
+	Log.d("TextSecureDirectory", "void setNumbers(List<ContactTokenDetails> activeTokens, Collection<String> inactiveTokens)");
     long timestamp    = System.currentTimeMillis();
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
     db.beginTransaction();
@@ -176,6 +180,7 @@ public class TextSecureDirectory {
   }
 
   public Set<String> getPushEligibleContactNumbers(String localNumber) {
+	Log.d("TextSecureDirectory", "Set<String> getPushEligibleContactNumbers(String localNumber)");
     final Uri         uri     = Phone.CONTENT_URI;
     final Set<String> results = new HashSet<>();
           Cursor      cursor  = null;
@@ -216,6 +221,7 @@ public class TextSecureDirectory {
   }
 
   public List<String> getActiveNumbers() {
+	Log.d("TextSecureDirectory", "List<String> getActiveNumbers()");
     final List<String> results = new ArrayList<>();
     Cursor cursor = null;
     try {
@@ -243,11 +249,13 @@ public class TextSecureDirectory {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+	Log.d("TextSecureDirectory", "void onCreate(SQLiteDatabase db)");
       db.execSQL(CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+	Log.d("TextSecureDirectory", "void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)");
       if (oldVersion < INTRODUCED_CHANGE_FROM_TOKEN_TO_E164_NUMBER) {
         db.execSQL("DROP TABLE directory;");
         db.execSQL("CREATE TABLE directory ( _id INTEGER PRIMARY KEY, " +

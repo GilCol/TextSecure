@@ -124,6 +124,7 @@ public class SmsDatabase extends MessagingDatabase {
   }
 
   public long getThreadIdForMessage(long id) {
+	Log.d(TAG, "long getThreadIdForMessage(long id)");
     String sql        = "SELECT " + THREAD_ID + " FROM " + TABLE_NAME + " WHERE " + ID + " = ?";
     String[] sqlArgs  = new String[] {id+""};
     SQLiteDatabase db = databaseHelper.getReadableDatabase();
@@ -143,6 +144,7 @@ public class SmsDatabase extends MessagingDatabase {
   }
 
   public int getMessageCount() {
+	Log.d(TAG, "int getMessageCount()");
     SQLiteDatabase db = databaseHelper.getReadableDatabase();
     Cursor cursor     = null;
 
@@ -158,6 +160,7 @@ public class SmsDatabase extends MessagingDatabase {
   }
 
   public int getMessageCountForThread(long threadId) {
+	Log.d(TAG, "int getMessageCountForThread(long threadId)");
     SQLiteDatabase db = databaseHelper.getReadableDatabase();
     Cursor cursor     = null;
 
@@ -176,66 +179,82 @@ public class SmsDatabase extends MessagingDatabase {
   }
 
   public void markAsEndSession(long id) {
+	Log.d(TAG, "void markAsEndSession(long id)");
     updateTypeBitmask(id, Types.KEY_EXCHANGE_MASK, Types.END_SESSION_BIT);
   }
 
   public void markAsPreKeyBundle(long id) {
+	Log.d(TAG, "void markAsPreKeyBundle(long id)");
     updateTypeBitmask(id, Types.KEY_EXCHANGE_MASK, Types.KEY_EXCHANGE_BIT | Types.KEY_EXCHANGE_BUNDLE_BIT);
   }
 
   public void markAsInvalidVersionKeyExchange(long id) {
+	Log.d(TAG, "void markAsInvalidVersionKeyExchange(long id)");
     updateTypeBitmask(id, 0, Types.KEY_EXCHANGE_INVALID_VERSION_BIT);
   }
 
   public void markAsSecure(long id) {
+	Log.d(TAG, "void markAsSecure(long id)");
     updateTypeBitmask(id, 0, Types.SECURE_MESSAGE_BIT);
   }
 
   public void markAsInsecure(long id) {
+	Log.d(TAG, "void markAsInsecure(long id)");
     updateTypeBitmask(id, Types.SECURE_MESSAGE_BIT, 0);
   }
 
   public void markAsPush(long id) {
+	Log.d(TAG, "void markAsPush(long id)");
     updateTypeBitmask(id, 0, Types.PUSH_MESSAGE_BIT);
   }
 
   public void markAsForcedSms(long id) {
+	Log.d(TAG, "void markAsForcedSms(long id)");
     updateTypeBitmask(id, Types.PUSH_MESSAGE_BIT, Types.MESSAGE_FORCE_SMS_BIT);
   }
 
   public void markAsDecryptFailed(long id) {
+	Log.d(TAG, "void markAsDecryptFailed(long id)");
     updateTypeBitmask(id, Types.ENCRYPTION_MASK, Types.ENCRYPTION_REMOTE_FAILED_BIT);
   }
 
   public void markAsDecryptDuplicate(long id) {
+	Log.d(TAG, "void markAsDecryptDuplicate(long id)");
     updateTypeBitmask(id, Types.ENCRYPTION_MASK, Types.ENCRYPTION_REMOTE_DUPLICATE_BIT);
   }
 
   public void markAsNoSession(long id) {
+	Log.d(TAG, "void markAsNoSession(long id)");
     updateTypeBitmask(id, Types.ENCRYPTION_MASK, Types.ENCRYPTION_REMOTE_NO_SESSION_BIT);
   }
 
   public void markAsLegacyVersion(long id) {
+	Log.d(TAG, "void markAsLegacyVersion(long id)");
     updateTypeBitmask(id, Types.ENCRYPTION_MASK, Types.ENCRYPTION_REMOTE_LEGACY_BIT);
   }
 
   public void markAsOutbox(long id) {
+	Log.d(TAG, "void markAsOutbox(long id)");
     updateTypeBitmask(id, Types.BASE_TYPE_MASK, Types.BASE_OUTBOX_TYPE);
   }
 
   public void markAsPendingInsecureSmsFallback(long id) {
+	Log.d(TAG, "void markAsPendingInsecureSmsFallback(long id)");
     updateTypeBitmask(id, Types.BASE_TYPE_MASK, Types.BASE_PENDING_INSECURE_SMS_FALLBACK);
   }
 
   public void markAsSending(long id) {
+	Log.d(TAG, "void markAsSending(long id)");
     updateTypeBitmask(id, Types.BASE_TYPE_MASK, Types.BASE_SENDING_TYPE);
   }
 
   public void markAsSent(long id) {
+	Log.d(TAG, "void markAsSent(long id)");
     updateTypeBitmask(id, Types.BASE_TYPE_MASK, Types.BASE_SENT_TYPE);
   }
 
   public void markStatus(long id, int status) {
+	Log.d(TAG, "void markStatus(long id, int status)");
     Log.w("MessageDatabase", "Updating ID: " + id + " to status: " + status);
     ContentValues contentValues = new ContentValues();
     contentValues.put(STATUS, status);
@@ -246,10 +265,12 @@ public class SmsDatabase extends MessagingDatabase {
   }
 
   public void markAsSentFailed(long id) {
+	Log.d(TAG, "void markAsSentFailed(long id)");
     updateTypeBitmask(id, Types.BASE_TYPE_MASK, Types.BASE_SENT_FAILED_TYPE);
   }
 
   public void incrementDeliveryReceiptCount(String address, long timestamp) {
+	Log.d(TAG, "void incrementDeliveryReceiptCount(String address, long timestamp)");
     SQLiteDatabase database = databaseHelper.getWritableDatabase();
     Cursor         cursor   = null;
 
@@ -284,6 +305,7 @@ public class SmsDatabase extends MessagingDatabase {
   }
 
   public void setMessagesRead(long threadId) {
+	Log.d(TAG, "void setMessagesRead(long threadId)");
     SQLiteDatabase database     = databaseHelper.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put(READ, 1);
@@ -294,6 +316,7 @@ public class SmsDatabase extends MessagingDatabase {
   }
 
   public void setAllMessagesRead() {
+	Log.d(TAG, "void setAllMessagesRead()");
     SQLiteDatabase database     = databaseHelper.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put(READ, 1);
@@ -500,12 +523,14 @@ public class SmsDatabase extends MessagingDatabase {
   }
 
   public Cursor getDecryptInProgressMessages() {
+	Log.d(TAG, "Cursor getDecryptInProgressMessages()");
     String where       = TYPE + " & " + (Types.ENCRYPTION_ASYMMETRIC_BIT) + " != 0";
     SQLiteDatabase db  = databaseHelper.getReadableDatabase();
     return db.query(TABLE_NAME, MESSAGE_PROJECTION, where, null, null, null, null);
   }
 
   public Cursor getEncryptedRogueMessages(Recipient recipient) {
+	Log.d(TAG, "Cursor getEncryptedRogueMessages(Recipient recipient)");
     String selection  = TYPE + " & " + Types.ENCRYPTION_REMOTE_NO_SESSION_BIT + " != 0" +
                         " AND PHONE_NUMBERS_EQUAL(" + ADDRESS + ", ?)";
     String[] args     = {recipient.getNumber()};
@@ -514,6 +539,7 @@ public class SmsDatabase extends MessagingDatabase {
   }
 
   public Cursor getMessage(long messageId) {
+	Log.d(TAG, "Cursor getMessage(long messageId)");
     SQLiteDatabase db     = databaseHelper.getReadableDatabase();
     Cursor         cursor = db.query(TABLE_NAME, MESSAGE_PROJECTION, ID_WHERE, new String[]{messageId + ""},
                                      null, null, null);
@@ -522,6 +548,7 @@ public class SmsDatabase extends MessagingDatabase {
   }
 
   public boolean deleteMessage(long messageId) {
+	Log.d(TAG, "boolean deleteMessage(long messageId)");
     Log.w("MessageDatabase", "Deleting: " + messageId);
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
     long threadId     = getThreadIdForMessage(messageId);
@@ -603,6 +630,7 @@ public class SmsDatabase extends MessagingDatabase {
   }
 
   public Reader readerFor(Cursor cursor) {
+	Log.d(TAG, "Reader readerFor(Cursor cursor)");
     return new Reader(cursor);
   }
 
@@ -615,6 +643,7 @@ public class SmsDatabase extends MessagingDatabase {
     }
 
     public SmsMessageRecord getNext() {
+	Log.d(TAG, "SmsMessageRecord getNext()");
       if (cursor == null || !cursor.moveToNext())
         return null;
 
@@ -622,11 +651,13 @@ public class SmsDatabase extends MessagingDatabase {
     }
 
     public int getCount() {
+	Log.d(TAG, "int getCount()");
       if (cursor == null) return 0;
       else                return cursor.getCount();
     }
 
     public SmsMessageRecord getCurrent() {
+	Log.d(TAG, "SmsMessageRecord getCurrent()");
       long messageId          = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.ID));
       String address          = cursor.getString(cursor.getColumnIndexOrThrow(SmsDatabase.ADDRESS));
       int addressDeviceId     = cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.ADDRESS_DEVICE_ID));
@@ -688,6 +719,7 @@ public class SmsDatabase extends MessagingDatabase {
     }
 
     public void close() {
+	Log.d(TAG, "void close()");
       cursor.close();
     }
   }

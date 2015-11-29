@@ -72,6 +72,7 @@ public abstract class PushSendJob extends SendJob {
                                               .withListener(new ProgressListener() {
                                                 @Override
                                                 public void onAttachmentProgress(long total, long progress) {
+	Log.d(TAG, "void onAttachmentProgress(long total, long progress)");
                                                   EventBus.getDefault().postSticky(new PartProgressEvent(attachment, total, progress));
                                                 }
                                               })

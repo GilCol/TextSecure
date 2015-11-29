@@ -37,6 +37,7 @@ public class DraftDatabase extends Database {
   }
 
   public void insertDrafts(MasterCipher masterCipher, long threadId, List<Draft> drafts) {
+	Log.d("DraftDatabase", "void insertDrafts(MasterCipher masterCipher, long threadId, List<Draft> drafts)");
     SQLiteDatabase db    = databaseHelper.getWritableDatabase();
 
     for (Draft draft : drafts) {
@@ -50,11 +51,13 @@ public class DraftDatabase extends Database {
   }
 
   public void clearDrafts(long threadId) {
+	Log.d("DraftDatabase", "void clearDrafts(long threadId)");
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
     db.delete(TABLE_NAME, THREAD_ID + " = ?", new String[] {threadId+""});
   }
 
   public void clearDrafts(Set<Long> threadIds) {
+	Log.d("DraftDatabase", "void clearDrafts(Set<Long> threadIds)");
     SQLiteDatabase db        = databaseHelper.getWritableDatabase();
     StringBuilder  where     = new StringBuilder();
     List<String>   arguments = new LinkedList<>();
@@ -71,11 +74,13 @@ public class DraftDatabase extends Database {
   }
 
   public void clearAllDrafts() {
+	Log.d("DraftDatabase", "void clearAllDrafts()");
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
     db.delete(TABLE_NAME, null, null);
   }
 
   public List<Draft> getDrafts(MasterCipher masterCipher, long threadId) {
+	Log.d("DraftDatabase", "List<Draft> getDrafts(MasterCipher masterCipher, long threadId)");
     SQLiteDatabase db   = databaseHelper.getReadableDatabase();
     List<Draft> results = new LinkedList<Draft>();
     Cursor cursor       = null;
@@ -117,14 +122,17 @@ public class DraftDatabase extends Database {
     }
 
     public String getType() {
+	Log.d("DraftDatabase", "String getType()");
       return type;
     }
 
     public String getValue() {
+	Log.d("DraftDatabase", "String getValue()");
       return value;
     }
 
     public String getSnippet(Context context) {
+	Log.d("DraftDatabase", "String getSnippet(Context context)");
       switch (type) {
       case TEXT:  return value;
       case IMAGE: return context.getString(R.string.DraftDatabase_Draft_image_snippet);
@@ -146,6 +154,7 @@ public class DraftDatabase extends Database {
     }
 
     public String getSnippet(Context context) {
+	Log.d("DraftDatabase", "String getSnippet(Context context)");
       Draft textDraft = getDraftOfType(Draft.TEXT);
       if (textDraft != null) {
         return textDraft.getSnippet(context);

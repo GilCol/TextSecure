@@ -94,6 +94,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @return the value
      */
     public EncodedStringValue[] getBcc() {
+	Log.d(TAG, "EncodedStringValue[] getBcc()");
         return mPduHeaders.getEncodedStringValues(PduHeaders.BCC);
     }
 
@@ -104,6 +105,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @throws NullPointerException if the value is null.
      */
     public void addBcc(EncodedStringValue value) {
+	Log.d(TAG, "void addBcc(EncodedStringValue value)");
         mPduHeaders.appendEncodedStringValue(value, PduHeaders.BCC);
     }
 
@@ -114,6 +116,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @throws NullPointerException if the value is null.
      */
     public void setBcc(EncodedStringValue[] value) {
+	Log.d(TAG, "void setBcc(EncodedStringValue[] value)");
         mPduHeaders.setEncodedStringValues(value, PduHeaders.BCC);
     }
 
@@ -123,6 +126,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @return the value
      */
     public EncodedStringValue[] getCc() {
+	Log.d(TAG, "EncodedStringValue[] getCc()");
         return mPduHeaders.getEncodedStringValues(PduHeaders.CC);
     }
 
@@ -133,6 +137,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @throws NullPointerException if the value is null.
      */
     public void addCc(EncodedStringValue value) {
+	Log.d(TAG, "void addCc(EncodedStringValue value)");
         mPduHeaders.appendEncodedStringValue(value, PduHeaders.CC);
     }
 
@@ -143,6 +148,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @throws NullPointerException if the value is null.
      */
     public void setCc(EncodedStringValue[] value) {
+	Log.d(TAG, "void setCc(EncodedStringValue[] value)");
         mPduHeaders.setEncodedStringValues(value, PduHeaders.CC);
     }
 
@@ -152,6 +158,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @return the value
      */
     public byte[] getContentType() {
+	Log.d(TAG, "byte[] getContentType()");
         return mPduHeaders.getTextString(PduHeaders.CONTENT_TYPE);
     }
 
@@ -162,6 +169,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @throws NullPointerException if the value is null.
      */
     public void setContentType(byte[] value) {
+	Log.d(TAG, "void setContentType(byte[] value)");
         mPduHeaders.setTextString(value, PduHeaders.CONTENT_TYPE);
     }
 
@@ -171,6 +179,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @return the value
      */
     public int getDeliveryReport() {
+	Log.d(TAG, "int getDeliveryReport()");
         return mPduHeaders.getOctet(PduHeaders.DELIVERY_REPORT);
     }
 
@@ -193,6 +202,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @return the value
      */
     public long getExpiry() {
+	Log.d(TAG, "long getExpiry()");
         return mPduHeaders.getLongInteger(PduHeaders.EXPIRY);
     }
 
@@ -202,6 +212,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @param value the value
      */
     public void setExpiry(long value) {
+	Log.d(TAG, "void setExpiry(long value)");
         mPduHeaders.setLongInteger(value, PduHeaders.EXPIRY);
     }
 
@@ -213,6 +224,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @return the value
      */
     public long getMessageSize() {
+	Log.d(TAG, "long getMessageSize()");
         return mPduHeaders.getLongInteger(PduHeaders.MESSAGE_SIZE);
     }
 
@@ -222,6 +234,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @param value the value
      */
     public void setMessageSize(long value) {
+	Log.d(TAG, "void setMessageSize(long value)");
         mPduHeaders.setLongInteger(value, PduHeaders.MESSAGE_SIZE);
     }
 
@@ -233,6 +246,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @return the value
      */
     public byte[] getMessageClass() {
+	Log.d(TAG, "byte[] getMessageClass()");
         return mPduHeaders.getTextString(PduHeaders.MESSAGE_CLASS);
     }
 
@@ -243,6 +257,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @throws NullPointerException if the value is null.
      */
     public void setMessageClass(byte[] value) {
+	Log.d(TAG, "void setMessageClass(byte[] value)");
         mPduHeaders.setTextString(value, PduHeaders.MESSAGE_CLASS);
     }
 
@@ -252,6 +267,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @return the value
      */
     public int getReadReport() {
+	Log.d(TAG, "int getReadReport()");
         return mPduHeaders.getOctet(PduHeaders.READ_REPORT);
     }
 
@@ -272,6 +288,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @throws NullPointerException if the value is null.
      */
     public void setTo(EncodedStringValue[] value) {
+	Log.d(TAG, "void setTo(EncodedStringValue[] value)");
         mPduHeaders.setEncodedStringValues(value, PduHeaders.TO);
     }
 
@@ -281,6 +298,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @return the X-Mms-Report-Allowed value
      */
     public byte[] getTransactionId() {
+	Log.d(TAG, "byte[] getTransactionId()");
         return mPduHeaders.getTextString(PduHeaders.TRANSACTION_ID);
     }
 
@@ -291,6 +309,7 @@ public class SendReq extends MultimediaMessagePdu {
      * @throws NullPointerException if the value is null.
      */
     public void setTransactionId(byte[] value) {
+	Log.d(TAG, "void setTransactionId(byte[] value)");
         mPduHeaders.setTextString(value, PduHeaders.TRANSACTION_ID);
     }
 

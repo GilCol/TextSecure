@@ -38,6 +38,7 @@ public class MediaNetworkRequirement implements Requirement, ContextDependent {
 
   @Override
   public void setContext(Context context) {
+	Log.d(TAG, "void setContext(Context context)");
     this.context = context;
   }
 
@@ -46,16 +47,19 @@ public class MediaNetworkRequirement implements Requirement, ContextDependent {
   }
 
   public boolean isConnectedWifi() {
+	Log.d(TAG, "boolean isConnectedWifi()");
     final NetworkInfo info = getNetworkInfo();
     return info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_WIFI;
   }
 
   public boolean isConnectedMobile() {
+	Log.d(TAG, "boolean isConnectedMobile()");
     final NetworkInfo info = getNetworkInfo();
     return info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_MOBILE;
   }
 
   public boolean isConnectedRoaming() {
+	Log.d(TAG, "boolean isConnectedRoaming()");
     final NetworkInfo info = getNetworkInfo();
     return info != null && info.isConnected() && info.isRoaming() && info.getType() == ConnectivityManager.TYPE_MOBILE;
   }
@@ -74,6 +78,7 @@ public class MediaNetworkRequirement implements Requirement, ContextDependent {
 
   @Override
   public boolean isPresent() {
+	Log.d(TAG, "boolean isPresent()");
     final AttachmentId       attachmentId = new AttachmentId(partRowId, partUniqueId);
     final AttachmentDatabase db           = DatabaseFactory.getAttachmentDatabase(context);
     final Attachment         attachment   = db.getAttachment(attachmentId);

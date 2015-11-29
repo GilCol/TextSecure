@@ -83,26 +83,31 @@ public class QuickAttachmentDrawer extends ViewGroup implements InputView {
   }
 
   public static boolean isDeviceSupported(Context context) {
+	Log.d(TAG, "boolean isDeviceSupported(Context context)");
     return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA) &&
            Camera.getNumberOfCameras() > 0;
   }
 
   @Override
   public boolean isShowing() {
+	Log.d(TAG, "boolean isShowing()");
     return drawerState.isVisible();
   }
 
   @Override
   public void hide(boolean immediate) {
+	Log.d(TAG, "void hide(boolean immediate)");
     setDrawerStateAndUpdate(DrawerState.COLLAPSED, immediate);
   }
 
   @Override
   public void show(int height, boolean immediate) {
+	Log.d(TAG, "void show(int height, boolean immediate)");
     setDrawerStateAndUpdate(DrawerState.HALF_EXPANDED, immediate);
   }
 
   public void onConfigurationChanged() {
+	Log.d(TAG, "void onConfigurationChanged()");
     int rotation = ServiceUtil.getWindowManager(getContext()).getDefaultDisplay().getRotation();
     final boolean rotationChanged = this.rotation != rotation;
     this.rotation = rotation;
@@ -267,6 +272,7 @@ public class QuickAttachmentDrawer extends ViewGroup implements InputView {
 
   @Override
   public void computeScroll() {
+	Log.d(TAG, "void computeScroll()");
     if (dragHelper.continueSettling(true)) {
       ViewCompat.postInvalidateOnAnimation(this);
     }
@@ -308,11 +314,13 @@ public class QuickAttachmentDrawer extends ViewGroup implements InputView {
 
   @SuppressWarnings("unused")
   public void setSlideOffset(int slideOffset) {
+	Log.d(TAG, "void setSlideOffset(int slideOffset)");
     this.slideOffset = slideOffset;
     requestLayout();
   }
 
   public int getTargetSlideOffset() {
+	Log.d(TAG, "int getTargetSlideOffset()");
     switch (drawerState) {
     case FULL_EXPANDED: return getMeasuredHeight();
     case HALF_EXPANDED: return halfExpandedHeight;
@@ -321,10 +329,12 @@ public class QuickAttachmentDrawer extends ViewGroup implements InputView {
   }
 
   public void setDrawerStateAndUpdate(final DrawerState requestedDrawerState) {
+	Log.d(TAG, "void setDrawerStateAndUpdate(final DrawerState requestedDrawerState)");
     setDrawerStateAndUpdate(requestedDrawerState, false);
   }
 
   public void setDrawerStateAndUpdate(final DrawerState requestedDrawerState, boolean instant) {
+	Log.d(TAG, "void setDrawerStateAndUpdate(final DrawerState requestedDrawerState, boolean instant)");
     DrawerState oldDrawerState = this.drawerState;
     setDrawerState(requestedDrawerState);
     if (oldDrawerState != drawerState) {
@@ -334,6 +344,7 @@ public class QuickAttachmentDrawer extends ViewGroup implements InputView {
   }
 
   public void setListener(AttachmentDrawerListener listener) {
+	Log.d(TAG, "void setListener(AttachmentDrawerListener listener)");
     this.listener = listener;
     if (cameraView != null) cameraView.setListener(listener);
   }
@@ -346,11 +357,13 @@ public class QuickAttachmentDrawer extends ViewGroup implements InputView {
 
     @Override
     public boolean tryCaptureView(View child, int pointerId) {
+	Log.d(TAG, "boolean tryCaptureView(View child, int pointerId)");
       return child == controls;
     }
 
     @Override
     public void onViewDragStateChanged(int state) {
+	Log.d(TAG, "void onViewDragStateChanged(int state)");
       if (dragHelper.getViewDragState() == ViewDragHelper.STATE_IDLE) {
         setDrawerState(drawerState);
         slideOffset = getTargetSlideOffset();
@@ -360,16 +373,19 @@ public class QuickAttachmentDrawer extends ViewGroup implements InputView {
 
     @Override
     public void onViewCaptured(View capturedChild, int activePointerId) {
+	Log.d(TAG, "void onViewCaptured(View capturedChild, int activePointerId)");
     }
 
     @Override
     public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
+	Log.d(TAG, "void onViewPositionChanged(View changedView, int left, int top, int dx, int dy)");
       slideOffset = Util.clamp(slideOffset - dy, 0, getMeasuredHeight());
       requestLayout();
     }
 
     @Override
     public void onViewReleased(View releasedChild, float xvel, float yvel) {
+	Log.d(TAG, "void onViewReleased(View releasedChild, float xvel, float yvel)");
       if (releasedChild == controls) {
         float direction = -yvel;
         DrawerState drawerState = DrawerState.COLLAPSED;
@@ -399,17 +415,20 @@ public class QuickAttachmentDrawer extends ViewGroup implements InputView {
 
     @Override
     public int getViewVerticalDragRange(View child) {
+	Log.d(TAG, "int getViewVerticalDragRange(View child)");
       return getMeasuredHeight();
     }
 
     @Override
     public int clampViewPositionVertical(View child, int top, int dy) {
+	Log.d(TAG, "int clampViewPositionVertical(View child, int top, int dy)");
       return top;
     }
   }
 
   @Override
   public boolean onInterceptTouchEvent(MotionEvent event) {
+	Log.d(TAG, "boolean onInterceptTouchEvent(MotionEvent event)");
     final int action = MotionEventCompat.getActionMasked(event);
 
     if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
@@ -446,6 +465,7 @@ public class QuickAttachmentDrawer extends ViewGroup implements InputView {
 
   @Override
   public boolean onTouchEvent(@NonNull MotionEvent event) {
+	Log.d(TAG, "boolean onTouchEvent(@NonNull MotionEvent event)");
     dragHelper.processTouchEvent(event);
     return true;
   }
@@ -501,11 +521,13 @@ public class QuickAttachmentDrawer extends ViewGroup implements InputView {
   }
 
   public void onPause() {
+	Log.d(TAG, "void onPause()");
     paused = true;
     cameraView.onPause();
   }
 
   public void onResume() {
+	Log.d(TAG, "void onResume()");
     paused = false;
     if (drawerState.isVisible()) cameraView.onResume();
   }
@@ -514,6 +536,7 @@ public class QuickAttachmentDrawer extends ViewGroup implements InputView {
     COLLAPSED, HALF_EXPANDED, FULL_EXPANDED;
 
     public boolean isVisible() {
+	Log.d(TAG, "boolean isVisible()");
       return this != COLLAPSED;
     }
   }
@@ -521,6 +544,7 @@ public class QuickAttachmentDrawer extends ViewGroup implements InputView {
   private class ShutterClickListener implements OnClickListener {
     @Override
     public void onClick(View v) {
+	Log.d(TAG, "void onClick(View v)");
       boolean crop        = drawerState != DrawerState.FULL_EXPANDED;
       int     imageHeight = crop ? getContainer().getKeyboardHeight() : cameraView.getMeasuredHeight();
       Rect    previewRect = new Rect(0, 0, cameraView.getMeasuredWidth(), imageHeight);
@@ -531,6 +555,7 @@ public class QuickAttachmentDrawer extends ViewGroup implements InputView {
   private class CameraFlipClickListener implements OnClickListener {
     @Override
     public void onClick(View v) {
+	Log.d(TAG, "void onClick(View v)");
       cameraView.flipCamera();
       swapCameraButton.setImageResource(cameraView.isRearCamera() ? R.drawable.quick_camera_front
                                                                   : R.drawable.quick_camera_rear);
@@ -540,6 +565,7 @@ public class QuickAttachmentDrawer extends ViewGroup implements InputView {
   private class FullscreenClickListener implements OnClickListener {
     @Override
     public void onClick(View v) {
+	Log.d(TAG, "void onClick(View v)");
       if (drawerState != DrawerState.FULL_EXPANDED) {
         setDrawerStateAndUpdate(DrawerState.FULL_EXPANDED);
       } else if (isLandscape()) {
