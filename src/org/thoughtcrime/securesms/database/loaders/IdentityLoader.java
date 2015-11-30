@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.database.loaders;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.content.CursorLoader;
+import android.util.Log;
 
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 
@@ -17,6 +18,7 @@ public class IdentityLoader extends CursorLoader {
 
   @Override
   public Cursor loadInBackground() {
+    Log.d("IdentityLoader", "loadInBackground()");
     return DatabaseFactory.getIdentityDatabase(context).getIdentities();
   }
 

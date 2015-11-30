@@ -10,6 +10,7 @@ import java.util.Set;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
+import android.util.Log;
 
 
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -23,6 +24,8 @@ public class CountryListLoader extends AsyncTaskLoader<ArrayList<Map<String, Str
 
   @Override
   public ArrayList<Map<String, String>> loadInBackground() {
+    Log.d("CountryListLoader", "loadInBackground()");
+
     Set<String> regions                    = PhoneNumberUtil.getInstance().getSupportedRegions();
     ArrayList<Map<String, String>> results = new ArrayList<Map<String, String>>(regions.size());
 
@@ -41,6 +44,8 @@ public class CountryListLoader extends AsyncTaskLoader<ArrayList<Map<String, Str
   private static class RegionComparator implements Comparator<Map<String, String>> {
     @Override
     public int compare(Map<String, String> lhs, Map<String, String> rhs) {
+      Log.d("RegionComparator", "compare()");
+
       return lhs.get("country_name").compareTo(rhs.get("country_name"));
     }
   }

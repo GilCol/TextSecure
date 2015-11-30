@@ -17,6 +17,8 @@
 
 package org.thoughtcrime.securesms.dom.smil;
 
+import android.util.Log;
+
 import org.thoughtcrime.securesms.util.SmilUtil;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.smil.SMILLayoutElement;
@@ -29,12 +31,15 @@ public class SmilLayoutElementImpl extends SmilElementImpl implements
     }
 
     public boolean getResolved() {
+        Log.d("SmilLayoutElementImpl", "getResolved()");
         // TODO Auto-generated method stub
         return false;
     }
 
     public String getType() {
-        return this.getAttribute("type");
+        String type = this.getAttribute("type");
+        Log.d("SmilLayoutElementImpl", "getType(); type:" + type);
+        return type;
     }
 
     public NodeList getRegions() {
@@ -42,6 +47,8 @@ public class SmilLayoutElementImpl extends SmilElementImpl implements
     }
 
     public SMILRootLayoutElement getRootLayout() {
+        Log.d("SmilLayoutElementImpl", "getRootLayout()");
+
         NodeList childNodes = this.getChildNodes();
         SMILRootLayoutElement rootLayoutNode = null;
         int childrenCount = childNodes.getLength();

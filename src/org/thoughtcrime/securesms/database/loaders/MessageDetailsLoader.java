@@ -18,6 +18,7 @@ package org.thoughtcrime.securesms.database.loaders;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.MmsSmsDatabase;
@@ -35,6 +36,7 @@ public class MessageDetailsLoader extends AbstractCursorLoader {
 
   @Override
   public Cursor getCursor() {
+    Log.d("MessageDetailsLoader", "getCursor(); type:" + type + ", messageId: " + messageId);
     switch (type) {
       case MmsSmsDatabase.SMS_TRANSPORT:
         return DatabaseFactory.getEncryptingSmsDatabase(context).getMessage(messageId);

@@ -17,6 +17,8 @@
 
 package org.thoughtcrime.securesms.dom.smil;
 
+import android.util.Log;
+
 import org.w3c.dom.DOMException;
 import org.w3c.dom.smil.SMILElement;
 
@@ -35,11 +37,13 @@ public class SmilElementImpl extends ElementImpl implements SMILElement {
     }
 
     public String getId() {
+        Log.d("SmilElementImpl", "getId();");
         // TODO Auto-generated method stub
         return null;
     }
 
     public void setId(String id) throws DOMException {
+        Log.d("SmilElementImpl", "setId(); id:" + id);
         // TODO Auto-generated method stub
 
     }
