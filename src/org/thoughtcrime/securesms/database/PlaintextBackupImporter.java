@@ -1,10 +1,15 @@
 package org.thoughtcrime.securesms.database;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.thoughtcrime.securesms.crypto.MasterCipher;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
@@ -15,24 +20,32 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 
 public class PlaintextBackupImporter {
 
-  public static void importPlaintextFromSd(Context context, MasterSecret masterSecret)
+  public static Date importPlaintextFromSd(Context context, MasterSecret masterSecret)
       throws NoExternalStorageException, IOException
   {
     Log.w("PlaintextBackupImporter", "Importing plaintext...");
-    verifyExternalStorageForPlaintextImport();
+    Date modifiedDate = verifyExternalStorageForPlaintextImport();
     importPlaintext(context, masterSecret);
+    return modifiedDate;
   }
 
-  private static void verifyExternalStorageForPlaintextImport() throws NoExternalStorageException {
+  private static Date verifyExternalStorageForPlaintextImport() throws NoExternalStorageException {
+    File backupFile = new File(getPlaintextExportDirectoryPath());
     if (!Environment.getExternalStorageDirectory().canRead() ||
-        !(new File(getPlaintextExportDirectoryPath()).exists()))
+        !(backupFile.exists()))
       throw new NoExternalStorageException();
+    else if(backupFile.exists()) {
+      final Date modifiedDate = new Date(backupFile.lastModified());
+      return modifiedDate;
+    }
+    return null;
   }
 
   private static String getPlaintextExportDirectoryPath() {

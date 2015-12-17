@@ -88,7 +88,7 @@ public class PduHeaders {
     public static final int REPLY_APPLIC_ID                 = 0xB8;
     public static final int AUX_APPLIC_ID                   = 0xB9;
     public static final int CONTENT_CLASS                   = 0xBA;
-    public static final int DRM_CONTENT                     = 0xBB;
+    //public static final int DRM_CONTENT                     = 0xBB;
     public static final int ADAPTATION_ALLOWED              = 0xBC;
     public static final int REPLACE_ID                      = 0xBD;
     public static final int CANCEL_ID                       = 0xBE;
@@ -375,7 +375,7 @@ public class PduHeaders {
             case REPORT_ALLOWED:
             case ADAPTATION_ALLOWED:
             case DELIVERY_REPORT:
-            case DRM_CONTENT:
+            //case DRM_CONTENT:
             case DISTRIBUTION_INDICATOR:
             case QUOTAS:
             case READ_REPORT:

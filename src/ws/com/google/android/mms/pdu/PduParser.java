@@ -262,7 +262,7 @@ public class PduParser {
                 case PduHeaders.REPORT_ALLOWED:
                 case PduHeaders.ADAPTATION_ALLOWED:
                 case PduHeaders.DELIVERY_REPORT:
-                case PduHeaders.DRM_CONTENT:
+                //case PduHeaders.DRM_CONTENT:
                 case PduHeaders.DISTRIBUTION_INDICATOR:
                 case PduHeaders.QUOTAS:
                 case PduHeaders.READ_REPORT:

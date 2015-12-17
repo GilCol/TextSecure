@@ -25,6 +25,7 @@ import org.thoughtcrime.securesms.service.ApplicationMigrationService;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 
 import java.io.IOException;
+import java.util.Date;
 
 
 public class ImportFragment extends Fragment {
@@ -35,6 +36,8 @@ public class ImportFragment extends Fragment {
 
   private MasterSecret masterSecret;
   private ProgressDialog progressDialog;
+
+  private Date modifiedDate;
 
   public void setMasterSecret(MasterSecret masterSecret) {
     this.masterSecret = masterSecret;
@@ -67,6 +70,8 @@ public class ImportFragment extends Fragment {
         handleImportPlaintextBackup();
       }
     });
+
+    modifiedDate = new Date();
 
     return layout;
   }
@@ -167,7 +172,7 @@ public class ImportFragment extends Fragment {
           break;
         case SUCCESS:
           Toast.makeText(context,
-                         context.getString(R.string.ImportFragment_import_complete),
+                         "Backup file created on " + modifiedDate.toString(),
                          Toast.LENGTH_LONG).show();
           break;
       }
@@ -176,7 +181,7 @@ public class ImportFragment extends Fragment {
     @Override
     protected Integer doInBackground(Void... params) {
       try {
-        PlaintextBackupImporter.importPlaintextFromSd(getActivity(), masterSecret);
+        modifiedDate = PlaintextBackupImporter.importPlaintextFromSd(getActivity(), masterSecret);
         return SUCCESS;
       } catch (NoExternalStorageException e) {
         Log.w("ImportFragment", e);

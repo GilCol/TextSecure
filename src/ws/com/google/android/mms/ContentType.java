@@ -72,8 +72,8 @@ public class ContentType {
     public static final String APP_WAP_XHTML     = "application/vnd.wap.xhtml+xml";
     public static final String APP_XHTML         = "application/xhtml+xml";
 
-    public static final String APP_DRM_CONTENT   = "application/vnd.oma.drm.content";
-    public static final String APP_DRM_MESSAGE   = "application/vnd.oma.drm.message";
+    //public static final String APP_DRM_CONTENT   = "application/vnd.oma.drm.content";
+    //public static final String APP_DRM_MESSAGE   = "application/vnd.oma.drm.message";
 
     private static final ArrayList<String> sSupportedContentTypes = new ArrayList<String>();
     private static final ArrayList<String> sSupportedImageTypes = new ArrayList<String>();
@@ -122,8 +122,8 @@ public class ContentType {
         sSupportedContentTypes.add(APP_WAP_XHTML);
         sSupportedContentTypes.add(APP_XHTML);
 
-        sSupportedContentTypes.add(APP_DRM_CONTENT);
-        sSupportedContentTypes.add(APP_DRM_MESSAGE);
+        //sSupportedContentTypes.add(APP_DRM_CONTENT);
+        //sSupportedContentTypes.add(APP_DRM_MESSAGE);
 
         // add supported image types
         sSupportedImageTypes.add(IMAGE_JPEG);
@@ -198,9 +198,9 @@ public class ContentType {
     }
 
     public static boolean isDrmType(String contentType) {
-        return (null != contentType)
-                && (contentType.equals(APP_DRM_CONTENT)
-                        || contentType.equals(APP_DRM_MESSAGE));
+        return false;//(null != contentType)
+                //&& (contentType.equals(APP_DRM_CONTENT)
+                  //      || contentType.equals(APP_DRM_MESSAGE));
     }
 
     public static boolean isUnspecified(String contentType) {

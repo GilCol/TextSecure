@@ -30,4 +30,12 @@
           android:visible="false"
           android:icon="?menu_save_icon"
           app:showAsAction="always" />
+
+    <item android:title="Share"
+        android:id="@+id/menu_context_share_attachment"
+        android:visible="false"
+        android:icon="@android:drawable/ic_menu_share"
+        android:actionProviderClass="android.widget.ShareActionProvider"
+        app:showAsAction="always" />
+
 </menu>

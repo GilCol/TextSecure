@@ -95,10 +95,10 @@ public class PduContentTypes {
         "application/vnd.wap.xhtml+xml",              /* 0x45 */
         "application/vnd.wv.csp.cir",                 /* 0x46 */
         "application/vnd.oma.dd+xml",                 /* 0x47 */
-        "application/vnd.oma.drm.message",            /* 0x48 */
-        "application/vnd.oma.drm.content",            /* 0x49 */
-        "application/vnd.oma.drm.rights+xml",         /* 0x4A */
-        "application/vnd.oma.drm.rights+wbxml",       /* 0x4B */
+        //"application/vnd.oma.drm.message",            /* 0x48 */
+        //"application/vnd.oma.drm.content",            /* 0x49 */
+        //"application/vnd.oma.drm.rights+xml",         /* 0x4A */
+        //"application/vnd.oma.drm.rights+wbxml",       /* 0x4B */
         "application/vnd.wv.csp+xml",                 /* 0x4C */
         "application/vnd.wv.csp+wbxml",               /* 0x4D */
         "application/vnd.syncml.ds.notification",     /* 0x4E */

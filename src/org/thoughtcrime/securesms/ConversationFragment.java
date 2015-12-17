@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.Image;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -29,6 +32,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.AlertDialogWrapper;
 
+import org.thoughtcrime.redphone.util.Base64;
 import org.thoughtcrime.securesms.ConversationAdapter.ItemClickListener;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
@@ -36,6 +40,7 @@ import org.thoughtcrime.securesms.database.MmsSmsDatabase;
 import org.thoughtcrime.securesms.database.loaders.ConversationLoader;
 import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
+import org.thoughtcrime.securesms.mms.PartAuthority;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.recipients.RecipientFactory;
 import org.thoughtcrime.securesms.recipients.Recipients;
@@ -44,8 +49,14 @@ import org.thoughtcrime.securesms.util.FutureTaskListener;
 import org.thoughtcrime.securesms.util.ProgressDialogAsyncTask;
 import org.thoughtcrime.securesms.util.SaveAttachmentTask;
 import org.thoughtcrime.securesms.util.SaveAttachmentTask.Attachment;
+import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.ViewUtil;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -153,6 +164,8 @@ public class ConversationFragment extends Fragment
       menu.findItem(R.id.menu_context_details).setVisible(false);
       menu.findItem(R.id.menu_context_save_attachment).setVisible(false);
       menu.findItem(R.id.menu_context_resend).setVisible(false);
+      menu.findItem(R.id.menu_context_share_attachment).setVisible(false);
+
     } else {
       MessageRecord messageRecord = messageRecords.iterator().next();
 
@@ -164,6 +177,7 @@ public class ConversationFragment extends Fragment
       menu.findItem(R.id.menu_context_forward).setVisible(true);
       menu.findItem(R.id.menu_context_details).setVisible(true);
       menu.findItem(R.id.menu_context_copy).setVisible(true);
+      menu.findItem(R.id.menu_context_share_attachment).setVisible(true);
     }
   }
 
@@ -315,6 +329,43 @@ public class ConversationFragment extends Fragment
     });
   }
 
+  private void handleShareAttachment(final MediaMmsMessageRecord message) {
+
+    message.fetchMediaSlide(new FutureTaskListener<Slide>() {
+      @Override
+      public void onSuccess(Slide slide) {
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        File tmpFile = decryptAndMakeItShareable(slide.getUri());
+        Uri imageUri = Uri.fromFile(tmpFile);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+        shareIntent.setType("image/jpeg");
+        startActivity(Intent.createChooser(shareIntent, "Share..."));
+      }
+
+      @Override
+      public void onFailure(Throwable error) {
+        Log.w(TAG, "No slide with attachable media found, failing nicely.");
+        Log.w(TAG, error);
+        Toast.makeText(getActivity(), "Could not share.", Toast.LENGTH_LONG).show();
+      }
+    });
+  }
+
+  private File decryptAndMakeItShareable(Uri uri) {
+    File file = null;
+    try {
+      InputStream inputStream = PartAuthority.getPartStream(getActivity(), masterSecret, uri);
+      File outputDirectory = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + Environment.DIRECTORY_PICTURES);
+      file = new File(outputDirectory, "temp.jpeg");
+      OutputStream outputStream = new FileOutputStream(file);
+      Util.copy(inputStream, outputStream);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return file;
+  }
+
   @Override
   public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
     return new ConversationLoader(getActivity(), threadId);
@@ -421,6 +472,10 @@ public class ConversationFragment extends Fragment
           return true;
         case R.id.menu_context_save_attachment:
           handleSaveAttachment((MediaMmsMessageRecord)getSelectedMessageRecord());
+          actionMode.finish();
+          return true;
+        case R.id.menu_context_share_attachment:
+          handleShareAttachment((MediaMmsMessageRecord)getSelectedMessageRecord());
           actionMode.finish();
           return true;
       }
